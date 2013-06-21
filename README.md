@@ -25,7 +25,7 @@ tweetledee
 That was easy... Go crazy, be good, have fun.
 
 ## Usage
-Documentation in progress...stay tuned.  Source files fully documented with defaults and available parameters to modify defaults in the meantime
+Documentation in progress...stay tuned.  Source files fully documented with defaults and available URL parameters in the meantime
 #### Twitter User Home Timeline RSS (homerss.php)
 #### Twitter User Home Timeline JSON (homejson.php)
 #### Twitter User Timeline RSS (userrss.php)
