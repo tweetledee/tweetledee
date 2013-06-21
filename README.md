@@ -40,6 +40,6 @@ If you have questions or comments, feel free to drop me a line @0labs on Twitter
 
 If you would like to contribute to the project, by all means, please do so.
 
--Chris
+~Chris
 @0labs
 
