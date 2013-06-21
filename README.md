@@ -20,7 +20,7 @@ tweetledee
 2. Upload the 'tweetledee' directory (that is located in the directory where this README file resides) to the public facing directory on your web server.  On many servers, this is the public_html directory
 
 3. Kick the tires with the following test (it gives you a syndicated feed of the user timeline for my @0labs account):
-	http://<yourdomain>/tweetledee/userrss.php?user=0labs
+	http://[yourdomain]/tweetledee/userrss.php?user=0labs
 
 That was easy... Go crazy, be good, have fun.
 
