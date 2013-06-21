@@ -1,0 +1,12 @@
+Frequently asked questions:
+
+*** I don't make 'apps'.  I'm an accountant/surfer/hobo/_____.  I just want to display my Twitter feeds.  What do I do?
+
+You don't actually need to create an application to use Tweetledee.  If you consume the Twitter API data with Tweetledee, Twitter considers you an app maker.  Welcome to the club.  You need to assign an application to your Twitter account in order to obtain the keys and tokens that allow you to access the Twitter API data with Tweetledee.  You do this by creating a name for an 'app' through the Twitter developer site.  Call it whatever you'd like.  Then assign your domain name to the 'app' (the domain where you will be using Tweetledee would be a good one) and grab the information (consumer key, consumer secret, access token, access token secret) that you need to enter in Tweetledee.
+
+*** How do I create my Twitter 'app'?
+
+Sign in to the developer site and create your 'app' on this page:
+
+		https://dev.twitter.com/apps/new
+
