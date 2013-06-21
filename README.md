@@ -1,14 +1,13 @@
 tweetledee
 ==========
 
-## A PHP library that provides an incredibly easy way to access Twitter data as pretty printed JSON or XML RSS feed
+**A PHP library that provides an incredibly easy way to access Twitter data as pretty printed JSON or XML RSS feed**
 
 ## The 1.5 Minute Guide to Successful Installation
 **You will need the following**:
-1. Access to a web server with PHP version 5.1.2 or higher
-2. libcurl installed on your web server (provides cURL - http://curl.haxx.se/libcurl/)
-   - generally included on servers from major service providers
-3. A Twitter "app" from which you will obtain the:
+ - Access to a web server with PHP version 5.1.2 or higher
+ - libcurl installed on your web server (provides cURL - http://curl.haxx.se/libcurl/)
+ - A Twitter "app" from which you will obtain the:
 	1) consumer key
 	2) consumer secret
 	3) access key
