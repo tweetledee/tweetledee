@@ -1,11 +1,11 @@
-tweetledee
+Tweetledee
 ==========
 
-**A PHP library that provides an incredibly easy way to access Twitter data as pretty printed JSON or XML RSS feed**
+**A PHP library that provides an incredibly easy way to access Twitter data as JSON, pretty printed JSON, or RSS feeds**
 
 ## The 1.5 Minute Guide to Successful Installation
 **You will need the following**:
- - Access to a web server with PHP version 5.1.2 or higher
+ - Access to a web server with PHP version 5.1.2 or higher (5.4 or higher for pretty printed JSON)
  - libcurl installed on your web server (provides cURL - http://curl.haxx.se/libcurl/)
  - A Twitter "app" from which you will obtain the:
 	1) consumer key
@@ -26,12 +26,15 @@ That was easy... Go crazy, be good, have fun.
 
 ## Usage
 Documentation in progress...stay tuned.  Source files fully documented with defaults and available URL parameters in the meantime
-#### Twitter User Home Timeline RSS (homerss.php)
-#### Twitter User Home Timeline JSON (homejson.php)
+#### Twitter Home Timeline RSS (homerss.php)
+#### Twitter Home Timeline JSON (homejson.php)
+#### Twitter Home Timeline Pretty Printed JSON (homejson_pp.php)
 #### Twitter User Timeline RSS (userrss.php)
 #### Twitter User Timeline JSON (userjson.php)
+#### Twitter User Timeline Pretty Printed JSON (userjson_pp.php)
 #### Twitter Search RSS (searchrss.php)
 #### Twitter Search JSON (searchjson.php)
+#### Twitter Search Pretty Printed JSON (searchjson_pp.php)
 
 ## Bugs & Questions
 If you find a bug, please post it as a new issue on the GitHub repository.
@@ -43,6 +46,6 @@ If you would like to contribute to the project, by all means, please do so.
 ## License
 MIT License - see the LICENSE.txt file in the source distribution
 
-~Chris
+~ Chris
 @0labs
 
