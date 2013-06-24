@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   homerss.php -- Home timeline results formatted as RSS feed
- *   Version: 0.2.6
+ *   Version: 0.2.7
  * Copyright 2013 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
@@ -19,6 +19,12 @@
     - Example of all of the available parameters:
             e.g. http://<yourdomain>/tweetledee/homerss.php?c=100&xrp=1
 --------------------------------------------------------------------------------------------------*/
+//debugging
+$TLD_DEBUG = 0;
+if ($TLD_DEBUG == 1){
+    ini_set('display_errors', 'On');
+    error_reporting(E_ALL | E_STRICT);
+}
 
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
@@ -68,14 +74,18 @@ $screen_name = $data['screen_name'];
 
 // Parameters
 // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
-$getcount = $_GET['c'];
-if ($getcount > 0 && $getcount <= 200){
-	$count = $getcount;
+if (isset($_GET["c"])){
+    $getcount = $_GET["c"];
+    if ($getcount > 0 && $getcount <= 200){
+        $count = $getcount;
+    }
 }
 
 // xrp = exclude replies from the timeline (possible values: 1=true, else false)
-if ($_GET['xrp'] == 1){
-	$exclude_replies = true;
+if (isset($_GET["xrp"])){
+    if ($_GET["xrp"] == 1){
+        $exclude_replies = true;
+    }
 }
 
 // request the user timeline using the paramaters that were parsed from URL or that are defaults
@@ -96,9 +106,11 @@ if ($code <> 200) {
 
 $homeTimelineObj = json_decode($tmhOAuth->response['response'], true);
 
-// Start the output
+//headers
 header("Content-Type: application/rss+xml");
 header("Content-type: text/xml; charset=utf-8");
+
+// Start the output
 ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
