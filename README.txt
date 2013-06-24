@@ -1,7 +1,7 @@
 The 1.5 minute guide to the successful installation of Tweetledee:
 
 You will need the following:
-1. Access to a web server with PHP version 5.1.2 or higher
+1. Access to a web server with PHP version 5.1.2 or higher (5.4 or higher for pretty printed JSON)
 2. libcurl installed on your web server (provides cURL - http://curl.haxx.se/libcurl/)
    - generally included on servers from major service providers
 3. A Twitter "app" from which you will obtain the:
