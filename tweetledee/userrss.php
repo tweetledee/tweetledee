@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   userrss.php -- User timeline results formatted as a RSS feed
- *   Version: 0.2.6
+ *   Version: 0.2.7
  * Copyright 2013 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
@@ -23,6 +23,12 @@
     - Example of all of the available parameters:
             e.g. http://<yourdomain>/tweetledee/userrss.php?c=100&xrt=1&xrp=1&user=cooluser
 --------------------------------------------------------------------------------------------------*/
+// debugging
+$TLD_DEBUG = 0;
+if ($TLD_DEBUG == 1){
+    ini_set('display_errors', 'On');
+    error_reporting(E_ALL | E_STRICT);
+}
 
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
@@ -73,23 +79,26 @@ $screen_name = $data['screen_name'];
 
 // Parameters
 // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
-$getcount = $_GET["c"];
-if ($getcount > 0 && $getcount <= 200){
-	$count = $getcount;
+if (isset($_GET["c"])){
+    if ($_GET["c"] > 0 && $_GET["c"] <= 200){
+        $count = $_GET["c"];
+    }
 }
 // xrt = exclude retweets from the timeline ( possible values: 1=true, else false)
-if ($_GET["xrt"] == 1){
-	$include_retweets = false;
+if (isset($_GET["xrt"])){
+    if ($_GET["xrt"] == 1){
+        $include_retweets = false;
+    }
 }
 // xrp = exclude replies from the timeline (possible values: 1=true, else false)
-if ($_GET["xrp"] == 1){
-	$exclude_replies = true;
+if (isset($_GET["xrp"])){
+    if ($_GET["xrp"] == 1){
+        $exclude_replies = true;
+    }
 }
-
 // user = Twitter screen name for the user timeline that the user is requesting (default = their own, possible values = any other Twitter user name)
-$getuser = $_GET["user"];
-if ($getuser != NULL){
-	$screen_name = $getuser;
+if (isset($_GET["user"])){
+    $screen_name = $_GET["user"];
 }
 
 // request the user timeline using the paramaters that were parsed from URL or that are defaults
