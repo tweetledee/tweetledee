@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   searchjson.php -- Search query results formatted as JSON
- *   Version: 0.2.6
+ *   Version: 0.2.7
  * Copyright 2013 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
@@ -17,6 +17,12 @@
     - 'q' - query term
             e.g. http://<yourdomain>/twitter/searchrss.php?q=coolsearch&c=50
 --------------------------------------------------------------------------------------------------*/
+// debugging
+$TLD_DEBUG = 0;
+if ($TLD_DEBUG == 1){
+    ini_set('display_errors', 'On');
+    error_reporting(E_ALL | E_STRICT);
+}
 
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
@@ -54,33 +60,32 @@ if ($code <> 200) {
 // Decode JSON
 $data = json_decode($tmhOAuth->response['response'], true);
 
-// Parse information from response
-$twitterName = $data['screen_name'];
-$fullName = $data['name'];
-$twitterAvatarUrl = $data['profile_image_url'];
-$feedTitle = $twitterName . ' Twitter ' . $twitterName . ' Timeline';
-
 // Defaults
 $count = 25;  //default tweet number = 25
 $result_type = 'mixed'; //default to mixed popular and realtime results
 
 // Parameters
 // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
-$getcount = $_GET["c"];
-if ($getcount > 0 && $getcount <= 200){
-	$count = $getcount;
+if (isset($_GET["c"])){
+    if ($_GET["c"] > 0 && $_GET["c"] <= 200){
+        $count = $_GET["c"];
+    }
 }
-
-$get_rt = $_GET["rt"];
-if ($get_rt != NULL) {
-    $result_type = $get_rt;
+// rt = response type
+if (isset($_GET["rt"])){
+    if ($_GET["rt"] == 'popular' || $_GET["rt"] == 'recent'){
+        $result_type = $_GET["rt"];
+    }
 }
-
-$query = $_GET["q"];
-if ($query == NULL) {
+// q = query
+if (isset($_GET["q"])){
+    $query = $_GET["q"];
+}
+else{
     echo("The request was missing a search query");
-    die("search query missing failure");
+    die(" - search query missing failure");
 }
+
 $urlquery = urlencode($query);
 
 // request the user timeline using the paramaters that were parsed from URL or that are defaults
@@ -102,6 +107,4 @@ if ($code <> 200) {
 
 $searchResultsObj = json_decode($tmhOAuth->response['response'], true);
 header('Content-Type: application/json');
-echo json_encode($searchResultsObj, JSON_PRETTY_PRINT);
-
-?>
+echo json_encode($searchResultsObj);
