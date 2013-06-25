@@ -24,8 +24,7 @@ Tweetledee
 
 That was easy... Go crazy, be good, have fun.
 
-## Usage
-Documentation in progress...stay tuned.  Source files fully documented with defaults and available URL parameters in the meantime
+## What You Get
 #### Twitter Home Timeline RSS (homerss.php)
 #### Twitter Home Timeline JSON (homejson.php)
 #### Twitter Home Timeline Pretty Printed JSON (homejson_pp.php)
@@ -36,10 +35,13 @@ Documentation in progress...stay tuned.  Source files fully documented with defa
 #### Twitter Search JSON (searchjson.php)
 #### Twitter Search Pretty Printed JSON (searchjson_pp.php)
 
+## Usage
+<a href="http://chrissimpkins.github.io/tweetledee/usage.html">Tweetledee Usage Examples</a>
+
 ## Bugs & Questions
 If you find a bug, please post it as a new issue on the GitHub repository.
 
-If you have questions or comments, feel free to drop me a line @0labs on Twitter.
+If you have questions or comments, feel free to drop me a line @pixsied on Twitter.
 
 If you would like to contribute to the project, by all means, please do so.
 
@@ -47,5 +49,4 @@ If you would like to contribute to the project, by all means, please do so.
 MIT License - see the LICENSE.txt file in the source distribution
 
 ~ Chris
-@0labs
 
