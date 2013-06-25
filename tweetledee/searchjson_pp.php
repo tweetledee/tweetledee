@@ -10,12 +10,12 @@
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
     - Access the default user timeline feed (count = 25, includes both RT's & replies) at the following URL:
-            e.g. http://<yourdomain>/twitter/userrss.php
+            e.g. http://<yourdomain>/tweetledee/userrss.php
 ==> User Timeline RSS feed parameters:
     - 'c' - specify a tweet count (range 1 - 200, default = 25)
     - 'rt' - result type (possible values: mixed, recent, popular; default = mixed)
     - 'q' - query term
-            e.g. http://<yourdomain>/twitter/searchrss.php?q=coolsearch&c=50
+            e.g. http://<yourdomain>/tweetledee/searchrss.php?q=coolsearch&c=50
 --------------------------------------------------------------------------------------------------*/
 
 // debugging
