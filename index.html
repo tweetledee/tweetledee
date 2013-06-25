@@ -93,14 +93,14 @@
   <li>Upload the tweetledee directory that you downloaded in Step 2 to your web server</li>
   <li>You do not need to upload the outer directory (probably called tweetledee-master) or the top level files in the outer directory (LICENSE, FAQ, etc) that you decompressed</li>
 </ul>
-<p>That's it. You are done.  The example usage section will assume that you uploaded the files to your top level public facing web server directory so that the tweetledee directory appears like this:</p>
+<p>That's it. You are done.  The <a href="usage.html">usage section examples</a> assume that you uploaded the files to your top level public facing web server directory so that the tweetledee directory appears in your URL like this:</p>
 <h5>Example Tweetledee URL path</h5>
 <pre><code>http://[yourdomain]/tweetledee/[tweetledee_file]</code></pre>
 <p>Try this as a quick test to confirm that it is working.  This will display your user timeline RSS feed:</p>
 <h5>Your New User Timeline Feed</h5>
 <pre><code>http://[yourdomain]/tweetledee/userrss.php</code></pre>
-<h2>
-<a name="file-types" class="anchor" href="#file-types"><span class="octicon octicon-link"></span></a>What Tweetledee Includes</h2>
+<p>Note that the default is 25 tweets in this feed.  You can modify this with URL parameters that you pass to the Tweetledee file (up to 200 tweets).  See the <a href="usage.html">usage section</a> for more information about the options that you have with each of the returned data types.</p>
+<h2><a name="file-types" class="anchor" href="#file-types"><span class="octicon octicon-link"></span></a>What Tweetledee Includes</h2>
 <h3><i class="icon-certificate"></i> Home timeline JSON</h3>
 <pre><code>http://[yourdomain]/tweetledee/homejson.php</code></pre>
 <h3><i class="icon-certificate"></i> Home timeline JSON (pretty printed)</h3>
