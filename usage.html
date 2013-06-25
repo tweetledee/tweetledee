@@ -29,7 +29,7 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <h2><a name="usage-guide-introduction" class="anchor" href="#usage-guide-introduction"><span class="octicon octicon-link"></span></a>Tweetledee Usage</h2>
+          <h1><a name="usage-guide-introduction" class="anchor" href="#usage-guide-introduction"><span class="octicon octicon-link"></span></a>Tweetledee Usage</h1>
 <p>The following examples demonstrate how to use Tweetledee on your web server.  They assume that you uploaded the Tweetledee files as shown in <a href="index.html#three-minute-install">the install guide</a>. If you are having problems with Tweetledee, you can find more information about how to get help and report bugs <a href="support.html">here</a>.</p>
 <h2><a name="usage-toc" class="anchor" href="#usage-toc"><span class="octicon octicon-link"></span></a>Contents</h2>
 <h3><i class="icon-list-ul"></i> JSON Types</h3>
@@ -47,9 +47,7 @@
 <h2><a name="rss-feed-examples" class="anchor" href="#rss-feed-examples"><span class="octicon octicon-link"></span></a>RSS Feed Types</h2>
 <h3 class="blue"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> User Timeline RSS Feed <code>userrss.php</code></h3>
 <h5>Generic User Timeline URL</h5>
-<pre><code>
-  http://[yourdomain]/tweetledee/userrss.php
-</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/userrss.php</code></pre>
 <h5>Optional URL Parameters</h5>
 <table>
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
@@ -59,32 +57,20 @@
  <tr><td>xrt</td><td>Exclude retweets</td><td>0 (=false)</td><td>1 (=true)</td></tr>
 </table>
 <h5>User Timeline with 100 Tweets</h5>
-<pre><code>
-  http://[yourdomain]/tweetledee/userrss.php?c=100
-</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/userrss.php?c=100</code></pre>
 <h5>User Timeline of a Different User (@pixsied)</h5>
-<pre><code>
-  http://[yourdomain]/tweetledee/userrss.php?user=pixsied
-</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/userrss.php?user=pixsied</code></pre>
 <h5>User Timeline, Excluding All Replies</h5>
-<pre><code>
-  http://[yourdomain]/tweetledee/userrss.php?xrp=1
-</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/userrss.php?xrp=1</code></pre>
 <h5>User Timeline, Excluding All Retweets</h5>
-<pre><code>
-  http://[yourdomain]/tweetledee/userrss.php?xrt=1
-</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/userrss.php?xrt=1</code></pre>
 <h5>All Options</h5>
-<pre><code>
-  http://[yourdomain]/tweetledee/userrss.php?c=100&user=pixsied&xrp=1&xrt=1
-</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/userrss.php?c=100&user=pixsied&xrp=1&xrt=1</code></pre>
 
 
 <h3 class="blue"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> Home Timeline RSS Feed <code>homerss.php</code></h3>
 <h5>Generic Home Timeline URL</h5>
-<pre><code>
-  http://[yourdomain]/tweetledee/homerss.php
-</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/homerss.php</code></pre>
 <h5>Optional URL Parameters</h5>
 <table>
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
@@ -92,24 +78,16 @@
  <tr><td>xrp</td><td>Exclude replies</td><td>0 (=false)</td><td>1 (=true)</td></tr>
 </table>
 <h5>Home Timeline with 100 Tweets</h5>
-<pre><code>
-  http://[yourdomain]/tweetledee/homerss.php?c=100
-</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/homerss.php?c=100</code></pre>
 <h5>Home Timeline, Exclude Replies</h5>
-<pre><code>
-  http://[yourdomain]/tweetledee/homerss.php?xrp=1
-</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/homerss.php?xrp=1</code></pre>
 <h5>All Options</h5>
-<pre><code>
-  http://[yourdomain]/tweetledee/homerss.php?c=100&xrp=1
-</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/homerss.php?c=100&xrp=1</code></pre>
 
 
 <h3 class="blue"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> Tweet Search RSS Feed <code>searchrss.php</code></h3>
 <h5>Generic Tweet Search Feed URL</h5>
-<pre><code>
-  http://[yourdomain]/tweetledee/searchrss.php?q=[search_term]
-</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=[search_term]</code></pre>
 <h5>Optional URL Parameters</h5>
 <table>
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
@@ -118,25 +96,15 @@
  <tr><td>q</td><td>Search query</td><td>(required)</td><td>any search term</td></tr>
 </table>
 <h5>Search for "test"</h5>
-<pre><code>
-  http://[yourdomain]/tweetledee/searchrss.php?q=test
-</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test</code></pre>
 <h5>Search for "test", Return 200 Results</h5>
-<pre><code>
-  http://[yourdomain]/tweetledee/searchrss.php?q=test&c=200
-</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test&c=200</code></pre>
 <h5>Search for "test", Realtime Tweet Search (i.e. recent)</h5>
-<pre><code>
-  http://[yourdomain]/tweetledee/searchrss.php?q=test&rt=recent
-</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test&rt=recent</code></pre>
 <h5>Search for "test", Popular Tweet Search (i.e. popular)</h5>
-<pre><code>
-  http://[yourdomain]/tweetledee/searchrss.php?q=test&rt=popular
-</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test&rt=popular</code></pre>
 <h5>All Options</h5>
-<pre><code>
-  http://[yourdomain]/tweetledee/searchrss.php?q=test&rt=recent&c=75
-</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test&rt=recent&c=75</code></pre>
 <h2><a name="json-examples" class="anchor" href="#json-examples"><span class="octicon octicon-link"></span></a>JSON Types</h2>
 
         </section>
