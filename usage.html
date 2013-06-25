@@ -92,8 +92,38 @@
 </code></pre>
 
 
-<h3>Tweet Search Feed <code>searchrss.php</code></h3>
-
+<h3 class="blue"><i class="icon-check"></i> Tweet Search RSS Feed <code>searchrss.php</code></h3>
+<h5>Generic Tweet Search Feed URL</h5>
+<pre><code>
+  http://[yourdomain]/tweetledee/searchrss.php?q=[search_term]
+</code></pre>
+<h5>Optional URL Parameters</h5>
+<table>
+<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
+ <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
+ <tr><td>rt</td><td>Result type</td><td>mixed</td><td>popular | recent</td></tr>
+ <tr><td>q</td><td>Search query</td><td>(required)</td><td>any search term</td></tr>
+</table>
+<h5>Search for "test"</h5>
+<pre><code>
+  http://[yourdomain]/tweetledee/searchrss.php?q=test
+</code></pre>
+<h5>Search for "test", Return 200 Results</h5>
+<pre><code>
+  http://[yourdomain]/tweetledee/searchrss.php?q=test&c=200
+</code></pre>
+<h5>Search for "test", Realtime Tweet Search (i.e. recent)</h5>
+<pre><code>
+  http://[yourdomain]/tweetledee/searchrss.php?q=test&rt=recent
+</code></pre>
+<h5>Search for "test", Popular Tweet Search (i.e. popular)</h5>
+<pre><code>
+  http://[yourdomain]/tweetledee/searchrss.php?q=test&rt=popular
+</code></pre>
+<h5>All Options</h5>
+<pre><code>
+  http://[yourdomain]/tweetledee/searchrss.php?q=test&rt=recent&c=75
+</code></pre>
 
 
         </section>
