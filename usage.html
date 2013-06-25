@@ -66,7 +66,32 @@
   http://[yourdomain]/tweetledee/userrss.php?c=100&user=pixsied&xrp=1&xrt=1
 </code></pre>
 
-<h3>Home Timeline RSS Feed <code>homerss.php</code></h3>
+
+<h3 class="blue"><i class="icon-check"></i> Home Timeline RSS Feed <code>homerss.php</code></h3>
+<h5>Generic Home Timeline URL</h5>
+<pre><code>
+  http://[yourdomain]/tweetledee/homerss.php
+</code></pre>
+<h5>Optional URL Parameters</h5>
+<table>
+<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
+ <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
+ <tr><td>xrp</td><td>Exclude replies</td><td>0 (=false)</td><td>1 (=true)</td></tr>
+</table>
+<h5>Home Timeline with 100 Tweets</h5>
+<pre><code>
+  http://[yourdomain]/tweetledee/homerss.php?c=100
+</code></pre>
+<h5>Home Timeline, Exclude Replies</h5>
+<pre><code>
+  http://[yourdomain]/tweetledee/homerss.php?xrp=1
+</code></pre>
+<h5>All Options</h5>
+<pre><code>
+  http://[yourdomain]/tweetledee/homerss.php?c=100&xrp=1
+</code></pre>
+
+
 <h3>Tweet Search Feed <code>searchrss.php</code></h3>
 
 
