@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
@@ -28,10 +29,47 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <h2>
-<a name="usage-guide-introduction" class="anchor" href="#usage-guide-introduction"><span class="octicon octicon-link"></span></a>Usage</h2>
+          <h2><a name="usage-guide-introduction" class="anchor" href="#usage-guide-introduction"><span class="octicon octicon-link"></span></a>Usage</h2>
 <p>The following examples demonstrate how to use Tweetledee on your web server.  If you are having problems with Tweetledee, you can find more information about how to get help and report bugs <a href="support.html">here</a>.</p>
-<p>Usage examples will be posted later today (6/24/2013)!</p>
+<h2><a name="rss-feed-examples" class="anchor" href="#rss-feed-examples"><span class="octicon octicon-link"></span></a>RSS Feed Types</h2>
+<h3 class="blue"><i class="icon-check"></i> User Timeline RSS Feed <code>userrss.php</code></h3>
+<h5>Generic User Timeline URL</h5>
+<pre><code>
+  http://[yourdomain]/tweetledee/userrss.php
+</code></pre>
+<h5>Optional URL Parameters</h5>
+<table>
+<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
+ <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
+ <tr><td>user</td><td>Twitter user</td><td>you</td><td>any username</td></tr>
+ <tr><td>xrp</td><td>Exclude replies</td><td>0 (=false)</td><td>1 (=true)</td></tr>
+ <tr><td>xrt</td><td>Exclude retweets</td><td>0 (=false)</td><td>1 (=true)</td></tr>
+</table>
+<h5>User Timeline with 100 Tweets</h5>
+<pre><code>
+  http://[yourdomain]/tweetledee/userrss.php?c=100
+</code></pre>
+<h5>User Timeline of a Different User (@pixsied)</h5>
+<pre><code>
+  http://[yourdomain]/tweetledee/userrss.php?user=pixsied
+</code></pre>
+<h5>User Timeline, Excluding All Replies</h5>
+<pre><code>
+  http://[yourdomain]/tweetledee/userrss.php?xrp=1
+</code></pre>
+<h5>User Timeline, Excluding All Retweets</h5>
+<pre><code>
+  http://[yourdomain]/tweetledee/userrss.php?xrt=1
+</code></pre>
+<h5>All Options</h5>
+<pre><code>
+  http://[yourdomain]/tweetledee/userrss.php?c=100&user=pixsied&xrp=1&xrt=1
+</code></pre>
+
+<h3>Home Timeline RSS Feed <code>homerss.php</code></h3>
+<h3>Tweet Search Feed <code>searchrss.php</code></h3>
+
+
 
         </section>
 
