@@ -160,8 +160,8 @@ aside a.button {
 code, pre {
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
   color: #222;
-  margin-bottom: 30px;
-  font-size: 13px;
+  margin-bottom: 15px;
+  font-size: 14px;
 }
 
 code {
@@ -171,7 +171,7 @@ code {
 }
 
 pre {
-  padding: 20px;
+  padding: 10px;
   background: #fff;
   text-shadow: none;
   overflow: auto;
@@ -188,6 +188,15 @@ ul, ol, dl {
   margin-bottom: 20px;
 }
 
+
+/* My styles*/
+.blue {
+  color:#2879d0 !important;
+}
+
+.bold {
+  font-weight: 700 !important;
+}
 
 /* COMMON STYLES */
 
@@ -290,6 +299,7 @@ h4:before {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, serif;
   font-size: 14px;
   color: #474747;
+  margin-top:7px;
 }
 h5:before {
   /*
