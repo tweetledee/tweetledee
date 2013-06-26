@@ -1,27 +1,22 @@
 <?php
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
- *   userrss.php -- User timeline results formatted as a RSS feed
+ *   favoritesrss.php -- User favorites formatted as a RSS feed
  *   Version: 0.2.7
- * Copyright 2013 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
-    - Access the default user timeline feed (count = 25, includes both RT's & replies) at the following URL:
-            e.g. http://<yourdomain>/tweetledee/userrss.php
-==> User Timeline RSS feed parameters:
+    - Access the default user favorites feed (count = 25, includes both RT's & replies) at the following URL:
+            e.g. http://<yourdomain>/tweetledee/favoritesrss.php
+==> User Favorites RSS feed parameters:
     - 'c' - specify a tweet count (range 1 - 200, default = 25)
-            e.g. http://<yourdomain>/tweetledee/userrss.php?c=100
-    - 'user' - specify the Twitter user whose timeline you would like to retrieve (default = account associated with access token)
-            e.g. http://<yourdomain>/tweetledee/userrss.php?user=cooluser
-    - 'xrt' - exclude retweets (1=true, default = false)
-            e.g. http://<yourdomain>/tweetledee/userrss.php?xrt=1
-    - 'xrp' - exclude replies (1=true, default = false)
-            e.g. http://<yourdomain>/tweetledee/userrss.php?xrp=1
+            e.g. http://<yourdomain>/tweetledee/favoritesrss.php?c=100
+    - 'user' - specify the Twitter user whose favorites you would like to retrieve (default = account associated with access token)
+            e.g. http://<yourdomain>/tweetledee/favoritesrss.php?user=cooluser
     - Example of all of the available parameters:
-            e.g. http://<yourdomain>/tweetledee/userrss.php?c=100&xrt=1&xrp=1&user=cooluser
+            e.g. http://<yourdomain>/tweetledee/favoritesrss.php?c=100&user=cooluser
 --------------------------------------------------------------------------------------------------*/
 // debugging
 $TLD_DEBUG = 0;
@@ -84,31 +79,18 @@ if (isset($_GET["c"])){
         $count = $_GET["c"];
     }
 }
-// xrt = exclude retweets from the timeline ( possible values: 1=true, else false)
-if (isset($_GET["xrt"])){
-    if ($_GET["xrt"] == 1){
-        $include_retweets = false;
-    }
-}
-// xrp = exclude replies from the timeline (possible values: 1=true, else false)
-if (isset($_GET["xrp"])){
-    if ($_GET["xrp"] == 1){
-        $exclude_replies = true;
-    }
-}
-// user = Twitter screen name for the user timeline that the user is requesting (default = their own, possible values = any other Twitter user name)
+
+// user = Twitter screen name for the user favorites that the user is requesting (default = their own, possible values = any other Twitter user name)
 if (isset($_GET["user"])){
     $screen_name = $_GET["user"];
 }
 
-// request the user timeline using the paramaters that were parsed from URL or that are defaults
+// request the user favorites using the paramaters that were parsed from URL or that are defaults
 $code = $tmhOAuth->user_request(array(
-			'url' => $tmhOAuth->url('1.1/statuses/user_timeline'),
+			'url' => $tmhOAuth->url('1.1/favorites/list'),
 			'params' => array(
           		'include_entities' => true,
     			'count' => $count,
-    			'exclude_replies' => $exclude_replies,
-    			'include_rts' => $include_retweets,
     			'screen_name' => $screen_name,
         	)
         ));
@@ -116,10 +98,10 @@ $code = $tmhOAuth->user_request(array(
 // Anything except code 200 is a failure to get the information
 if ($code <> 200) {
     echo $tmhOAuth->response['error'];
-    die("user_timeline connection failure");
+    die("user_favorites connection failure");
 }
 
-$userTimelineObj = json_decode($tmhOAuth->response['response'], true);
+$userFavoritesObj = json_decode($tmhOAuth->response['response'], true);
 
 // Start the output
 header("Content-Type: application/rss+xml");
@@ -130,20 +112,20 @@ header("Content-type: text/xml; charset=utf-8");
         <atom:link href="<?= $my_domain ?><?= $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'] ?>" rel="self" type="application/rss+xml" />
         <lastBuildDate><?= date(DATE_RSS); ?></lastBuildDate>
         <language>en</language>
-        <title>Twitter user timeline feed for <?= $screen_name; ?></title>
+        <title>Twitter favorites feed for <?= $screen_name; ?></title>
         <description>
-            Twitter user timeline updates for <?= $screen_name; ?>.
+            Twitter favorites  updates for <?= $screen_name; ?>.
         </description>
         <link>http://www.twitter.com/<?= $screen_name; ?></link>
         <ttl>960</ttl>
         <generator>Tweetledee</generator>
         <category>Personal</category>
         <image>
-        <title>Twitter user timeline updates for <?= $screen_name; ?></title>
-        <link>http://www.twitter.com/<?= $screen_name; ?></link>
+        <title>Twitter Favorites for <?= $screen_name; ?></title>
+        <link>http://www.twitter.com/<?= $screen_name; ?>/favorites</link>
         <url><?= $twitterAvatarUrl ?></url>
         </image>
-        <?php foreach ($userTimelineObj as $currentitem) : ?>
+        <?php foreach ($userFavoritesObj as $currentitem) : ?>
             <item>
                  <?php
                  $parsedTweet = tmhUtilities::entify_with_options(
@@ -169,7 +151,7 @@ header("Content-type: text/xml; charset=utf-8");
                 ?>
 				<title>[<?= $tweeter; ?>] <?= $tweetTitle; ?> </title>
                 <pubDate><?= reformatDate($currentitem['created_at']); ?></pubDate>
-                <link>https://twitter.com/<?= $screen_name ?>/statuses/<?= $currentitem['id_str']; ?></link>
+                <link>https://twitter.com/<?= $tweeter ?>/statuses/<?= $currentitem['id_str']; ?></link>
                 <guid isPermaLink='false'><?= $currentitem['id_str']; ?></guid>
 
                 <description>
