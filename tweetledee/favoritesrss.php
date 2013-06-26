@@ -109,7 +109,7 @@ header("Content-type: text/xml; charset=utf-8");
 ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <atom:link href="<?= $my_domain ?><?= $_SERVER['PHP_SELF'] ?>" rel="self" type="application/rss+xml" />
+        <atom:link href="<?= $my_domain ?><?= $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'] ?>" rel="self" type="application/rss+xml" />
         <lastBuildDate><?= date(DATE_RSS); ?></lastBuildDate>
         <language>en</language>
         <title>Twitter favorites feed for <?= $screen_name; ?></title>
