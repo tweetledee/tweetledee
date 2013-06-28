@@ -1,4 +1,6 @@
-Frequently asked questions:
+Frequently Asked Questions:
+
+// INSTALL
 
 *** I don't make 'apps'.  I'm an accountant/surfer/hobo/_____.  I just want to display my Twitter feeds.  What do I do?
 
@@ -9,4 +11,12 @@ You don't actually need to create an application to use Tweetledee.  If you cons
 Sign in to the developer site and create your 'app' on this page:
 
 		https://dev.twitter.com/apps/new
+
+
+
+// ERRORS
+
+*** I am getting a "verify_credentials connection failure error".  What is that?
+
+This likely means that you are exceeding the Twitter API 1.1 rate limits (https://dev.twitter.com/docs/rate-limiting/1.1/limits).  As of version 0.2.8 of Tweetledee, the error message that is displayed when you exceed the Twitter rate limits was changed to "Exceeded Twitter API rate limit".
 
