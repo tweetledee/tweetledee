@@ -53,6 +53,9 @@ $code = $tmhOAuth->user_request(array(
 
 // Display error response if do not receive 200 response code
 if ($code <> 200) {
+    if ($code == 429) {
+        die("Exceeded Twitter API rate limit");
+    }
     echo $tmhOAuth->response['error'];
     die("verify_credentials connection failure");
 }
