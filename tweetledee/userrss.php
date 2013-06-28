@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   userrss.php -- User timeline results formatted as a RSS feed
- *   Version: 0.2.7
+ *   Version: 0.2.8
  * Copyright 2013 Christopher Simpkins
  * MIT License
  ************************************************************************************************/

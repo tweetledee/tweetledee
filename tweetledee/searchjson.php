@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   searchjson.php -- Search query results formatted as JSON
- *   Version: 0.2.7
+ *   Version: 0.2.8
  * Copyright 2013 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
