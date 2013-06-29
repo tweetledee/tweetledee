@@ -42,10 +42,31 @@
           <h1>Tweetledee Help</h1>
           <h2><a name="bug-reporting" class="anchor" href="#bug-reporting"><span class="octicon octicon-link"></span></a>Bugs</h2>
           <p>Find a bug?  Please <a href="https://github.com/chrissimpkins/tweetledee/issues/new">post it as a new issue</a> on GitHub.  Thanks for taking the time to report it.</p>
-          <h2>
-<a name="support" class="anchor" href="#support"><span class="octicon octicon-link"></span></a>Support</h2>
+          <h2><a name="support" class="anchor" href="#support"><span class="octicon octicon-link"></span></a>Support</h2>
 
-<p>Having trouble?  Feel free to drop me a line on Twitter <a href="http://twitter.com/pixsied">@pixsied</a> and I'd be happy to help you sort it out.</p>
+            <p>Having trouble?  Feel free to drop me a line on Twitter <a href="http://twitter.com/pixsied">@pixsied</a> and I'd be happy to help you sort it out.</p>
+
+          <h2><a name="faq" class="anchor" href="#faq"><span class="octicon octicon-link"></span></a>FAQ</h2>
+          <h3><i class="icon-question icon-2x"></i> <span style="font-size:32px;">Install</span></h3>
+          <h4>How do I get my Twitter OAuth tokens/keys?</h4>
+          <p>You need to make a Twitter application</p>
+          <h4>I don't make applications. Does that mean that I can't use Tweetledee?</h4>
+          <p>Tweetledee acts as your application and allows you to access Twitter data through the Twitter API.  You can designate the domain where you use Tweetledee as the application URL.</p>
+          <h4>How do I make a Twitter application?</h4>
+          <p>Please see the detailed guide on the <a href="index.html">home page of this documentation site</a></p>
+          <h4>What is the URL for the new application page on the Twitter developers site?</h4>
+          <p><a href="https://dev.twitter.com/apps/new">https://dev.twitter.com/apps/new</a></p>
+          <h3><i class="icon-question icon-2x"></i> <span style="font-size:32px;">Use</span></h3>
+          <h4>I get the error "verify_credentials connection failure error". What is that?</h4>
+          <p>It generally means that you exceeded the Twitter API rate limits. Please see <a href="https://dev.twitter.com/docs/rate-limiting/1.1/limits">this page</a> for the Twitter limits.  As of version 0.2.8 of Tweetledee, the error message that is displayed when you exceed the Twitter rate limits was changed to "Exceeded Twitter API rate limit".</p>
+          <h4>What does the Twitter API limit of "15" mean?</h4>
+          <p>You can access the Twitter API 15 times every 15 minutes for these API resources.</p>
+          <h4>What does the Twitter API limit of "180" mean?</h4>
+          <p>You can access the Twitter API 180 times every 15 minutes for these API resources.</p>
+          <h4>What happens if I exceed the API limit for my account?</h4>
+          <p>Twitter blocks your access to their API data until the remainder of that 15 minute block of time has elapsed. You will receive an error message if you continue to attempt to retrieve new data during this period.</p>
+          <h4>How do I avoid exceeding my limit when I use Tweetledee?</h4>
+          <p>Try caching your Twitter data and polling for new data every X seconds so that you do not exceed the limit that is in place for the API resource that you are using.  Serve the cached data to your site's users.</p>
         </section>
 
         <aside id="sidebar">
