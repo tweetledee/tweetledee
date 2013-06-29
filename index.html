@@ -43,7 +43,7 @@
           <h1>
 <a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Easy Access to Your Twitter Data</h1>
 
-<p>Tweetledee provides ready-bake PHP files that allow you to access Twitter user timelines, home timelines, and tweet search data in a JSON or RSS format.</p>
+<p>Tweetledee provides ready-bake PHP files that allow you to access Twitter user timelines, user favorites, home timelines, and tweet search data in a JSON or RSS format.</p>
 <p>Grab your API tokens from Twitter, upload the Tweetledee files to your server, and use them.  It's that simple.</p>
 
 <h2>
@@ -111,6 +111,12 @@
 <pre><code>http://[yourdomain]/tweetledee/userrss.php</code></pre>
 <p>Note that the default is 25 tweets in this feed.  You can modify this with URL parameters that you pass to the Tweetledee file (up to 200 tweets).  See the <a href="usage.html">usage section</a> for more information about the options that you have with each of the returned data types.</p>
 <h2><a name="file-types" class="anchor" href="#file-types"><span class="octicon octicon-link"></span></a>What Tweetledee Includes</h2>
+<h3><i class="icon-certificate"></i> Favorites (User) JSON</h3>
+<pre><code>http://[yourdomain]/tweetledee/favoritesjson.php</code></pre>
+<h3><i class="icon-certificate"></i> Favorites (User) JSON (pretty printed)</h3>
+<pre><code>http://[yourdomain]/tweetledee/favoritesjson_pp.php</code></pre>
+<h3><i class="icon-certificate"></i> Favorites (User) RSS</h3>
+<pre><code>http://[yourdomain]/tweetledee/favoritesrss.php</code></pre>
 <h3><i class="icon-certificate"></i> Home timeline JSON</h3>
 <pre><code>http://[yourdomain]/tweetledee/homejson.php</code></pre>
 <h3><i class="icon-certificate"></i> Home timeline JSON (pretty printed)</h3>
@@ -133,7 +139,7 @@
 <h2>
 <a name="go-to-usage" class="anchor" href="#go-to-usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
-<p>There are a number of available options for the returned JSON and RSS data.  For example, you can change the number of returned tweets, switch user timelines, exclude retweets & replies, and retrieve tweets based upon a search query.  These are all documented as comments in the respective PHP files.</p>
+<p>There are a number of available options for the returned JSON and RSS data.  For example, you can change the number of returned tweets, switch user timelines, exclude retweets and replies, and retrieve tweets based upon a search query.  These are all documented as comments in the respective PHP files.</p>
 <p>For more detailed treatment of usage, head over to <a href="usage.html">this page</a> to see examples of Tweetledee in action.</p>
 <h2>
 <a name="go-to-support" class="anchor" href="#go-to-support"><span class="octicon octicon-link"></span></a>Get Help</h2>
@@ -149,6 +155,14 @@
           <a href="https://github.com/chrissimpkins/tweetledee/tarball/master" class="button">
             <small>Download</small>
             .tar.gz file
+          </a>
+          <a href="usage.html" class="tld-btn">
+            <small>Learn More</small>
+            Usage
+          </a>
+          <a href="support.html" class="tld-btn">
+            <small>Get Help</small>
+            Support
           </a>
 
           <p class="repo-owner"><a href="https://github.com/chrissimpkins/tweetledee"></a> Developed by <a href="https://github.com/chrissimpkins">Chris Simpkins</a>.</p>

@@ -142,6 +142,10 @@ a.button small {
   display: block;
   font-size: 11px;
 }
+a.tld-btn small{
+  display:block;
+  font-size: 11px;
+}
 header a.button {
   position: absolute;
   right: 0;
@@ -155,6 +159,27 @@ aside a.button {
   background: transparent url(../images/download-button.png) 0 0 no-repeat;
   margin-bottom: 20px;
   font-size: 21px;
+}
+
+aside a.tld-btn {
+  width: 134px;
+  display: block;
+  background-color: #2f2f2f;
+  margin-bottom: 20px;
+  height: 58px;
+  line-height: 1.2;
+  font-size: 23px;
+  color: #fff;
+  padding-left: 68px;
+  padding-top: 22px;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, serif;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+aside a.tld-btn:hover{
+  background-color: #317cd3;
 }
 
 code, pre {
@@ -365,6 +390,7 @@ footer {
   height:400px;
   font-size: 13px;
   color: #aaa;
+  border-top: 5px solid #2e7bcf;
 }
 
 footer a {
