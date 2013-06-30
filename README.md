@@ -25,6 +25,9 @@ Tweetledee
 That was easy... Go crazy, be good, have fun.
 
 ## What You Get
+#### Twitter Favorites RSS (favoritesrss.php)
+#### Twitter Favorites JSON (favoritesjson.php)
+#### Twitter Favorites Pretty Printed JSON (favoritesjson_pp.php)
 #### Twitter Home Timeline RSS (homerss.php)
 #### Twitter Home Timeline JSON (homejson.php)
 #### Twitter Home Timeline Pretty Printed JSON (homejson_pp.php)
