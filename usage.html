@@ -45,18 +45,36 @@
 <h2><a name="usage-toc" class="anchor" href="#usage-toc"><span class="octicon octicon-link"></span></a>Contents</h2>
 <h3><span style="color:green !important"><i class="icon-file-text"></i></span> JSON Types</h3>
 <ul>
+  <li><a href="#fav_json">Favorites JSON</a></li>
   <li><a href="#home_json">Home timeline JSON</a></li>
   <li><a href="#search_json">Tweet search JSON</a></li>
   <li><a href="#user_json">User timeline JSON</a></li>
 </ul>
 <h3><span style="color:orange !important"><i class="icon-rss-sign"></i></span> RSS Feed Types</h3>
 <ul>
+  <li><a href="#fav_rss">Favorites RSS feed</a></li>
   <li><a href="#home_rss">Home timeline RSS feed</a></li>
   <li><a href="#search_rss">Tweet search RSS feed</a></li>
   <li><a href="#user_rss">User timeline RSS feed</a></li>
 </ul>
 <h2><a name="json-examples" class="anchor" href="#json-examples"><span class="octicon octicon-link"></span></a>JSON Types</h2>
 <p>[ <i class="icon-info"></i> ]  Note that pretty printed JSON is obtained by adding the <code>_pp</code> suffix to the file name (e.g. userjson.php >> userjson_pp.php).  Pretty printed JSON requires PHP v5.4 and above.  Standard JSON results require PHP v5.1.2 and above.</p>
+
+<h3 class="blue" id="fav_json"><span style="color:green !important"><i class="icon-file-text"></i></span> Favorites JSON <code>favoritesjson.php</code> + <code>favoritesjson_pp.php</code></h3>
+<h5>Generic Favorites JSON</h5>
+<pre><code>http://[yourdomain]/tweetledee/favoritesjson.php</code></pre>
+<h5>Optional URL Parameters</h5>
+<table>
+<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
+ <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
+ <tr><td>user</td><td>Twitter user</td><td>you</td><td>any username</td></tr>
+</table>
+<h5>Favorites JSON with 100 Tweets</h5>
+<pre><code>http://[yourdomain]/tweetledee/favoritesjson.php?c=100</code></pre>
+<h5>Favorites JSON for a Different User</h5>
+<pre><code>http://[yourdomain]/tweetledee/favoritesjson.php?user=pixsied</code></pre>
+<h5>All Options</h5>
+<pre><code>http://[yourdomain]/tweetledee/favoritesjson.php?c=100&user=pixsied</code></pre>
 
 <h3 class="blue" id="home_json"><span style="color:green !important"><i class="icon-file-text"></i></span> Home Timeline JSON <code>homejson.php</code> + <code>homejson_pp.php</code></h3>
 <h5>Generic Home Timeline JSON</h5>
@@ -117,6 +135,22 @@
 <pre><code>http://[yourdomain]/tweetledee/userjson.php?c=100&user=pixsied&xrp=1&xrt=1</code></pre>
 
 <h2><a name="rss-feed-examples" class="anchor" href="#rss-feed-examples"><span class="octicon octicon-link"></span></a>RSS Feed Types</h2>
+
+<h3 class="blue" id="fav_rss"><span style="color:green !important"><i class="icon-file-text"></i></span> Favorites RSS Feed <code>favoritesrss.php</code></h3>
+<h5>Generic Favorites RSS Feed</h5>
+<pre><code>http://[yourdomain]/tweetledee/favoritesrss.php</code></pre>
+<h5>Optional URL Parameters</h5>
+<table>
+<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
+ <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
+ <tr><td>user</td><td>Twitter user</td><td>you</td><td>any username</td></tr>
+</table>
+<h5>Favorites RSS Feed with 100 Tweets</h5>
+<pre><code>http://[yourdomain]/tweetledee/favoritesrss.php?c=100</code></pre>
+<h5>Favorites RSS Feed for a Different User</h5>
+<pre><code>http://[yourdomain]/tweetledee/favoritesrss.php?user=pixsied</code></pre>
+<h5>All Options</h5>
+<pre><code>http://[yourdomain]/tweetledee/favoritesrss.php?c=100&user=pixsied</code></pre>
 
 <h3 class="blue" id="home_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> Home Timeline RSS Feed <code>homerss.php</code></h3>
 <h5>Generic Home Timeline URL</h5>
