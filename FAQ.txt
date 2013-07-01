@@ -2,21 +2,34 @@ Frequently Asked Questions:
 
 // INSTALL
 
-*** I don't make 'apps'.  I'm an accountant/surfer/hobo/_____.  I just want to display my Twitter feeds.  What do I do?
+--- How do I get my Twitter OAuth tokens/keys?
+You need to make a Twitter application
 
-You don't actually need to create an application to use Tweetledee.  If you consume the Twitter API data with Tweetledee, Twitter considers you an app maker.  Welcome to the club.  You need to assign an application to your Twitter account in order to obtain the keys and tokens that allow you to access the Twitter API data with Tweetledee.  You do this by creating a name for an 'app' through the Twitter developer site.  Call it whatever you'd like.  Then assign your domain name to the 'app' (the domain where you will be using Tweetledee would be a good one) and grab the information (consumer key, consumer secret, access token, access token secret) that you need to enter in Tweetledee.
+--- I don't make applications. Does that mean that I can't use Tweetledee?
+Tweetledee acts as your application and allows you to access Twitter data through the Twitter API. You can designate the domain where you install and use Tweetledee as the application URL.
 
-*** How do I create my Twitter 'app'?
+--- How do I make a Twitter application?
+Please see the detailed guide on the home page of this documentation site
 
-Sign in to the developer site and create your 'app' on this page:
-
-		https://dev.twitter.com/apps/new
-
+--- What is the URL for the new application page on the Twitter developers site?
+https://dev.twitter.com/apps/new
 
 
-// ERRORS
 
-*** I am getting a "verify_credentials connection failure error".  What is that?
+// USE
 
-This likely means that you are exceeding the Twitter API 1.1 rate limits (https://dev.twitter.com/docs/rate-limiting/1.1/limits).  As of version 0.2.8 of Tweetledee, the error message that is displayed when you exceed the Twitter rate limits was changed to "Exceeded Twitter API rate limit".
+--- I get the error "verify_credentials connection failure error". What is that?
+It generally means that you exceeded the Twitter API rate limits. Please see this page for the Twitter limits. As of version 0.2.8 of Tweetledee, the error message that is displayed when you exceed the Twitter rate limits was changed to "Exceeded Twitter API rate limit".
+
+--- What does the Twitter API limit of "15" mean?
+You can access the Twitter API 15 times every 15 minutes for these API resources.
+
+--- What does the Twitter API limit of "180" mean?
+You can access the Twitter API 180 times every 15 minutes for these API resources.
+
+--- What happens if I exceed the API limit for my account?
+Twitter blocks your access to their API data until the remainder of that 15 minute block of time has elapsed. You will receive an error message if you continue to attempt to retrieve new data during this period.
+
+--- How do I avoid exceeding my limit when I use Tweetledee?
+Try caching your Twitter data and polling for new data every X seconds so that you do not exceed the limit that is in place for the API resource that you are using. Serve the cached data to your site's users.
 
