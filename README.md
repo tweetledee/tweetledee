@@ -23,7 +23,7 @@ Tweetledee
 
 2. Upload the 'tweetledee' directory (that is located in the directory where this README file resides) to the public facing directory on your web server.  On many servers, this is the public_html directory
 
-3. Kick the tires with the following test (it gives you a RSS feed for your account):
+3. Kick the tires with the following test (it gives you a user timeline RSS feed for your account):
 	http://[yourdomain]/tweetledee/userrss.php
 
 That was easy... Go crazy, be good, have fun.
