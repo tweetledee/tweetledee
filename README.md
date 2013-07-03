@@ -55,7 +55,7 @@ If you find a bug, please post it as a new issue on the GitHub repository.
 
 Looking for support? Check <a href="http://chrissimpkins.github.io/tweetledee/support.html">this page</a>.
 
-If you would like to contribute to the project, by all means, please do so.  Fork Tweetledee and submit a pull request back to the repository.
+If you would like to contribute to the project, by all means, please do so.  Fork Tweetledee and submit a pull request back to the repository.  I will make a development branch if there is any significant interest in contributing to the project.
 
 ## License
 MIT License - see the LICENSE.txt file in the source distribution
