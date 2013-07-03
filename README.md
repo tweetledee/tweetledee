@@ -16,6 +16,7 @@ Tweetledee
  - Access to a web server with PHP version 5.1.2 or higher (5.4 or higher for pretty printed JSON)
  - libcurl installed on your web server (provides cURL - http://curl.haxx.se/libcurl/)
  - A Twitter application account from which you will obtain the:
+
 	1) consumer key
 	2) consumer secret
 	3) access key
