@@ -59,5 +59,5 @@ If you would like to contribute to the project, by all means, please do so.  For
 ## License
 MIT License - see the LICENSE.txt file in the source distribution
 
-✣ Chris
+✪ Chris
 
