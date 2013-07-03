@@ -11,7 +11,7 @@ Tweetledee
  - Add options for cross site request access control headers to all files (access Twitter data with client side JS)
  - Add user mentions and user lists data types (JSON and RSS feeds)
 
-## The 1.5 Minute Guide to Successful Installation
+## The 1.5 Minute Guide to a Successful Install
 **You will need the following**:
  - Access to a web server with PHP version 5.1.2 or higher (5.4 or higher for pretty printed JSON)
  - libcurl installed on your web server (provides cURL - http://curl.haxx.se/libcurl/)
