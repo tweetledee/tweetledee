@@ -521,3 +521,18 @@ footer a:hover {
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
 @media only screen and (max-width: 479px) {}
+
+/* Tweetledee additions */
+.info-box {
+  -moz-border-radius: 10px 0px 10px 0px;
+  -webkit-border-radius: 10px 0px 10px 0px;
+  border-radius: 10px 0px 10px 0px;
+  background-color:#9E3F00;
+  color:#FFF;
+  font-size: 16px;
+  padding: 5px;
+}
+
+.burntorange{
+  color:#9E3F00 !important;
+}
