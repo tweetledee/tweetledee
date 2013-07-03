@@ -7,6 +7,10 @@ Tweetledee
 <a href="http://chrissimpkins.github.io/tweetledee
 ">http://chrissimpkins.github.io/tweetledee</a>
 
+## In the Pipeline
+ - Add options for cross site request access control headers to all files (access data with client side JS)
+ - Add user mentions and user lists data types (JSON and RSS feeds)
+
 ## The 1.5 Minute Guide to Successful Installation
 **You will need the following**:
  - Access to a web server with PHP version 5.1.2 or higher (5.4 or higher for pretty printed JSON)
