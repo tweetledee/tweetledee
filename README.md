@@ -7,9 +7,12 @@ Tweetledee
 <a href="http://chrissimpkins.github.io/tweetledee
 ">http://chrissimpkins.github.io/tweetledee</a>
 
+## New Releases
+ - <b>0.2.9</b> : Added Twitter user lists RSS feeds <code>listsrss.php</code>, JSON <code>listsjson.php</code>, pretty printed JSON <code>listsjson_pp.php</code>
+
 ## In the Pipeline
  - Add options for cross site request access control headers to all files (access Twitter data with client side JS)
- - Add user mentions and user lists data types (JSON and RSS feeds)
+ - Add user mentions data type (JSON and RSS feeds)
 
 ## The 1.5 Minute Guide to a Successful Install
 **You will need the following**:
