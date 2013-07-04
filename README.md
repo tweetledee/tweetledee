@@ -37,18 +37,21 @@ Tweetledee
 That was easy... Go crazy, be good, have fun.
 
 ## What You Get
-#### Twitter Favorites RSS (favoritesrss.php)
-#### Twitter Favorites JSON (favoritesjson.php)
-#### Twitter Favorites Pretty Printed JSON (favoritesjson_pp.php)
-#### Twitter Home Timeline RSS (homerss.php)
-#### Twitter Home Timeline JSON (homejson.php)
-#### Twitter Home Timeline Pretty Printed JSON (homejson_pp.php)
-#### Twitter User Timeline RSS (userrss.php)
-#### Twitter User Timeline JSON (userjson.php)
-#### Twitter User Timeline Pretty Printed JSON (userjson_pp.php)
-#### Twitter Search RSS (searchrss.php)
-#### Twitter Search JSON (searchjson.php)
-#### Twitter Search Pretty Printed JSON (searchjson_pp.php)
+#### Twitter Favorites RSS Feed [<code>favoritesrss.php</code>]
+#### Twitter Favorites JSON [<code>favoritesjson.php</code>]
+#### Twitter Favorites Pretty Printed JSON [<code>favoritesjson_pp.php</code>]
+#### Twitter Home Timeline RSS Feed [<code>homerss.php</code>]
+#### Twitter Home Timeline JSON [<code>homejson.php</code>]
+#### Twitter Home Timeline Pretty Printed JSON [<code>homejson_pp.php</code>]
+#### Twitter User Lists RSS Feed [<code>listsrss.php</code>]
+#### Twitter User Lists JSON [<code>listsjson.php</code>]
+#### Twitter User Lists Pretty Printed JSON [<code>listsjson_pp.php</code>]
+#### Twitter User Timeline RSS Feed [<code>userrss.php</code>]
+#### Twitter User Timeline JSON [<code>userjson.php</code>]
+#### Twitter User Timeline Pretty Printed JSON [<code>userjson_pp.php</code>]
+#### Twitter Search RSS Feed [<code>searchrss.php</code>]
+#### Twitter Search JSON [<code>searchjson.php</code>]
+#### Twitter Search Pretty Printed JSON [<code>searchjson_pp.php</code>]
 
 ## Usage
 <a href="http://chrissimpkins.github.io/tweetledee/usage.html">Tweetledee Usage Examples</a>
