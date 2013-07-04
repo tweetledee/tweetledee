@@ -536,3 +536,11 @@ footer a:hover {
 .burntorange{
   color:#9E3F00 !important;
 }
+
+.sidebar-spacing{
+  margin-top: -15px !important;
+}
+
+.middle-align {
+  vertical-align:middle !important;
+}
