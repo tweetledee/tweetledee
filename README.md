@@ -7,7 +7,7 @@ Tweetledee
 <a href="http://chrissimpkins.github.io/tweetledee
 ">http://chrissimpkins.github.io/tweetledee</a>
 
-## New Releases
+## Current Release
  - <b>0.2.9</b> : Added Twitter user lists RSS feeds <code>listsrss.php</code>, JSON <code>listsjson.php</code>, pretty printed JSON <code>listsjson_pp.php</code>
 
 ## In the Pipeline
