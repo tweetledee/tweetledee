@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   homerss.php -- Home timeline results formatted as RSS feed
- *   Version: 0.2.8
+ *   Version: 0.2.9
  * Copyright 2013 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
