@@ -47,6 +47,7 @@
 <ul>
   <li><a href="#fav_json">Favorites JSON</a></li>
   <li><a href="#home_json">Home timeline JSON</a></li>
+  <li><a href="#lists_json">Lists JSON</a></li>
   <li><a href="#search_json">Tweet search JSON</a></li>
   <li><a href="#user_json">User timeline JSON</a></li>
 </ul>
@@ -54,11 +55,12 @@
 <ul>
   <li><a href="#fav_rss">Favorites RSS feed</a></li>
   <li><a href="#home_rss">Home timeline RSS feed</a></li>
+  <li><a href="#lists_rss">Lists RSS feed</a></li>
   <li><a href="#search_rss">Tweet search RSS feed</a></li>
   <li><a href="#user_rss">User timeline RSS feed</a></li>
 </ul>
 <h2><a name="json-examples" class="anchor" href="#json-examples"><span class="octicon octicon-link"></span></a>JSON Types</h2>
-<p>[ <i class="icon-info"></i> ]  Note that pretty printed JSON is obtained by adding the <code>_pp</code> suffix to the file name (e.g. userjson.php >> userjson_pp.php).  Pretty printed JSON requires PHP v5.4 and above.  Standard JSON results require PHP v5.1.2 and above.</p>
+<p><span style="color:#00aced !important;"><i class="icon-info"></i></span> :  Note that pretty printed JSON is obtained by adding the <code>_pp</code> suffix to the file name (e.g. userjson.php >> userjson_pp.php).  Pretty printed JSON requires PHP v5.4 and above.  Standard JSON results require PHP v5.1.2 and above.</p>
 
 <h3 class="blue" id="fav_json"><span style="color:green !important"><i class="icon-file-text"></i></span> Favorites JSON <code>favoritesjson.php</code> + <code>favoritesjson_pp.php</code></h3>
 <h5>Generic Favorites JSON</h5>
@@ -92,15 +94,45 @@
 <h5>All Options</h5>
 <pre><code>http://[yourdomain]/tweetledee/homejson.php?c=100&xrp=1</code></pre>
 
+<h3 class="blue" id="lists_json"><span style="color:green !important"><i class="icon-file-text"></i></span> List JSON <code>listsjson.php</code> + <code>listsjson_pp.php</code></h3>
+<h5>Generic Lists JSON</h5>
+<pre><code>http://[yourdomain]/tweetledee/listsjson.php?list=[list-slug]</code></pre>
+<h5>Required URL Parameter</h5>
+<table>
+<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
+ <tr><td>list</td><td>List slug name</td><td>(required)</td><td>any list slug</td></tr>
+</table>
+<h5>Optional URL Parameters</h5>
+<table>
+<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
+ <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
+ <tr><td>user</td><td>Twitter user</td><td>you</td><td>any username</td></tr>
+ <tr><td>xrt</td><td>Exclude retweets</td><td>0 (=false)</td><td>1 (=true)</td></tr>
+</table>
+<h5>Your list called "reading-list"</h5>
+<pre><code>http://[yourdomain]/tweetledee/listsjson.php?list=reading-list</code></pre>
+<h5>@anotheruser's list called "reading-list"</h5>
+<pre><code>http://[yourdomain]/tweetledee/listsjson.php?user=anotheruser&list=reading-list</code></pre>
+<h5>100 tweets from your list called "reading-list"</h5>
+<pre><code>http://[yourdomain]/tweetledee/listsjson.php?c=100&list=reading-list</code></pre>
+<h5>Exclude retweets from your list called "reading-list"</h5>
+<pre><code>http://[yourdomain]/tweetledee/listsjson.php?xrt=1&list=reading-list</code></pre>
+<h5>All options</h5>
+<pre><code>http://[yourdomain]/tweetledee/listsjson.php?user=anotheruser&list=reading-list&c=100&xrt=1</code></pre>
+
 <h3 class="blue" id="search_json"><span style="color:green !important"><i class="icon-file-text"></i></span> Tweet Search JSON <code>searchjson.php</code> + <code>searchjson_pp.php</code></h3>
 <h5>Generic Tweet Search JSON</h5>
 <pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=[search_term]</code></pre>
+<h5>Required URL Parameter</h5>
+<table>
+<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
+ <tr><td>q</td><td>Search query</td><td>(required)</td><td>any search term</td></tr>
+</table>
 <h5>Optional URL Parameters</h5>
 <table>
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
  <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
  <tr><td>rt</td><td>Result type</td><td>mixed</td><td>popular | recent</td></tr>
- <tr><td>q</td><td>Search query</td><td>(required)</td><td>any search term</td></tr>
 </table>
 <h5>Search for "test"</h5>
 <pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=test</code></pre>
@@ -135,6 +167,7 @@
 <pre><code>http://[yourdomain]/tweetledee/userjson.php?c=100&user=pixsied&xrp=1&xrt=1</code></pre>
 
 <h2><a name="rss-feed-examples" class="anchor" href="#rss-feed-examples"><span class="octicon octicon-link"></span></a>RSS Feed Types</h2>
+<p><span style="color:#00aced !important;"><i class="icon-info"></i></span> :  RSS feeds require PHP v5.1.2 and above.</p>
 
 <h3 class="blue" id="fav_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> Favorites RSS Feed <code>favoritesrss.php</code></h3>
 <h5>Generic Favorites RSS Feed</h5>
@@ -168,16 +201,46 @@
 <h5>All Options</h5>
 <pre><code>http://[yourdomain]/tweetledee/homerss.php?c=100&xrp=1</code></pre>
 
+<h3 class="blue" id="lists_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> List RSS Feed <code>listsrss.php</code></h3>
+<h5>Generic Lists RSS Feed</h5>
+<pre><code>http://[yourdomain]/tweetledee/listsrss.php?list=[list-slug]</code></pre>
+<h5>Required URL Parameter</h5>
+<table>
+<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
+ <tr><td>list</td><td>List slug name</td><td>(required)</td><td>any list slug</td></tr>
+</table>
+<h5>Optional URL Parameters</h5>
+<table>
+<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
+ <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
+ <tr><td>user</td><td>Twitter user</td><td>you</td><td>any username</td></tr>
+ <tr><td>xrt</td><td>Exclude retweets</td><td>0 (=false)</td><td>1 (=true)</td></tr>
+</table>
+<h5>Your list called "reading-list"</h5>
+<pre><code>http://[yourdomain]/tweetledee/listsrss.php?list=reading-list</code></pre>
+<h5>@anotheruser's list called "reading-list"</h5>
+<pre><code>http://[yourdomain]/tweetledee/listsrss.php?user=anotheruser&list=reading-list</code></pre>
+<h5>100 tweets from your list called "reading-list"</h5>
+<pre><code>http://[yourdomain]/tweetledee/listsrss.php?c=100&list=reading-list</code></pre>
+<h5>Exclude retweets from your list called "reading-list"</h5>
+<pre><code>http://[yourdomain]/tweetledee/listsrss.php?xrt=1&list=reading-list</code></pre>
+<h5>All options</h5>
+<pre><code>http://[yourdomain]/tweetledee/listsrss.php?user=anotheruser&list=reading-list&c=100&xrt=1</code></pre>
+
 
 <h3 class="blue" id="search_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> Tweet Search RSS Feed <code>searchrss.php</code></h3>
 <h5>Generic Tweet Search Feed URL</h5>
 <pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=[search_term]</code></pre>
+<h5>Required URL Parameter</h5>
+<table>
+<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
+ <tr><td>q</td><td>Search query</td><td>(required)</td><td>any search term</td></tr>
+</table>
 <h5>Optional URL Parameters</h5>
 <table>
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
  <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
  <tr><td>rt</td><td>Result type</td><td>mixed</td><td>popular | recent</td></tr>
- <tr><td>q</td><td>Search query</td><td>(required)</td><td>any search term</td></tr>
 </table>
 <h5>Search for "test"</h5>
 <pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test</code></pre>
