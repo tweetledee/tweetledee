@@ -9,8 +9,8 @@
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
-    - Access the default user favorites feed (count = 25, includes both RT's & replies) at the following URL:
-            e.g. http://<yourdomain>/tweetledee/listsjson.php
+    - Access the default user list feed (count = 25, includes both RT's & replies) at the following URL:
+            e.g. http://<yourdomain>/tweetledee/listsjson.php?list=<list-slug>
 ==> User Favorites RSS feed parameters:
     - 'c' - specify a tweet count (range 1 - 200, default = 25)
             e.g. http://<yourdomain>/tweetledee/listsjson.php?c=100
