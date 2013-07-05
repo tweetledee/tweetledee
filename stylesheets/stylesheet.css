@@ -533,6 +533,16 @@ footer a:hover {
   padding: 5px;
 }
 
+.info-box-btm {
+  -moz-border-radius: 0px 10px 0px 10px;
+  -webkit-border-radius: 0px 10px 0px 10px;
+  border-radius: 0px 10px 0px 10px;
+  background-color:#9E3F00;
+  color:#FFF;
+  font-size: 16px;
+  padding: 5px;
+}
+
 .burntorange{
   color:#9E3F00 !important;
 }
