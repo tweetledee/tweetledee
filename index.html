@@ -52,6 +52,7 @@
 <p>Tweetledee provides ready-bake PHP files that allow you to access Twitter user timelines, user favorites, home timelines, and tweet search data in a JSON or RSS format.  This approach works after the Twitter API 1.1 changes that eliminated Twitter support for RSS feeds.</p>
 <p>Grab your API tokens from Twitter, upload the Tweetledee files to your server, and use them.  It's that simple.</p>
 <p class="info-box"><i class="icon-beaker"></i> Update 7/4/2013 : User lists RSS and JSON files were released. Usage docs updated.</p>
+<p class="info-box-btm"><i class="icon-beaker"></i> In the Pipeline : Pipe data to standard out stream | Client-side JS access to Tweetledee</p>
 
 <h2>
 <a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h2>
@@ -129,12 +130,18 @@
 <pre><code>http://[yourdomain]/tweetledee/homejson_pp.php</code></pre>
 <h3><i class="icon-sign-blank burntorange"></i> Home timeline RSS feed</h3>
 <pre><code>http://[yourdomain]/tweetledee/homerss.php</code></pre>
+<h3><i class="icon-sign-blank burntorange"></i> List JSON</h3>
+<pre><code>http://[yourdomain]/tweetledee/listsjson.php?list=[list-slug]</code></pre>
+<h3><i class="icon-sign-blank burntorange"></i> List JSON (pretty printed)</h3>
+<pre><code>http://[yourdomain]/tweetledee/listsjson_pp.php?list=[list-slug]</code></pre>
+<h3><i class="icon-sign-blank burntorange"></i> List RSS Feed</h3>
+<pre><code>http://[yourdomain]/tweetledee/listsrss.php?list=[list-slug]</code></pre>
 <h3><i class="icon-sign-blank burntorange"></i> Tweet search JSON</h3>
-<pre><code>http://[yourdomain]/tweetledee/searchjson.php</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=[search-query]</code></pre>
 <h3><i class="icon-sign-blank burntorange"></i> Tweet search JSON (pretty printed)</h3>
-<pre><code>http://[yourdomain]/tweetledee/searchjson_pp.php</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/searchjson_pp.php?q=[search-query]</code></pre>
 <h3><i class="icon-sign-blank burntorange"></i> Tweet search RSS feed</h3>
-<pre><code>http://[yourdomain]/tweetledee/searchrss.php</code></pre>
+<pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=[search-query]</code></pre>
 <h3><i class="icon-sign-blank burntorange"></i> User timeline JSON</h3>
 <pre><code>http://[yourdomain]/tweetledee/userjson.php</code></pre>
 <h3><i class="icon-sign-blank burntorange"></i> User timeline JSON (pretty printed)</h3>
