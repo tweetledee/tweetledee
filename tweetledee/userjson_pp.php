@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   userjson_pp.php -- User timeline results formatted as pretty printed JSON
- *   Version: 0.2.9
+ *   Version: 0.3.0
  * Copyright 2013 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
@@ -23,12 +23,18 @@
     - Example of all of the available parameters:
             e.g. http://<yourdomain>/tweetledee/userjson.php?c=100&xrt=1&xrp=1&user=cooluser
 --------------------------------------------------------------------------------------------------*/
-// debugging
+/*******************************************************************
+*  Debugging Flag
+********************************************************************/
 $TLD_DEBUG = 0;
 if ($TLD_DEBUG == 1){
     ini_set('display_errors', 'On');
     error_reporting(E_ALL | E_STRICT);
 }
+
+/*******************************************************************
+*  Includes
+********************************************************************/
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
 require 'tldlib/tmhUtilities.php';
@@ -39,8 +45,9 @@ require 'tldlib/keys/tweetledee_keys.php';
 // include Geoff Smith's utility functions
 require 'tldlib/tldUtilities.php';
 
-// create the OAuth object
-///*
+/*******************************************************************
+*  OAuth
+********************************************************************/
 $tmhOAuth = new tmhOAuth(array(
             'consumer_key'        => $my_consumer_key,
             'consumer_secret'     => $my_consumer_secret,
@@ -48,7 +55,7 @@ $tmhOAuth = new tmhOAuth(array(
             'user_secret'         => $my_access_token_secret,
             'curl_ssl_verifypeer' => false
         ));
-//*/
+
 
 // request the user information
 $code = $tmhOAuth->user_request(array(
@@ -74,31 +81,68 @@ $include_retweets = true;  //default to include retweets
 $exclude_replies = false;  //default to include replies
 $screen_name = $data['screen_name'];
 
-// Parameters
-// c = tweet count ( possible range 1 - 200 tweets, else default = 25)
-if (isset($_GET["c"])){
-    if ($_GET["c"] > 0 && $_GET["c"] <= 200){
-        $count = $_GET["c"];
-    }
-}
-// xrt = exclude retweets from the timeline ( possible values: 1=true, else false)
-if (isset($_GET["xrt"])){
-    if ($_GET["xrt"] == 1){
-        $include_retweets = false;
-    }
-}
-// xrp = exclude replies from the timeline (possible values: 1=true, else false)
-if (isset($_GET["xrp"])){
-    if ($_GET["xrp"] == 1){
-        $exclude_replies = true;
-    }
-}
-// user = Twitter screen name for the user timeline that the user is requesting (default = their own, possible values = any other Twitter user name)
-if (isset($_GET["user"])){
-    $screen_name = $_GET["user"];
-}
+/*******************************************************************
+*   Parameters
+*    - can pass via URL to web server
+*    - or as a parameter at the command line
+********************************************************************/
 
-// request the user timeline using the paramaters that were parsed from URL or that are defaults
+// Command line parameter definitions //
+if (defined('STDIN')) {
+    // check whether arguments were passed, if not there is no need to attempt to check the array
+    if (isset($argv)){
+        $shortopts = "c:";
+        $longopts = array(
+            "xrt",
+            "xrp",
+            "user:",
+        );
+        $params = getopt($shortopts, $longopts);
+        if (isset($params['c'])){
+            if ($params['c'] > 0 && $params['c'] < 200)
+                $count = $params['c'];  //assign to the count variable
+        }
+        if (isset($params['xrt'])){
+            $include_retweets = false;
+        }
+        if (isset($params['xrp'])){
+            $exclude_replies = true;
+        }
+        if (isset($params['user'])){
+            $screen_name = $params['user'];
+        }
+    }
+}
+// Web server URL parameter definitions //
+else {
+    // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
+    if (isset($_GET["c"])){
+        if ($_GET["c"] > 0 && $_GET["c"] <= 200){
+            $count = $_GET["c"];
+        }
+    }
+    // xrt = exclude retweets from the timeline ( possible values: 1=true, else false)
+    if (isset($_GET["xrt"])){
+        if ($_GET["xrt"] == 1){
+            $include_retweets = false;
+        }
+    }
+    // xrp = exclude replies from the timeline (possible values: 1=true, else false)
+    if (isset($_GET["xrp"])){
+        if ($_GET["xrp"] == 1){
+            $exclude_replies = true;
+        }
+    }
+    // user = Twitter screen name for the user timeline that the user is requesting (default = their own, possible values = any other Twitter user name)
+    if (isset($_GET["user"])){
+        $screen_name = $_GET["user"];
+    }
+} // end else block
+
+
+/*******************************************************************
+*  Request
+********************************************************************/
 $code = $tmhOAuth->user_request(array(
 			'url' => $tmhOAuth->url('1.1/statuses/user_timeline'),
 			'params' => array(
