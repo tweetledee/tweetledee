@@ -1,25 +1,30 @@
 Tweetledee
 ==========
 
-**A PHP library that provides an incredibly easy way to access Twitter data as JSON, pretty printed JSON, or RSS feeds**
+**A PHP library that provides an incredibly easy way to access Twitter data as JSON, pretty printed JSON, or RSS feeds by URL or standard command line syntax.**
 
-## Documentation Site
+## Documentation
 <a href="http://chrissimpkins.github.io/tweetledee
 ">http://chrissimpkins.github.io/tweetledee</a>
 
 ## Current Release
+ - <b>0.3.0</b> : You can now access Tweetledee from the command line locally or remotely via SSH and pipe the output to any application.  Data is returned via the standard output stream when you access files with a terminal.  Tweetledee will parse the parameters as standard command line switches.  For single character parameters use short switches <code>-q</code> and for multiple character parameters use long switches <code>--user</code>.
+ - This feature requires PHP 5.3 or higher
+
+## Recent Changes
  - <b>0.2.9</b> : Added Twitter user lists RSS feeds <code>listsrss.php</code>, JSON <code>listsjson.php</code>, pretty printed JSON <code>listsjson_pp.php</code>
 
 ## In the Pipeline
+ - Add a caching mechanism to prevent users from exceeding the Twitter API rate limits
  - Add options for cross site request access control headers to all files (access Twitter data with client side JS)
- - Provide command line access to Twitter data & stream to standard out so that you can pipe your data to any application
  - Add user mentions data type (JSON and RSS feeds)
- - Add a file updater that you can run with SSH/CLI
+ - Add a file updater
 
 ## The 1.5 Minute Guide to a Successful Install
 **You will need the following**:
- - Access to a web server with PHP version 5.1.2 or higher (5.4 or higher for pretty printed JSON)
- - libcurl installed on your web server (provides cURL - http://curl.haxx.se/libcurl/)
+ - Access via URL: PHP version 5.1.2 or higher (5.4 or higher for pretty printed JSON)
+ - Access via command line: PHP version 5.3 or higher (5.4 or higher for pretty printed JSON)
+ - libcurl installed (provides cURL - http://curl.haxx.se/libcurl/)
  - A <a href="https://dev.twitter.com/apps/new">Twitter application account</a> from which you will obtain the:
 
 	1) consumer key
