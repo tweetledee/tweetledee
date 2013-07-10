@@ -14,6 +14,7 @@ Tweetledee
  - Add options for cross site request access control headers to all files (access Twitter data with client side JS)
  - Provide command line access to Twitter data & stream to standard out so that you can pipe your data to any application
  - Add user mentions data type (JSON and RSS feeds)
+ - Add a file updater that you can run with SSH/CLI
 
 ## The 1.5 Minute Guide to a Successful Install
 **You will need the following**:
