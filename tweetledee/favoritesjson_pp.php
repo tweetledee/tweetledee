@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   favoritesjson_pp.php -- User favorites formatted as pretty printed JSON
- *   Version: 0.2.9
+ *   Version: 0.3.0
  * Copyright 2013 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
@@ -11,7 +11,7 @@
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
     - Access the default user favorites feed (count = 25, includes both RT's & replies) at the following URL:
             e.g. http://<yourdomain>/tweetledee/favoritesjson_pp.php
-==> User Favorites RSS feed parameters:
+==> User Favorites JSON parameters:
     - 'c' - specify a tweet count (range 1 - 200, default = 25)
             e.g. http://<yourdomain>/tweetledee/favoritesjson_pp.php?c=100
     - 'user' - specify the Twitter user whose favorites you would like to retrieve (default = account associated with access token)
@@ -19,13 +19,19 @@
     - Example of all of the available parameters:
             e.g. http://<yourdomain>/tweetledee/favoritesjson_pp.php?c=100&user=cooluser
 --------------------------------------------------------------------------------------------------*/
-// debugging
+/*******************************************************************
+*  Debugging Flag
+********************************************************************/
 $TLD_DEBUG = 0;
 if ($TLD_DEBUG == 1){
     ini_set('display_errors', 'On');
     error_reporting(E_ALL | E_STRICT);
 }
 
+
+/*******************************************************************
+*  Includes
+********************************************************************/
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
 require 'tldlib/tmhUtilities.php';
@@ -36,8 +42,9 @@ require 'tldlib/keys/tweetledee_keys.php';
 // include Geoff Smith's utility functions
 require 'tldlib/tldUtilities.php';
 
-// create the OAuth object
-///*
+/*******************************************************************
+*  OAuth
+********************************************************************/
 $tmhOAuth = new tmhOAuth(array(
             'consumer_key'        => $my_consumer_key,
             'consumer_secret'     => $my_consumer_secret,
@@ -45,11 +52,10 @@ $tmhOAuth = new tmhOAuth(array(
             'user_secret'         => $my_access_token_secret,
             'curl_ssl_verifypeer' => false
         ));
-//*/
 
 // request the user information
 $code = $tmhOAuth->user_request(array(
-			'url' => $tmhOAuth->url('1.1/account/verify_credentials')
+            'url' => $tmhOAuth->url('1.1/account/verify_credentials')
           )
         );
 
@@ -65,33 +71,59 @@ if ($code <> 200) {
 // Decode JSON
 $data = json_decode($tmhOAuth->response['response'], true);
 
-// Defaults
+/*******************************************************************
+*  Defaults
+********************************************************************/
 $count = 25;  //default tweet number = 25
-$include_retweets = true;  //default to include retweets
-$exclude_replies = false;  //default to include replies
-$screen_name = $data['screen_name'];
+$screen_name = $data['screen_name'];  //default is the requesting user
 
-// Parameters
-// c = tweet count ( possible range 1 - 200 tweets, else default = 25)
-if (isset($_GET["c"])){
-    if ($_GET["c"] > 0 && $_GET["c"] <= 200){
-        $count = $_GET["c"];
+/*******************************************************************
+*   Parameters
+*    - can pass via URL to web server
+*    - or as a short or long switch at the command line
+********************************************************************/
+// Command line parameter definitions //
+if (defined('STDIN')) {
+    // check whether arguments were passed, if not there is no need to attempt to check the array
+    if (isset($argv)){
+        $shortopts = "c:";
+        $longopts = array(
+            "user:",
+        );
+        $params = getopt($shortopts, $longopts);
+        if (isset($params['c'])){
+            if ($params['c'] > 0 && $params['c'] < 200)
+                $count = $params['c'];  //assign to the count variable
+        }
+        if (isset($params['user'])){
+            $screen_name = $params['user'];
+        }
     }
 }
+else {
+    // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
+    if (isset($_GET["c"])){
+        if ($_GET["c"] > 0 && $_GET["c"] <= 200){
+            $count = $_GET["c"];
+        }
+    }
 
-// user = Twitter screen name for the user favorites that the user is requesting (default = their own, possible values = any other Twitter user name)
-if (isset($_GET["user"])){
-    $screen_name = $_GET["user"];
-}
+    // user = Twitter screen name for the user favorites that the user is requesting (default = their own, possible values = any other Twitter user name)
+    if (isset($_GET["user"])){
+        $screen_name = $_GET["user"];
+    }
+} // end else
 
-// request the user favorites using the paramaters that were parsed from URL or that are defaults
+/*******************************************************************
+*  Request
+********************************************************************/
 $code = $tmhOAuth->user_request(array(
-			'url' => $tmhOAuth->url('1.1/favorites/list'),
-			'params' => array(
-          		'include_entities' => true,
-    			'count' => $count,
-    			'screen_name' => $screen_name,
-        	)
+            'url' => $tmhOAuth->url('1.1/favorites/list'),
+            'params' => array(
+                'include_entities' => true,
+                'count' => $count,
+                'screen_name' => $screen_name,
+            )
         ));
 
 // Anything except code 200 is a failure to get the information
