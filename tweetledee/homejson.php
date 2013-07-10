@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   homejson.php -- Home timeline results formatted as JSON
- *   Version: 0.2.9
+ *   Version: 0.3.0
  * Copyright 2013 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
@@ -11,7 +11,7 @@
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
     - Access the default home timeline JSON (count = 25 & includes replies) at the following URL:
             e.g. http://<yourdomain>/tweetledee/homejson.php
-==> User Timeline JSON parameters:
+==> User's Home Timeline JSON parameters:
     - 'c' - specify a tweet count (range 1 - 200, default = 25)
             e.g. http://<yourdomain>/tweetledee/homejson.php?c=100
     - 'xrp' - exclude replies (1=true, default = false)
@@ -19,13 +19,18 @@
     - Example of all of the available parameters:
             e.g. http://<yourdomain>/tweetledee/homejson.php?c=100&xrp=1
 --------------------------------------------------------------------------------------------------*/
-// debugging
+/*******************************************************************
+*  Debugging Flag
+********************************************************************/
 $TLD_DEBUG = 0;
 if ($TLD_DEBUG == 1){
     ini_set('display_errors', 'On');
     error_reporting(E_ALL | E_STRICT);
 }
 
+/*******************************************************************
+*  Includes
+********************************************************************/
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
 require 'tldlib/tmhUtilities.php';
@@ -36,7 +41,9 @@ require 'tldlib/keys/tweetledee_keys.php';
 // include Geoff Smith's utility functions
 require 'tldlib/tldUtilities.php';
 
-// create the OAuth object
+/*******************************************************************
+*  OAuth
+********************************************************************/
 $tmhOAuth = new tmhOAuth(array(
             'consumer_key'        => $my_consumer_key,
             'consumer_secret'     => $my_consumer_secret,
@@ -44,7 +51,6 @@ $tmhOAuth = new tmhOAuth(array(
             'user_secret'         => $my_access_token_secret,
             'curl_ssl_verifypeer' => false
         ));
-//*/
 
 // request the user information
 $code = $tmhOAuth->user_request(array(
@@ -64,28 +70,58 @@ if ($code <> 200) {
 // Decode JSON
 $data = json_decode($tmhOAuth->response['response'], true);
 
-// Defaults
+/*******************************************************************
+*  Defaults
+********************************************************************/
 $count = 25;  //default tweet number = 25
 $exclude_replies = false;  //default to include replies
 $screen_name = $data['screen_name'];
 
-// Parameters
-// c = tweet count ( possible range 1 - 200 tweets, else default = 25)
-if (isset($_GET["c"])){
-    $getcount = $_GET["c"];
-    if ($getcount > 0 && $getcount <= 200){
-    	$count = $getcount;
+/*******************************************************************
+*   Parameters
+*    - can pass via URL to web server
+*    - or as a short or long switch at the command line
+********************************************************************/
+// Command line parameter definitions //
+if (defined('STDIN')) {
+    // check whether arguments were passed, if not there is no need to attempt to check the array
+    if (isset($argv)){
+        $shortopts = "c:";
+        $longopts = array(
+            "xrp",
+        );
+        $params = getopt($shortopts, $longopts);
+        if (isset($params['c'])){
+            if ($params['c'] > 0 && $params['c'] < 200)
+                $count = $params['c'];  //assign to the count variable
+        }
+        if (isset($params['xrp'])){
+            $exclude_replies = true;
+        }
     }
-}
 
-// xrp = exclude replies from the timeline (possible values: 1=true, else false)
-if (isset($_GET["xrp"])){
-    if ($_GET["xrp"] == 1){
-        $exclude_replies = true;
+} //end if
+// Web server URL parameter definitions //
+else{
+    // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
+    if (isset($_GET["c"])){
+        $getcount = $_GET["c"];
+        if ($getcount > 0 && $getcount <= 200){
+        	$count = $getcount;
+        }
     }
-}
 
-// request the user timeline using the paramaters that were parsed from URL or that are defaults
+    // xrp = exclude replies from the timeline (possible values: 1=true, else false)
+    if (isset($_GET["xrp"])){
+        if ($_GET["xrp"] == 1){
+            $exclude_replies = true;
+        }
+    }
+} //end else
+
+/*******************************************************************
+*  Request
+********************************************************************/
 $code = $tmhOAuth->user_request(array(
 			'url' => $tmhOAuth->url('1.1/statuses/home_timeline'),
 			'params' => array(
