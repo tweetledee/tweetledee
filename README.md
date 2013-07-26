@@ -64,7 +64,7 @@ That was easy... Go crazy, be good, have fun.
 <a href="http://chrissimpkins.github.io/tweetledee/usage.html">Tweetledee Usage Examples</a>
 
 ## Bugs & Questions
-If you find a bug, please post it as a new issue on the GitHub repository.
+If you find a bug, please post it as a new issue on the GitHub repository with <a href="http://chrissimpkins.github.io/tweetledee/support.html#bug-reporting">this information in your report</a>.
 
 Looking for support? Check <a href="http://chrissimpkins.github.io/tweetledee/support.html">this page</a>.
 
