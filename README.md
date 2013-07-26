@@ -22,7 +22,7 @@ Tweetledee
 
 ## The 1.5 Minute Guide to a Successful Install
 **You will need the following**:
- - Access via URL: PHP version 5.1.2 or higher (5.4 or higher for pretty printed JSON)
+ - Access via URL: PHP version 5.3 or higher (5.4 or higher for pretty printed JSON)
  - Access via command line: PHP version 5.3 or higher (5.4 or higher for pretty printed JSON)
  - libcurl installed (provides cURL - http://curl.haxx.se/libcurl/)
  - A <a href="https://dev.twitter.com/apps/new">Twitter application account</a> from which you will obtain the:
