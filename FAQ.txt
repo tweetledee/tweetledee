@@ -2,6 +2,9 @@ Frequently Asked Questions:
 
 // INSTALL
 
+--- What version of PHP do I need to use Tweetledee?
+Version 5.3 or above for the RSS feed and standard JSON files. Version 5.4 or above for pretty printed JSON.
+
 --- How do I get my Twitter OAuth tokens/keys?
 You need to make a Twitter application
 
