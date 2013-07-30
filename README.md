@@ -16,7 +16,7 @@ Tweetledee
 
 ## In the Pipeline
  - Add a caching mechanism to prevent users from exceeding the Twitter API rate limits
- - Add options for cross site request access control headers to all files (access Twitter data with client side JS)
+ - Add customization options for RSS feed format (change print format)
  - Add user mentions data type (JSON and RSS feeds)
  - Add a file updater
 
