@@ -393,8 +393,18 @@ footer {
   border-top: 5px solid #2e7bcf;
 }
 
+.license{
+   margin-top:335px;
+   width:100%;
+   text-align: center;
+}
+
+.license a:hover{
+  color:#999;
+}
+
 footer a {
-  color: #666;
+  color: #777;
 }
 footer a:hover {
   color: #444;
