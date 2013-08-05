@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   favoritesjson_pp.php -- User favorites formatted as pretty printed JSON
- *   Version: 0.3.1
+ *   Version: 0.3.2
  * Copyright 2013 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
@@ -92,7 +92,7 @@ if (defined('STDIN')) {
         );
         $params = getopt($shortopts, $longopts);
         if (isset($params['c'])){
-            if ($params['c'] > 0 && $params['c'] < 200)
+            if ($params['c'] > 0 && $params['c'] <= 200)
                 $count = $params['c'];  //assign to the count variable
         }
         if (isset($params['user'])){
