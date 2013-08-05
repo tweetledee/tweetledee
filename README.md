@@ -4,8 +4,9 @@ Tweetledee
 **A PHP library that provides an incredibly easy way to access Twitter data as JSON, pretty printed JSON, or RSS feeds by URL or standard command line syntax.**
 
 ## Documentation
-<a href="http://chrissimpkins.github.io/tweetledee
-">http://chrissimpkins.github.io/tweetledee</a>
+Docs Home: [http://chrissimpkins.github.io/tweetledee](http://chrissimpkins.github.io/tweetledee)
+Usage: [http://chrissimpkins.github.io/tweetledee/usage.html](http://chrissimpkins.github.io/tweetledee/usage.html)
+Developer Docs: [http://chrissimpkins.github.io/tweetledee/developer.html](http://chrissimpkins.github.io/tweetledee/developer.html)
 
 ## Current Release
 - <b>0.3.2</b> : bug fixes for [issue #14](https://github.com/chrissimpkins/tweetledee/issues/14)
