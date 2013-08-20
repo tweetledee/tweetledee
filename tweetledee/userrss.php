@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   userrss.php -- User timeline results formatted as a RSS feed
- *   Version: 0.3.2
+ *   Version: 0.3.3
  * Copyright 2013 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
@@ -179,19 +179,17 @@ header("Content-type: text/xml; charset=utf-8");
 ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <atom:link href="<?php echo $my_domain ?> <?php echo $thequery ?>" rel="self" type="application/rss+xml" />
+        <atom:link href="<?php echo $my_domain ?><?php echo $thequery ?>" rel="self" type="application/rss+xml" />
         <lastBuildDate><?php echo date(DATE_RSS); ?></lastBuildDate>
         <language>en</language>
         <title>Twitter user timeline feed for <?php echo $screen_name; ?></title>
-        <description>
-            Twitter user timeline updates for <?php echo $screen_name; ?>.
-        </description>
+        <description>Twitter user timeline updates for <?php echo $screen_name; ?></description>
         <link>http://www.twitter.com/<?php echo $screen_name; ?></link>
         <ttl>960</ttl>
         <generator>Tweetledee</generator>
         <category>Personal</category>
         <image>
-        <title>Twitter user timeline updates for <?php echo $screen_name; ?></title>
+        <title>Twitter user timeline feed for <?php echo $screen_name; ?></title>
         <link>http://www.twitter.com/<?php echo $screen_name; ?></link>
         <url><?php echo $twitterAvatarUrl ?></url>
         </image>

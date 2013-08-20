@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   homerss.php -- Home timeline results formatted as RSS feed
- *   Version: 0.3.2
+ *   Version: 0.3.3
  * Copyright 2013 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
@@ -157,9 +157,7 @@ header("Content-type: text/xml; charset=utf-8");
         <lastBuildDate><?php echo date(DATE_RSS); ?></lastBuildDate>
         <language>en</language>
         <title><?php echo $feedTitle; ?></title>
-        <description>
-            Twitter home timeline updates for <?php echo $fullName; ?> / <?php echo $twitterName; ?>.
-        </description>
+        <description>Twitter home timeline updates for <?php echo $fullName; ?> / <?php echo $twitterName; ?></description>
         <link>http://www.twitter.com/<?php echo $twitterName; ?></link>
         <ttl>960</ttl>
         <generator>Tweetledee</generator>

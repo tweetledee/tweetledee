@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   searchrss.php -- Tweet search query results formatted as RSS feed
- *   Version: 0.3.2
+ *   Version: 0.3.3
  * Copyright 2013 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
@@ -177,6 +177,13 @@ if ($code <> 200) {
     die("tweet_search connection failure");
 }
 
+//concatenate the URL for the atom href link
+if (defined('STDIN')) {
+    $thequery = $_SERVER['PHP_SELF'];
+} else {
+    $thequery = $_SERVER['PHP_SELF'] .'?'. urlencode($_SERVER['QUERY_STRING']);
+}
+
 $searchResultsObj = json_decode($tmhOAuth->response['response'], true);
 
 // Start the output
@@ -185,13 +192,11 @@ header("Content-type: text/xml; charset=utf-8");
 ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <atom:link href="<?php echo $my_domain ?><?php echo $_SERVER['PHP_SELF'] ?>" rel="self" type="application/rss+xml" />
+        <atom:link href="<?php echo $my_domain ?><?php echo $thequery ?>" rel="self" type="application/rss+xml" />
         <lastBuildDate><?php echo date(DATE_RSS); ?></lastBuildDate>
         <language>en</language>
         <title><?php echo $feedTitle; ?></title>
-        <description>
-            A Twitter search for the query "<?php echo $query; ?>" with the <?php echo $result_type?> search result type.
-        </description>
+        <description>A Twitter search for the query "<?php echo $query; ?>" with the <?php echo $result_type?> search result type</description>
         <link>http://www.twitter.com/search/?q=<?php echo $query; ?></link>
         <ttl>960</ttl>
         <generator>Tweetledee</generator>

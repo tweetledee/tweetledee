@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   listsrss.php -- User list tweets formatted as a RSS feed
- *   Version: 0.3.2
+ *   Version: 0.3.3
  * Copyright 2013 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
@@ -203,9 +203,7 @@ header("Content-type: text/xml; charset=utf-8");
         <lastBuildDate><?php echo date(DATE_RSS); ?></lastBuildDate>
         <language>en</language>
         <title>Twitter list feed for the <?php echo $screen_name; ?> list '<?php echo $list_name; ?>'</title>
-        <description>
-            Twitter list feed for the <?php echo $screen_name; ?> list '<?php echo $list_name; ?>'.
-        </description>
+        <description>Twitter list feed for the <?php echo $screen_name; ?> list '<?php echo $list_name; ?>'</description>
         <link>http://www.twitter.com/<?php echo $screen_name; ?></link>
         <ttl>960</ttl>
         <generator>Tweetledee</generator>

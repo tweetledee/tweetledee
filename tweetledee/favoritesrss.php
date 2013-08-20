@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   favoritesrss.php -- User favorites formatted as a RSS feed
- *   Version: 0.3.2
+ *   Version: 0.3.3
  * Copyright 2013 Christopher Simpkins & George Dorn
  * MIT License
  ************************************************************************************************/
@@ -156,15 +156,13 @@ header("Content-type: text/xml; charset=utf-8");
         <lastBuildDate><?php echo date(DATE_RSS); ?></lastBuildDate>
         <language>en</language>
         <title>Twitter favorites feed for <?php echo $screen_name; ?></title>
-        <description>
-            Twitter favorites  updates for <?php echo $screen_name; ?>.
-        </description>
+        <description>Twitter favorites updates for <?php echo $screen_name; ?></description>
         <link>http://www.twitter.com/<?php echo $screen_name; ?></link>
         <ttl>960</ttl>
         <generator>Tweetledee</generator>
         <category>Personal</category>
         <image>
-        <title>Twitter Favorites for <?php echo $screen_name; ?></title>
+        <title>Twitter favorites updated for <?php echo $screen_name; ?></title>
         <link>http://www.twitter.com/<?php echo $screen_name; ?>/favorites</link>
         <url><?php echo $twitterAvatarUrl ?></url>
         </image>
