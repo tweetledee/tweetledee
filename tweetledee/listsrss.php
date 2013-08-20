@@ -185,7 +185,11 @@ if ($code <> 200) {
 }
 
 //concatenate the URL for the atom href link
-$thequery = $_SERVER['PHP_SELF'] .'?'. urlencode($_SERVER['QUERY_STRING']);
+if (defined('STDIN')) {
+	$thequery = $_SERVER['PHP_SELF'];
+} else {
+	$thequery = $_SERVER['PHP_SELF'] .'?'. urlencode($_SERVER['QUERY_STRING']);
+}
 
 $userListObj = json_decode($tmhOAuth->response['response'], true);
 
@@ -195,21 +199,21 @@ header("Content-type: text/xml; charset=utf-8");
 ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <atom:link href="<?= $my_domain ?><?= $thequery ?>" rel="self" type="application/rss+xml" />
-        <lastBuildDate><?= date(DATE_RSS); ?></lastBuildDate>
+        <atom:link href="<?php echo $my_domain ?><?php echo $thequery ?>" rel="self" type="application/rss+xml" />
+        <lastBuildDate><?php echo date(DATE_RSS); ?></lastBuildDate>
         <language>en</language>
-        <title>Twitter list feed for the <?= $screen_name; ?> list '<?= $list_name; ?>'</title>
+        <title>Twitter list feed for the <?php echo $screen_name; ?> list '<?php echo $list_name; ?>'</title>
         <description>
-            Twitter list feed for the <?= $screen_name; ?> list '<?= $list_name; ?>'.
+            Twitter list feed for the <?php echo $screen_name; ?> list '<?php echo $list_name; ?>'.
         </description>
-        <link>http://www.twitter.com/<?= $screen_name; ?></link>
+        <link>http://www.twitter.com/<?php echo $screen_name; ?></link>
         <ttl>960</ttl>
         <generator>Tweetledee</generator>
         <category>Personal</category>
         <image>
-        <title>Twitter list feed for the <?= $screen_name; ?> list '<?= $list_name; ?>'</title>
-        <link>http://twitter.com/<?= $screen_name; ?>/<?= $list_name; ?></link>
-        <url><?= $twitterAvatarUrl ?></url>
+        <title>Twitter list feed for the <?php echo $screen_name; ?> list '<?php echo $list_name; ?>'</title>
+        <link>http://twitter.com/<?php echo $screen_name; ?>/<?php echo $list_name; ?></link>
+        <url><?php echo $twitterAvatarUrl ?></url>
         </image>
         <?php foreach ($userListObj as $currentitem) : ?>
             <item>
@@ -235,20 +239,20 @@ header("Content-type: text/xml; charset=utf-8");
                     $tweetTitle = $currentitem['text'];
                endif;
                 ?>
-				<title>[<?= $tweeter; ?>] <?= $tweetTitle; ?> </title>
-                <pubDate><?= reformatDate($currentitem['created_at']); ?></pubDate>
-                <link>https://twitter.com/<?= $tweeter ?>/statuses/<?= $currentitem['id_str']; ?></link>
-                <guid isPermaLink='false'><?= $currentitem['id_str']; ?></guid>
+				<title>[<?php echo $tweeter; ?>] <?php echo $tweetTitle; ?> </title>
+                <pubDate><?php echo reformatDate($currentitem['created_at']); ?></pubDate>
+                <link>https://twitter.com/<?php echo $tweeter ?>/statuses/<?php echo $currentitem['id_str']; ?></link>
+                <guid isPermaLink='false'><?php echo $currentitem['id_str']; ?></guid>
 
                 <description>
                     <![CDATA[
                         <div style='float:left;margin: 0 6px 6px 0;'>
-							<a href='https://twitter.com/<?= $screen_name ?>/statuses/<?= $currentitem['id_str']; ?>' border=0 target='blank'>
-								<img src='<?= $avatar; ?>' border=0 />
+							<a href='https://twitter.com/<?php echo $screen_name ?>/statuses/<?php echo $currentitem['id_str']; ?>' border=0 target='blank'>
+								<img src='<?php echo $avatar; ?>' border=0 />
 							</a>
 						</div>
-                        <strong><?= $fullname; ?></strong> <a href='https://twitter.com/<?= $tweeter; ?>' target='blank'>@<?= $tweeter;?></a><?= $rt ?><br />
-                        <?= $parsedTweet; ?>
+                        <strong><?php echo $fullname; ?></strong> <a href='https://twitter.com/<?php echo $tweeter; ?>' target='blank'>@<?php echo $tweeter;?></a><?php echo $rt ?><br />
+                        <?php echo $parsedTweet; ?>
                     ]]>
                </description>
             </item>
