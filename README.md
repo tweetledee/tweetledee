@@ -47,21 +47,26 @@ Tweetledee
 That was easy... Go crazy, be good, have fun.
 
 ## What You Get
-#### Twitter Favorites RSS Feed [<code>favoritesrss.php</code>]
-#### Twitter Favorites JSON [<code>favoritesjson.php</code>]
-#### Twitter Favorites Pretty Printed JSON [<code>favoritesjson_pp.php</code>]
-#### Twitter Home Timeline RSS Feed [<code>homerss.php</code>]
-#### Twitter Home Timeline JSON [<code>homejson.php</code>]
-#### Twitter Home Timeline Pretty Printed JSON [<code>homejson_pp.php</code>]
-#### Twitter User Lists RSS Feed [<code>listsrss.php</code>]
-#### Twitter User Lists JSON [<code>listsjson.php</code>]
-#### Twitter User Lists Pretty Printed JSON [<code>listsjson_pp.php</code>]
-#### Twitter User Timeline RSS Feed [<code>userrss.php</code>]
-#### Twitter User Timeline JSON [<code>userjson.php</code>]
-#### Twitter User Timeline Pretty Printed JSON [<code>userjson_pp.php</code>]
-#### Twitter Search RSS Feed [<code>searchrss.php</code>]
-#### Twitter Search JSON [<code>searchjson.php</code>]
-#### Twitter Search Pretty Printed JSON [<code>searchjson_pp.php</code>]
+### RSS Feeds
+##### Twitter Favorites RSS Feed [<code>favoritesrss.php</code>]
+##### Twitter Home Timeline RSS Feed [<code>homerss.php</code>]
+##### Twitter User Lists RSS Feed [<code>listsrss.php</code>]
+##### Twitter User Timeline RSS Feed [<code>userrss.php</code>]
+##### Twitter Search RSS Feed [<code>searchrss.php</code>]
+
+### JSON
+##### Twitter Favorites JSON [<code>favoritesjson.php</code>]
+##### Twitter Home Timeline JSON [<code>homejson.php</code>]
+##### Twitter User Lists JSON [<code>listsjson.php</code>]
+##### Twitter User Timeline JSON [<code>userjson.php</code>]
+##### Twitter Search JSON [<code>searchjson.php</code>]
+
+### Pretty-Printed JSON
+##### Twitter Favorites Pretty Printed JSON [<code>favoritesjson_pp.php</code>]
+##### Twitter Home Timeline Pretty Printed JSON [<code>homejson_pp.php</code>]
+##### Twitter User Lists Pretty Printed JSON [<code>listsjson_pp.php</code>]
+##### Twitter User Timeline Pretty Printed JSON [<code>userjson_pp.php</code>]
+##### Twitter Search Pretty Printed JSON [<code>searchjson_pp.php</code>]
 
 ## Usage
 <a href="http://chrissimpkins.github.io/tweetledee/usage.html">Tweetledee Usage Examples</a>
