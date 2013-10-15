@@ -11,7 +11,7 @@ Tweetledee
 - Developer Docs: [http://chrissimpkins.github.io/tweetledee/developer.html](http://chrissimpkins.github.io/tweetledee/developer.html)
 
 ## In Development
-- Ruby wrapper for the Tweetledee PHP data files
+- Ruby wrapper for the Tweetledee PHP data files (currently available on development branch)
 - Python wrapper for the Tweetledee PHP data files
 - Node.js wrapper for the Tweetledee PHP data files
 
