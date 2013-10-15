@@ -10,6 +10,11 @@ Tweetledee
 - Usage: [http://chrissimpkins.github.io/tweetledee/usage.html](http://chrissimpkins.github.io/tweetledee/usage.html)
 - Developer Docs: [http://chrissimpkins.github.io/tweetledee/developer.html](http://chrissimpkins.github.io/tweetledee/developer.html)
 
+## In Development
+- Ruby wrapper for the Tweetledee PHP data files
+- Python wrapper for the Tweetledee PHP data files
+- Node.js wrapper for the Tweetledee PHP data files
+
 ## Current Release
 - <b>0.3.3</b> : bug fixes for [issue #15](https://github.com/chrissimpkins/tweetledee/issues/15) & [issue #16](https://github.com/chrissimpkins/tweetledee/issues/16).  Thanks much for the contributions from @jjschwartz, @kabookey, and @mikeklimczak.
 
