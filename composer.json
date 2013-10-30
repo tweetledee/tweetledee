@@ -1,0 +1,19 @@
+{
+    "name": "simpkins/tweetledee",
+    "type": "library",
+    "description": "Easy access to Twitter RSS and JSON data",
+    "keywords": ["Twitter","web","command line","RSS","JSON","social media"],
+    "homepage": "http://github.com/chrissimpkins/tweetledee",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Christopher Simpkins",
+            "email": "chris@zerolabs.net",
+            "homepage": "http://sweetme.at",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+}
