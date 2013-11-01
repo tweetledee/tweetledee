@@ -2,7 +2,7 @@
 
 #################################################################
 # Tweetledee.py
-# A Python programming language wrapper for the Tweetldee project
+# A Python programming language wrapper for the Tweetledee project
 # Copyright 2013 Christopher Simpkins
 # MIT License
 #################################################################
