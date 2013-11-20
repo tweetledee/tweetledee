@@ -11,6 +11,7 @@ Tweetledee
 - Developer Docs: [http://chrissimpkins.github.io/tweetledee/developer.html](http://chrissimpkins.github.io/tweetledee/developer.html)
 
 ## In Development
+- Drop-in caching mechanism for your Twitter data (to stay within Twitter API limits)
 - Multiple programming language wrappers for the Tweetledee files
 
 ## Current Release
