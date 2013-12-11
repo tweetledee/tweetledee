@@ -11,7 +11,7 @@ Tweetledee
 - Developer Docs: [http://chrissimpkins.github.io/tweetledee/developer.html](http://chrissimpkins.github.io/tweetledee/developer.html)
 
 ## Current Release
-- <b>0.3.5</b> : bug fix for Twitter search filters [issue #28](https://github.com/chrissimpkins/tweetledee/issues/28)
+- <b>0.3.5</b> : bug fix for Twitter search filters [issue #28](https://github.com/chrissimpkins/tweetledee/issues/28).  Thanks much for the issue report @molis83!
 
 ## Recent Changes
 - <b>0.3.4</b> : added Python and Ruby wrappers for the Tweetledee files
