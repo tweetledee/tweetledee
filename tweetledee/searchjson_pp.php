@@ -61,7 +61,7 @@ else if (defined('STDIN')) {
     }
     $params = getopt($shortopts);
     if (isset($params['q'])){
-        $query = $params['q'];
+        $query = urlencode($params['q']);
     }
     else{
         die("Error: unable to parse the search query term in your request.  Please use the 'q' parameter in your request.");
@@ -147,7 +147,7 @@ else{
 }
 
 //url encode the search query
-$urlquery = urlencode($query);
+//$urlquery = urlencode($query);
 
 /*******************************************************************
 *  Request
@@ -158,7 +158,7 @@ $code = $tmhOAuth->user_request(array(
                 'include_entities' => true,
                 'count' => $count,
                 'result_type' => $result_type,
-                'q' => $urlquery,
+                'q' => $query,
             )
         ));
 

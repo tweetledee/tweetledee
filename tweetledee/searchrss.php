@@ -61,7 +61,7 @@ else if (defined('STDIN')) {
     }
     $params = getopt($shortopts);
     if (isset($params['q'])){
-        $query = $params['q'];
+        $query = urlencode($params['q']);
     }
     else{
         die("Error: unable to parse the search query term in your request.  Please use the 'q' parameter in your request.");
@@ -156,7 +156,7 @@ else{
 $feedTitle = 'Twitter search for "' . $query . '"';
 
 // URL encode the search query
-$urlquery = urlencode($query);
+//$urlquery = urlencode($query);
 
 /*******************************************************************
 *  Request
@@ -167,7 +167,7 @@ $code = $tmhOAuth->user_request(array(
           		'include_entities' => true,
     			'count' => $count,
                 'result_type' => $result_type,
-                'q' => $urlquery,
+                'q' => $query,
         	)
         ));
 
@@ -181,7 +181,7 @@ if ($code <> 200) {
 if (defined('STDIN')) {
     $thequery = $_SERVER['PHP_SELF'];
 } else {
-    $thequery = $_SERVER['PHP_SELF'] .'?'. urlencode($_SERVER['QUERY_STRING']);
+    $thequery = $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'];
 }
 
 $searchResultsObj = json_decode($tmhOAuth->response['response'], true);
