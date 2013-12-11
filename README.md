@@ -10,14 +10,11 @@ Tweetledee
 - Usage: [http://chrissimpkins.github.io/tweetledee/usage.html](http://chrissimpkins.github.io/tweetledee/usage.html)
 - Developer Docs: [http://chrissimpkins.github.io/tweetledee/developer.html](http://chrissimpkins.github.io/tweetledee/developer.html)
 
-## In Development
-- Drop-in caching mechanism for your Twitter data (to stay within Twitter API limits)
-- Multiple programming language wrappers for the Tweetledee files
-
 ## Current Release
-- <b>0.3.4</b> : added Python and Ruby wrappers for the Tweetledee files
+- <b>0.3.5</b> : bug fix for Twitter search filters [issue #28](https://github.com/chrissimpkins/tweetledee/issues/28)
 
 ## Recent Changes
+- <b>0.3.4</b> : added Python and Ruby wrappers for the Tweetledee files
 - <b>0.3.3</b> : bug fixes for [issue #15](https://github.com/chrissimpkins/tweetledee/issues/15) & [issue #16](https://github.com/chrissimpkins/tweetledee/issues/16).  Thanks much for the contributions from @jjschwartz, @kabookey, and @mikeklimczak.
 - <b>0.3.2</b> : bug fixes for [issue #14](https://github.com/chrissimpkins/tweetledee/issues/14)
 - <b>0.3.1</b> : Updated all standard JSON files with cross site access to your Twitter JSON data from client side JavaScript code (sets the Access-Control-Allow-Origin header to accept all connections, i.e. cross origin resource sharing). Defaults to off.  Set the flag `$TLD_JS = 1` in the file to activate this capability.
