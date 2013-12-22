@@ -174,7 +174,9 @@ $code = $tmhOAuth->user_request(array(
 // Anything except code 200 is a failure to get the information
 if ($code <> 200) {
     echo $tmhOAuth->response['error'];
-    die("tweet_search connection failure");
+    echo "HTTP Status Code: $code";
+    echo " ";
+    die("tweet search failure");
 }
 
 //concatenate the URL for the atom href link
@@ -192,11 +194,11 @@ header("Content-type: text/xml; charset=utf-8");
 ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <atom:link href="<?php echo $my_domain ?><?php echo $thequery ?>" rel="self" type="application/rss+xml" />
+        <atom:link href="<?php echo $my_domain; ?><?php echo urlencode($thequery); ?>" rel="self" type="application/rss+xml" />
         <lastBuildDate><?php echo date(DATE_RSS); ?></lastBuildDate>
         <language>en</language>
         <title><?php echo $feedTitle; ?></title>
-        <description>A Twitter search for the query "<?php echo $query; ?>" with the <?php echo $result_type?> search result type</description>
+        <description>A Twitter search for the query "<?php echo $query; ?>" with the <?php echo $result_type; ?> search result type</description>
         <link>http://www.twitter.com/search/?q=<?php echo $query; ?></link>
         <ttl>960</ttl>
         <generator>Tweetledee</generator>
