@@ -22,7 +22,7 @@ class tldCache {
    */
   public function __construct( $keys=array(), $cache_interval = 300 ) {
     $this->tmhOAuth = new tmhOAuth( $keys );
-    $this->cache_interval = $cache_interval;
+    $this->interval = $cache_interval;
   }
 
   /**
