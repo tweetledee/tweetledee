@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   listsjson_pp.php -- User list tweets formatted as pretty printed JSON
- *   Version: 0.3.6
+ *   Version: 0.3.7
  * Copyright 2013 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
@@ -45,6 +45,9 @@ require 'tldlib/keys/tweetledee_keys.php';
 // include Geoff Smith's utility functions
 require 'tldlib/tldUtilities.php';
 
+// include Christian Varga's twitter cache
+require 'tldlib/tldCache.php';
+
 /***************************************************************************************
 *  Mandatory parameter (list)
 *   - do not execute the OAuth authentication request if missing (keep before OAuth code)
@@ -71,50 +74,17 @@ else if (defined('STDIN')) {
         die("Error: unable to parse the user list name in your request.  Please use the 'list' parameter in your request.");
     }
 }
-else {
+else{
     die("Error: missing user list name in your request.  Please use the 'list' parameter in your request.");
 }
-
-/*******************************************************************
-*  OAuth
-********************************************************************/
-$tmhOAuth = new tmhOAuth(array(
-            'consumer_key'        => $my_consumer_key,
-            'consumer_secret'     => $my_consumer_secret,
-            'user_token'          => $my_access_token,
-            'user_secret'         => $my_access_token_secret,
-            'curl_ssl_verifypeer' => false
-        ));
-
-// request the user information
-$code = $tmhOAuth->user_request(array(
-			'url' => $tmhOAuth->url('1.1/account/verify_credentials')
-          )
-        );
-
-// Display error response if do not receive 200 response code
-if ($code <> 200) {
-    if ($code == 429) {
-        die("Exceeded Twitter API rate limit");
-    }
-    echo $tmhOAuth->response['error'];
-    die("verify_credentials connection failure");
-}
-
-// Decode JSON
-$data = json_decode($tmhOAuth->response['response'], true);
-
-// Parse information from response
-$twitterName = $data['screen_name'];
-$fullName = $data['name'];
-$twitterAvatarUrl = $data['profile_image_url'];
 
 /*******************************************************************
 *  Defaults
 ********************************************************************/
 $count = 25;  //default tweet number = 25
 $include_retweets = true;  //default to include retweets
-$screen_name = $data['screen_name'];
+$screen_name = '';
+$cache_interval = 300; // default cache interval = 300 seconds (5 minutes)
 
 /*******************************************************************
 *   Optional Parameters
@@ -141,6 +111,9 @@ if (defined('STDIN')) {
         if (isset($params['xrt'])){
             $include_retweets = false;
         }
+        if (isset($params['cache_interval'])){
+            $cache_interval = $params['cache_interval'];
+        }
     }
 } //end if defined 'stdin'
 // Web server URL parameter definitions //
@@ -161,30 +134,47 @@ else{
     if (isset($_GET["xrt"])){
         $include_retweets = false;
     }
+
+    // cache_interval = the amount of time to keep the cached file
+    if (isset($_GET["cache_interval"])){
+        $cache_interval = $_GET["cache_interval"];
+    }
 } //end else
+
+/*******************************************************************
+*  OAuth
+********************************************************************/
+
+$tldCache = new tldCache(array(
+            'consumer_key'        => $my_consumer_key,
+            'consumer_secret'     => $my_consumer_secret,
+            'user_token'          => $my_access_token,
+            'user_secret'         => $my_access_token_secret,
+            'curl_ssl_verifypeer' => false
+        ), $cache_interval);
+
+// request the user information
+$data = $tldCache->auth_request();
+
+// Parse information from response
+if ( $screen_name == '' ) $screen_name = $data['screen_name'];
+$fullName = $data['name'];
+$twitterAvatarUrl = $data['profile_image_url'];
 
 /*******************************************************************
 *  Request
 ********************************************************************/
-$code = $tmhOAuth->user_request(array(
-			'url' => $tmhOAuth->url('1.1/lists/statuses'),
-			'params' => array(
-          		'include_entities' => true,
-    			'count' => $count,
-    			'owner_screen_name' => $screen_name,
+
+$userListObj = $tldCache->user_request(array(
+            'url' => '1.1/lists/statuses',
+            'params' => array(
+                'include_entities' => true,
+                'count' => $count,
+                'owner_screen_name' => $screen_name,
                 'slug' => $list_name,
                 'include_rts' => $include_retweets,
-        	)
+            )
         ));
-
-// Anything except code 200 is a failure to get the information
-if ($code <> 200) {
-    echo $tmhOAuth->response['error'];
-    echo("Please confirm that you included the required URL parameters and the correct list slug.");
-    die(" (user_list connection failure)");
-}
-
-$userListObj = json_decode($tmhOAuth->response['response'], true);
 
 header('Content-Type: application/json');
 echo json_encode($userListObj, JSON_PRETTY_PRINT);
