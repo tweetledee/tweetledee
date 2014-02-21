@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   userrss.php -- User timeline results formatted as a RSS feed
- *   Version: 0.3.6
+ *   Version: 0.4.6
  * Copyright 2013 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
@@ -45,39 +45,8 @@ require 'tldlib/keys/tweetledee_keys.php';
 // include Geoff Smith's utility functions
 require 'tldlib/tldUtilities.php';
 
-/*******************************************************************
-*  OAuth
-********************************************************************/
-$tmhOAuth = new tmhOAuth(array(
-            'consumer_key'        => $my_consumer_key,
-            'consumer_secret'     => $my_consumer_secret,
-            'user_token'          => $my_access_token,
-            'user_secret'         => $my_access_token_secret,
-            'curl_ssl_verifypeer' => false
-        ));
-
-// request the user information
-$code = $tmhOAuth->user_request(array(
-			'url' => $tmhOAuth->url('1.1/account/verify_credentials')
-          )
-        );
-
-// Display error response if do not receive 200 response code
-if ($code <> 200) {
-    if ($code == 429) {
-        die("Exceeded Twitter API rate limit");
-    }
-    echo $tmhOAuth->response['error'];
-    die("verify_credentials connection failure");
-}
-
-// Decode JSON
-$data = json_decode($tmhOAuth->response['response'], true);
-
-// Parse information from response
-$twitterName = $data['screen_name'];
-$fullName = $data['name'];
-$twitterAvatarUrl = $data['profile_image_url'];
+// include Christian Varga's twitter cache
+require 'tldlib/tldCache.php';
 
 /*******************************************************************
 *  Defaults
@@ -85,7 +54,8 @@ $twitterAvatarUrl = $data['profile_image_url'];
 $count = 25;  //default tweet number = 25
 $include_retweets = true;  //default to include retweets
 $exclude_replies = false;  //default to include replies
-$screen_name = $data['screen_name'];
+$screen_name = '';
+$cache_interval = 300; // default cache interval = 300 seconds (5 minutes)
 
 /*******************************************************************
 *   Parameters
@@ -117,6 +87,9 @@ if (defined('STDIN')) {
         if (isset($params['user'])){
             $screen_name = $params['user'];
         }
+        if (isset($params['cache_interval'])){
+            $cache_interval = $params['cache_interval'];
+        }
     }
 }
 // Web server URL parameter definitions //
@@ -143,35 +116,55 @@ else {
     if (isset($_GET["user"])){
         $screen_name = $_GET["user"];
     }
+    // cache_interval = the amount of time to keep the cached file
+    if (isset($_GET["cache_interval"])){
+        $cache_interval = $_GET["cache_interval"];
+    }
 } // end else block
+
+/*******************************************************************
+*  OAuth
+********************************************************************/
+
+$tldCache = new tldCache(array(
+            'consumer_key'        => $my_consumer_key,
+            'consumer_secret'     => $my_consumer_secret,
+            'user_token'          => $my_access_token,
+            'user_secret'         => $my_access_token_secret,
+            'curl_ssl_verifypeer' => false
+        ), $cache_interval);
+
+// request the user information
+$data = $tldCache->auth_request();
+
+// Parse information from response
+$twitterName = $data['screen_name'];
+$fullName = $data['name'];
+$twitterAvatarUrl = $data['profile_image_url'];
+
+if ( $screen_name == '' ) $screen_name = $data['screen_name'];
 
 /*******************************************************************
 *  Request
 ********************************************************************/
-$code = $tmhOAuth->user_request(array(
-			'url' => $tmhOAuth->url('1.1/statuses/user_timeline'),
-			'params' => array(
-          		'include_entities' => true,
-    			'count' => $count,
-    			'exclude_replies' => $exclude_replies,
-    			'include_rts' => $include_retweets,
-    			'screen_name' => $screen_name,
-        	)
+
+$userTimelineObj = $tldCache->user_request(array(
+            'url' => '1.1/statuses/user_timeline',
+            'params' => array(
+                'include_entities' => true,
+                'count' => $count,
+                'exclude_replies' => $exclude_replies,
+                'include_rts' => $include_retweets,
+                'screen_name' => $screen_name,
+            )
         ));
 
-// Anything except code 200 is a failure to get the information
-if ($code <> 200) {
-    echo $tmhOAuth->response['error'];
-    die("user_timeline connection failure");
-}
 // concatenate the URL for the atom href link
 if (defined('STDIN')) {
-	$thequery = $_SERVER['PHP_SELF'];
+    $thequery = $_SERVER['PHP_SELF'];
 } else {
-	$thequery = $_SERVER['PHP_SELF'] .'?'. urlencode($_SERVER['QUERY_STRING']);
+    $thequery = $_SERVER['PHP_SELF'] .'?'. urlencode($_SERVER['QUERY_STRING']);
 }
-
-$userTimelineObj = json_decode($tmhOAuth->response['response'], true);
 
 // Start the output
 header("Content-Type: application/rss+xml");
