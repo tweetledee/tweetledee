@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   userjson_pp.php -- User timeline results formatted as pretty printed JSON
- *   Version: 0.4.6
+ *   Version: 0.3.7
  * Copyright 2013 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
