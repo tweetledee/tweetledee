@@ -176,7 +176,7 @@ class tldCache {
   private function set_cached_file( $file, $json ) {
     $cache_file = dirname(__FILE__).'/cache/'.$file;
     
-    if ( $json ) {
+    if ( $json && is_writable( dirname( $cache_file ) ) ) {
       $cache_static = fopen( $cache_file, 'w' );
       fwrite( $cache_static, $json );
       fclose( $cache_static );
