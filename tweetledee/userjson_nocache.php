@@ -1,23 +1,27 @@
 <?php
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
- *   homejson.php -- Home timeline results formatted as JSON
- *   Version: 0.3.6
- * Copyright 2013 Christopher Simpkins
+ *   userjson.php -- User timeline results formatted as JSON
+ *   Version: 0.4.0
+ * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
-    - Access the default home timeline JSON (count = 25 & includes replies) at the following URL:
-            e.g. http://<yourdomain>/tweetledee/homejson.php
-==> User's Home Timeline JSON parameters:
+    - Access the default user timeline JSON (count = 25, includes both RT's & replies) at the following URL:
+            e.g. http://<yourdomain>/tweetledee/userjson.php
+==> User Timeline JSON parameters:
     - 'c' - specify a tweet count (range 1 - 200, default = 25)
-            e.g. http://<yourdomain>/tweetledee/homejson.php?c=100
+            e.g. http://<yourdomain>/tweetledee/userjson.php?c=100
+    - 'user' - specify the Twitter user whose timeline you would like to retrieve (default = account associated with access token)
+            e.g. http://<yourdomain>/tweetledee/userjson.php?user=cooluser
+    - 'xrt' - exclude retweets (1=true, default = false)
+            e.g. http://<yourdomain>/tweetledee/userjson.php?xrt=1
     - 'xrp' - exclude replies (1=true, default = false)
-            e.g. http://<yourdomain>/tweetledee/homejson.php?xrp=1
+            e.g. http://<yourdomain>/tweetledee/userjson.php?xrp=1
     - Example of all of the available parameters:
-            e.g. http://<yourdomain>/tweetledee/homejson.php?c=100&xrp=1
+            e.g. http://<yourdomain>/tweetledee/userjson.php?c=100&xrt=1&xrp=1&user=cooluser
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
 *  Debugging Flag
@@ -39,6 +43,7 @@ if ($TLD_JS == 1) {
 /*******************************************************************
 *  Includes
 ********************************************************************/
+
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
 require 'tldlib/tmhUtilities.php';
@@ -82,6 +87,7 @@ $data = json_decode($tmhOAuth->response['response'], true);
 *  Defaults
 ********************************************************************/
 $count = 25;  //default tweet number = 25
+$include_retweets = true;  //default to include retweets
 $exclude_replies = false;  //default to include replies
 $screen_name = $data['screen_name'];
 
@@ -90,62 +96,81 @@ $screen_name = $data['screen_name'];
 *    - can pass via URL to web server
 *    - or as a short or long switch at the command line
 ********************************************************************/
+
 // Command line parameter definitions //
 if (defined('STDIN')) {
     // check whether arguments were passed, if not there is no need to attempt to check the array
     if (isset($argv)){
         $shortopts = "c:";
         $longopts = array(
+            "xrt",
             "xrp",
+            "user:",
         );
         $params = getopt($shortopts, $longopts);
         if (isset($params['c'])){
             if ($params['c'] > 0 && $params['c'] <= 200)
                 $count = $params['c'];  //assign to the count variable
         }
+        if (isset($params['xrt'])){
+            $include_retweets = false;
+        }
         if (isset($params['xrp'])){
             $exclude_replies = true;
         }
-    }
-
-} //end if
-// Web server URL parameter definitions //
-else{
-    // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
-    if (isset($_GET["c"])){
-        $getcount = $_GET["c"];
-        if ($getcount > 0 && $getcount <= 200){
-        	$count = $getcount;
+        if (isset($params['user'])){
+            $screen_name = $params['user'];
         }
     }
-
+}
+// Web server URL parameter definitions //
+else {
+    // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
+    if (isset($_GET["c"])){
+        if ($_GET["c"] > 0 && $_GET["c"] <= 200){
+            $count = $_GET["c"];
+        }
+    }
+    // xrt = exclude retweets from the timeline ( possible values: 1=true, else false)
+    if (isset($_GET["xrt"])){
+        if ($_GET["xrt"] == 1){
+            $include_retweets = false;
+        }
+    }
     // xrp = exclude replies from the timeline (possible values: 1=true, else false)
     if (isset($_GET["xrp"])){
         if ($_GET["xrp"] == 1){
             $exclude_replies = true;
         }
     }
-} //end else
+    // user = Twitter screen name for the user timeline that the user is requesting (default = their own, possible values = any other Twitter user name)
+    if (isset($_GET["user"])){
+        $screen_name = $_GET["user"];
+    }
+} // end else block
 
 /*******************************************************************
 *  Request
 ********************************************************************/
+// request the user timeline using the parameters that were parsed from URL or that are defaults
 $code = $tmhOAuth->user_request(array(
-			'url' => $tmhOAuth->url('1.1/statuses/home_timeline'),
+			'url' => $tmhOAuth->url('1.1/statuses/user_timeline'),
 			'params' => array(
           		'include_entities' => true,
     			'count' => $count,
     			'exclude_replies' => $exclude_replies,
+    			'include_rts' => $include_retweets,
+    			'screen_name' => $screen_name,
         	)
         ));
 
 // Anything except code 200 is a failure to get the information
 if ($code <> 200) {
     echo $tmhOAuth->response['error'];
-    die("home_timeline connection failure");
+    die("user_timeline connection failure");
 }
 
-$homeTimelineObj = json_decode($tmhOAuth->response['response'], true);
+$userTimelineObj = json_decode($tmhOAuth->response['response'], true);
 header('Content-Type: application/json');
-echo json_encode($homeTimelineObj);
+echo json_encode($userTimelineObj);
 

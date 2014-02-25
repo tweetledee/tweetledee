@@ -2,8 +2,8 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   favoritesjson.php -- User favorites formatted as JSON
- *   Version: 0.3.6
- * Copyright 2013 Christopher Simpkins
+ *   Version: 0.4.0
+ * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
 /*-----------------------------------------------------------------------------------------------

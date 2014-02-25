@@ -1,26 +1,27 @@
 <?php
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
- *   searchjson.php -- Tweet search query results formatted as JSON
- *   Version: 0.3.6
- * Copyright 2013 Christopher Simpkins
+ *   searchrss.php -- Tweet search query results formatted as RSS feed
+ *   Version: 0.4.0
+ * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
-    - Generic tweet search JSON URL (count = 25):
-            e.g. http://<yourdomain>/tweetledee/searchjson.php?q=<search-term>
-==> Twitter Tweet Search JSON parameters:
-    - 'c' - specify a tweet count (range 1 - 200, default = 25)
-            e.g. http://<yourdomain>/tweetledee/searchjson.php?q=<search-term>&c=100
-    - 'rt' - result type (possible values: mixed, recent, popular; default = mixed)
-            e.g. http://<yourdomain>/tweetledee/searchjson.php?q=<search-term>&rt=recent
-    - 'q' - query term
-            e.g. http://<yourdomain>/tweetledee/searchjson.php?q=coolsearch
-    -  Example of all parameters
-            http://<yourdomain>/tweetledee/searchjson.php?q=coolsearch&c=50&rt=recent
+    - Generic tweet search RSS feed URL (count = 25):
+            e.g. http://<yourdomain>/tweetledee/searchrss.php?q=<search-term>
+==> Twitter Tweet Search RSS feed parameters:
+    - 'c'   - specify a tweet count (range 1 - 200, default = 25)
+            e.g. http://<yourdomain>/tweetledee/searchrss.php?q=<search-term>&c=100
+    - 'rt'  - result type (possible values: mixed, recent, popular; default = mixed)
+            e.g. http://<yourdomain>/tweetledee/searchrss.php?q=<search-term>&rt=recent
+    - 'q'   - query term
+             e.g. http://<yourdomain>/tweetledee/searchrss.php?q=coolsearch
+    - Example of all parameters
+            http://<yourdomain>/tweetledee/searchrss.php?q=coolsearch&c=50&rt=recent
 --------------------------------------------------------------------------------------------------*/
+
 /*******************************************************************
 *  Debugging Flag
 ********************************************************************/
@@ -28,14 +29,6 @@ $TLD_DEBUG = 0;
 if ($TLD_DEBUG == 1){
     ini_set('display_errors', 'On');
     error_reporting(E_ALL | E_STRICT);
-}
-
-/*******************************************************************
-*  Client Side JavaScript Access Flag (default = 0 = off)
-********************************************************************/
-$TLD_JS = 0;
-if ($TLD_JS == 1) {
-    header('Access-Control-Allow-Origin: *');
 }
 
 /*******************************************************************
@@ -107,11 +100,17 @@ if ($code <> 200) {
 // Decode JSON
 $data = json_decode($tmhOAuth->response['response'], true);
 
+// Parse information from response
+$twitterName = $data['screen_name'];
+$fullName = $data['name'];
+$twitterAvatarUrl = $data['profile_image_url'];
+
 /*******************************************************************
 *  Defaults
 ********************************************************************/
 $count = 25;  //default tweet number = 25
 $result_type = 'mixed'; //default to mixed popular and realtime results
+
 
 /*******************************************************************
 *   Optional Parameters
@@ -153,7 +152,10 @@ else{
     }
 }
 
-//url encode the search query
+//Create the feed title with the query
+$feedTitle = 'Twitter search for "' . $query . '"';
+
+// URL encode the search query
 //$urlquery = urlencode($query);
 
 /*******************************************************************
@@ -172,9 +174,81 @@ $code = $tmhOAuth->user_request(array(
 // Anything except code 200 is a failure to get the information
 if ($code <> 200) {
     echo $tmhOAuth->response['error'];
-    die("tweet_search connection failure");
+    echo "HTTP Status Code: $code";
+    echo " ";
+    die("tweet search failure");
+}
+
+//concatenate the URL for the atom href link
+if (defined('STDIN')) {
+    $thequery = $_SERVER['PHP_SELF'];
+} else {
+    $thequery = $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'];
 }
 
 $searchResultsObj = json_decode($tmhOAuth->response['response'], true);
-header('Content-Type: application/json');
-echo json_encode($searchResultsObj);
+
+// Start the output
+header("Content-Type: application/rss+xml");
+header("Content-type: text/xml; charset=utf-8");
+?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <atom:link href="<?php echo $my_domain; ?><?php echo urlencode($thequery); ?>" rel="self" type="application/rss+xml" />
+        <lastBuildDate><?php echo date(DATE_RSS); ?></lastBuildDate>
+        <language>en</language>
+        <title><?php echo $feedTitle; ?></title>
+        <description>A Twitter search for the query "<?php echo $query; ?>" with the <?php echo $result_type; ?> search result type</description>
+        <link>http://www.twitter.com/search/?q=<?php echo $query; ?></link>
+        <ttl>960</ttl>
+        <generator>Tweetledee</generator>
+        <category>Personal</category>
+        <image>
+        <title><?php echo $feedTitle; ?></title>
+        <link>http://www.twitter.com/<?php echo $twitterName; ?></link>
+        <url>http://www.twitter.com/search/?q=<?php echo $query; ?></url>
+        </image>
+        <?php foreach ($searchResultsObj['statuses'] as $currentitem) : ?>
+            <item>
+                 <?php
+                 $parsedTweet = tmhUtilities::entify_with_options(
+                        objectToArray($currentitem),
+                        array(
+                            'target' => 'blank',
+                        )
+                 );
+
+                if (isset($currentitem['retweeted_status'])) :
+                    $avatar = $currentitem['retweeted_status']['user']['profile_image_url'];
+                    $rt = '&nbsp;&nbsp;&nbsp;&nbsp;[<em style="font-size:smaller;">Retweeted by ' . $currentitem['user']['screen_name'] . ' <a href=\'http://twitter.com/' . $currentitem['user']['screen_name'] . '\'>@' . $currentitem['user']['screen_name'] . '</a></em>]';
+                    $tweeter =  $currentitem['retweeted_status']['user']['screen_name'];
+                    $fullname = $currentitem['retweeted_status']['user']['name'];
+                    $tweetTitle = $currentitem['retweeted_status']['text'];
+                else :
+                    $avatar = $currentitem['user']['profile_image_url'];
+                    $rt = '';
+                    $tweeter = $currentitem['user']['screen_name'];
+                    $fullname = $currentitem['user']['name'];
+                    $tweetTitle = $currentitem['text'];
+               endif;
+                ?>
+                <title>[<?php echo $tweeter; ?>] <?php echo $tweetTitle; ?> </title>
+                <pubDate><?php echo reformatDate($currentitem['created_at']); ?></pubDate>
+                <link>https://twitter.com/<?php echo $currentitem['user']['screen_name'] ?>/statuses/<?php echo $currentitem['id_str']; ?></link>
+                <guid isPermaLink='false'><?php echo $currentitem['id_str']; ?></guid>
+
+                <description>
+                    <![CDATA[
+                        <div style='float:left;margin: 0 6px 6px 0;'>
+                            <a href='https://twitter.com/<?php echo $tweeter ?>/statuses/<?php echo $currentitem['id_str']; ?>' border=0 target='blank'>
+                                <img src='<?php echo $avatar; ?>' border=0 />
+                            </a>
+                        </div>
+                        <strong><?php echo $fullname; ?></strong> <a href='https://twitter.com/<?php echo $tweeter; ?>' target='blank'>@<?php echo $tweeter;?></a><?php echo $rt ?><br />
+                        <?php echo $parsedTweet; ?>
+                    ]]>
+               </description>
+            </item>
+        <?php endforeach; ?>
+    </channel>
+</rss>

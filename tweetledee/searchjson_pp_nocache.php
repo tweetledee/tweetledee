@@ -1,28 +1,27 @@
 <?php
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
- *   userjson.php -- User timeline results formatted as JSON
- *   Version: 0.3.6
- * Copyright 2013 Christopher Simpkins
+ *   searchjson_pp.php -- Tweet search query results formatted as pretty printed JSON
+ *   Version: 0.4.0
+ * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
-    - Access the default user timeline JSON (count = 25, includes both RT's & replies) at the following URL:
-            e.g. http://<yourdomain>/tweetledee/userjson.php
-==> User Timeline JSON parameters:
+    - Generic tweet search pretty printed JSON URL (count = 25):
+            e.g. http://<yourdomain>/tweetledee/searchjson_pp.php?q=<search-term>
+==> Twitter Tweet Search Pretty Printed JSON parameters:
     - 'c' - specify a tweet count (range 1 - 200, default = 25)
-            e.g. http://<yourdomain>/tweetledee/userjson.php?c=100
-    - 'user' - specify the Twitter user whose timeline you would like to retrieve (default = account associated with access token)
-            e.g. http://<yourdomain>/tweetledee/userjson.php?user=cooluser
-    - 'xrt' - exclude retweets (1=true, default = false)
-            e.g. http://<yourdomain>/tweetledee/userjson.php?xrt=1
-    - 'xrp' - exclude replies (1=true, default = false)
-            e.g. http://<yourdomain>/tweetledee/userjson.php?xrp=1
-    - Example of all of the available parameters:
-            e.g. http://<yourdomain>/tweetledee/userjson.php?c=100&xrt=1&xrp=1&user=cooluser
+            e.g. http://<yourdomain>/tweetledee/searchjson_pp.php?q=<search-term>&c=100
+    - 'rt' - result type (possible values: mixed, recent, popular; default = mixed)
+            e.g. http://<yourdomain>/tweetledee/searchjson_pp.php?q=<search-term>&rt=recent
+    - 'q' - query term
+            e.g. http://<yourdomain>/tweetledee/searchjson_pp.php?q=coolsearch
+    - Example of all parameters:
+            http://<yourdomain>/tweetledee/searchjson_pp.php?q=coolsearch&c=50&rt=recent
 --------------------------------------------------------------------------------------------------*/
+
 /*******************************************************************
 *  Debugging Flag
 ********************************************************************/
@@ -33,17 +32,8 @@ if ($TLD_DEBUG == 1){
 }
 
 /*******************************************************************
-*  Client Side JavaScript Access Flag (default = 0 = off)
-********************************************************************/
-$TLD_JS = 0;
-if ($TLD_JS == 1) {
-    header('Access-Control-Allow-Origin: *');
-}
-
-/*******************************************************************
 *  Includes
 ********************************************************************/
-
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
 require 'tldlib/tmhUtilities.php';
@@ -53,6 +43,33 @@ require 'tldlib/keys/tweetledee_keys.php';
 
 // include Geoff Smith's utility functions
 require 'tldlib/tldUtilities.php';
+
+/***************************************************************************************
+*  Mandatory parameter (q)
+*   - do not execute the OAuth authentication request if missing (keep before OAuth code)
+****************************************************************************************/
+// q = search query term
+if (isset($_GET["q"])){
+    $query = $_GET["q"];
+}
+else if (defined('STDIN')) {
+    if (isset($argv)){
+        $shortopts = "q:";
+    }
+    else {
+        die("Error: missing the search query term in your request.  Please use the 'q' parameter in your request.");
+    }
+    $params = getopt($shortopts);
+    if (isset($params['q'])){
+        $query = urlencode($params['q']);
+    }
+    else{
+        die("Error: unable to parse the search query term in your request.  Please use the 'q' parameter in your request.");
+    }
+}
+else{
+    die("Error: missing search query term in your request.  Please use the 'q' parameter in your request.");
+}
 
 /*******************************************************************
 *  OAuth
@@ -67,7 +84,7 @@ $tmhOAuth = new tmhOAuth(array(
 
 // request the user information
 $code = $tmhOAuth->user_request(array(
-			'url' => $tmhOAuth->url('1.1/account/verify_credentials')
+            'url' => $tmhOAuth->url('1.1/account/verify_credentials')
           )
         );
 
@@ -87,12 +104,10 @@ $data = json_decode($tmhOAuth->response['response'], true);
 *  Defaults
 ********************************************************************/
 $count = 25;  //default tweet number = 25
-$include_retweets = true;  //default to include retweets
-$exclude_replies = false;  //default to include replies
-$screen_name = $data['screen_name'];
+$result_type = 'mixed'; //default to mixed popular and realtime results
 
 /*******************************************************************
-*   Parameters
+*   Optional Parameters
 *    - can pass via URL to web server
 *    - or as a short or long switch at the command line
 ********************************************************************/
@@ -103,74 +118,56 @@ if (defined('STDIN')) {
     if (isset($argv)){
         $shortopts = "c:";
         $longopts = array(
-            "xrt",
-            "xrp",
-            "user:",
+            "rt",
         );
         $params = getopt($shortopts, $longopts);
         if (isset($params['c'])){
             if ($params['c'] > 0 && $params['c'] <= 200)
                 $count = $params['c'];  //assign to the count variable
         }
-        if (isset($params['xrt'])){
-            $include_retweets = false;
-        }
-        if (isset($params['xrp'])){
-            $exclude_replies = true;
-        }
-        if (isset($params['user'])){
-            $screen_name = $params['user'];
+        if (isset($params['rt'])){
+            $result_type = $params['rt'];
         }
     }
 }
 // Web server URL parameter definitions //
-else {
+else{
     // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
     if (isset($_GET["c"])){
         if ($_GET["c"] > 0 && $_GET["c"] <= 200){
             $count = $_GET["c"];
         }
     }
-    // xrt = exclude retweets from the timeline ( possible values: 1=true, else false)
-    if (isset($_GET["xrt"])){
-        if ($_GET["xrt"] == 1){
-            $include_retweets = false;
+    // rt = response type
+    if (isset($_GET["rt"])){
+        if ($_GET["rt"] == 'popular' || $_GET["rt"] == 'recent'){
+            $result_type = $_GET["rt"];
         }
     }
-    // xrp = exclude replies from the timeline (possible values: 1=true, else false)
-    if (isset($_GET["xrp"])){
-        if ($_GET["xrp"] == 1){
-            $exclude_replies = true;
-        }
-    }
-    // user = Twitter screen name for the user timeline that the user is requesting (default = their own, possible values = any other Twitter user name)
-    if (isset($_GET["user"])){
-        $screen_name = $_GET["user"];
-    }
-} // end else block
+}
+
+//url encode the search query
+//$urlquery = urlencode($query);
 
 /*******************************************************************
 *  Request
 ********************************************************************/
-// request the user timeline using the parameters that were parsed from URL or that are defaults
 $code = $tmhOAuth->user_request(array(
-			'url' => $tmhOAuth->url('1.1/statuses/user_timeline'),
-			'params' => array(
-          		'include_entities' => true,
-    			'count' => $count,
-    			'exclude_replies' => $exclude_replies,
-    			'include_rts' => $include_retweets,
-    			'screen_name' => $screen_name,
-        	)
+            'url' => $tmhOAuth->url('1.1/search/tweets'),
+            'params' => array(
+                'include_entities' => true,
+                'count' => $count,
+                'result_type' => $result_type,
+                'q' => $query,
+            )
         ));
 
 // Anything except code 200 is a failure to get the information
 if ($code <> 200) {
     echo $tmhOAuth->response['error'];
-    die("user_timeline connection failure");
+    die("tweet_search connection failure");
 }
 
-$userTimelineObj = json_decode($tmhOAuth->response['response'], true);
+$searchResultsObj = json_decode($tmhOAuth->response['response'], true);
 header('Content-Type: application/json');
-echo json_encode($userTimelineObj);
-
+echo json_encode($searchResultsObj, JSON_PRETTY_PRINT);

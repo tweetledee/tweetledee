@@ -1,23 +1,27 @@
 <?php
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
- *   favoritesrss.php -- User favorites formatted as a RSS feed
- *   Version: 0.3.6
- * Copyright 2013 Christopher Simpkins & George Dorn
+ *   userrss.php -- User timeline results formatted as a RSS feed
+ *   Version: 0.4.0
+ * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
-    - Access the default user favorites feed (count = 25, includes both RT's & replies) at the following URL:
-            e.g. http://<yourdomain>/tweetledee/favoritesrss.php
-==> User Favorites RSS feed parameters:
+    - Access the default user timeline feed (count = 25, includes both RT's & replies) at the following URL:
+            e.g. http://<yourdomain>/tweetledee/userrss.php
+==> User Timeline RSS feed parameters:
     - 'c' - specify a tweet count (range 1 - 200, default = 25)
-            e.g. http://<yourdomain>/tweetledee/favoritesrss.php?c=100
-    - 'user' - specify the Twitter user whose favorites you would like to retrieve (default = account associated with access token)
-            e.g. http://<yourdomain>/tweetledee/favoritesrss.php?user=cooluser
+            e.g. http://<yourdomain>/tweetledee/userrss.php?c=100
+    - 'user' - specify the Twitter user whose timeline you would like to retrieve (default = account associated with access token)
+            e.g. http://<yourdomain>/tweetledee/userrss.php?user=cooluser
+    - 'xrt' - exclude retweets (1=true, default = false)
+            e.g. http://<yourdomain>/tweetledee/userrss.php?xrt=1
+    - 'xrp' - exclude replies (1=true, default = false)
+            e.g. http://<yourdomain>/tweetledee/userrss.php?xrp=1
     - Example of all of the available parameters:
-            e.g. http://<yourdomain>/tweetledee/favoritesrss.php?c=100&user=cooluser
+            e.g. http://<yourdomain>/tweetledee/userrss.php?c=100&xrt=1&xrp=1&user=cooluser
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
 *  Debugging Flag
@@ -27,7 +31,6 @@ if ($TLD_DEBUG == 1){
     ini_set('display_errors', 'On');
     error_reporting(E_ALL | E_STRICT);
 }
-
 
 /*******************************************************************
 *  Includes
@@ -80,19 +83,24 @@ $twitterAvatarUrl = $data['profile_image_url'];
 *  Defaults
 ********************************************************************/
 $count = 25;  //default tweet number = 25
-$screen_name = $data['screen_name'];  //default is the requesting user
+$include_retweets = true;  //default to include retweets
+$exclude_replies = false;  //default to include replies
+$screen_name = $data['screen_name'];
 
 /*******************************************************************
 *   Parameters
 *    - can pass via URL to web server
-*    - or as a short or long switch at the command line
+*    - or as a parameter at the command line
 ********************************************************************/
+
 // Command line parameter definitions //
 if (defined('STDIN')) {
     // check whether arguments were passed, if not there is no need to attempt to check the array
     if (isset($argv)){
         $shortopts = "c:";
         $longopts = array(
+            "xrt",
+            "xrp",
             "user:",
         );
         $params = getopt($shortopts, $longopts);
@@ -100,11 +108,18 @@ if (defined('STDIN')) {
             if ($params['c'] > 0 && $params['c'] <= 200)
                 $count = $params['c'];  //assign to the count variable
         }
+        if (isset($params['xrt'])){
+            $include_retweets = false;
+        }
+        if (isset($params['xrp'])){
+            $exclude_replies = true;
+        }
         if (isset($params['user'])){
             $screen_name = $params['user'];
         }
     }
 }
+// Web server URL parameter definitions //
 else {
     // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
     if (isset($_GET["c"])){
@@ -112,21 +127,34 @@ else {
             $count = $_GET["c"];
         }
     }
-
-    // user = Twitter screen name for the user favorites that the user is requesting (default = their own, possible values = any other Twitter user name)
+    // xrt = exclude retweets from the timeline ( possible values: 1=true, else false)
+    if (isset($_GET["xrt"])){
+        if ($_GET["xrt"] == 1){
+            $include_retweets = false;
+        }
+    }
+    // xrp = exclude replies from the timeline (possible values: 1=true, else false)
+    if (isset($_GET["xrp"])){
+        if ($_GET["xrp"] == 1){
+            $exclude_replies = true;
+        }
+    }
+    // user = Twitter screen name for the user timeline that the user is requesting (default = their own, possible values = any other Twitter user name)
     if (isset($_GET["user"])){
         $screen_name = $_GET["user"];
     }
-} // end else
+} // end else block
 
 /*******************************************************************
 *  Request
 ********************************************************************/
 $code = $tmhOAuth->user_request(array(
-			'url' => $tmhOAuth->url('1.1/favorites/list'),
+			'url' => $tmhOAuth->url('1.1/statuses/user_timeline'),
 			'params' => array(
           		'include_entities' => true,
     			'count' => $count,
+    			'exclude_replies' => $exclude_replies,
+    			'include_rts' => $include_retweets,
     			'screen_name' => $screen_name,
         	)
         ));
@@ -134,17 +162,16 @@ $code = $tmhOAuth->user_request(array(
 // Anything except code 200 is a failure to get the information
 if ($code <> 200) {
     echo $tmhOAuth->response['error'];
-    die("user_favorites connection failure");
+    die("user_timeline connection failure");
 }
-
-//concatenate the URL for the atom href link
+// concatenate the URL for the atom href link
 if (defined('STDIN')) {
 	$thequery = $_SERVER['PHP_SELF'];
 } else {
 	$thequery = $_SERVER['PHP_SELF'] .'?'. urlencode($_SERVER['QUERY_STRING']);
 }
 
-$userFavoritesObj = json_decode($tmhOAuth->response['response'], true);
+$userTimelineObj = json_decode($tmhOAuth->response['response'], true);
 
 // Start the output
 header("Content-Type: application/rss+xml");
@@ -155,18 +182,18 @@ header("Content-type: text/xml; charset=utf-8");
         <atom:link href="<?php echo $my_domain ?><?php echo $thequery ?>" rel="self" type="application/rss+xml" />
         <lastBuildDate><?php echo date(DATE_RSS); ?></lastBuildDate>
         <language>en</language>
-        <title>Twitter favorites feed for <?php echo $screen_name; ?></title>
-        <description>Twitter favorites updates for <?php echo $screen_name; ?></description>
+        <title>Twitter user timeline feed for <?php echo $screen_name; ?></title>
+        <description>Twitter user timeline updates for <?php echo $screen_name; ?></description>
         <link>http://www.twitter.com/<?php echo $screen_name; ?></link>
         <ttl>960</ttl>
         <generator>Tweetledee</generator>
         <category>Personal</category>
         <image>
-        <title>Twitter favorites updated for <?php echo $screen_name; ?></title>
-        <link>http://www.twitter.com/<?php echo $screen_name; ?>/favorites</link>
+        <title>Twitter user timeline feed for <?php echo $screen_name; ?></title>
+        <link>http://www.twitter.com/<?php echo $screen_name; ?></link>
         <url><?php echo $twitterAvatarUrl ?></url>
         </image>
-        <?php foreach ($userFavoritesObj as $currentitem) : ?>
+        <?php foreach ($userTimelineObj as $currentitem) : ?>
             <item>
                  <?php
                  $parsedTweet = tmhUtilities::entify_with_options(
@@ -192,7 +219,7 @@ header("Content-type: text/xml; charset=utf-8");
                 ?>
 				<title>[<?php echo $tweeter; ?>] <?php echo $tweetTitle; ?> </title>
                 <pubDate><?php echo reformatDate($currentitem['created_at']); ?></pubDate>
-                <link>https://twitter.com/<?php echo $tweeter ?>/statuses/<?php echo $currentitem['id_str']; ?></link>
+                <link>https://twitter.com/<?php echo $screen_name ?>/statuses/<?php echo $currentitem['id_str']; ?></link>
                 <guid isPermaLink='false'><?php echo $currentitem['id_str']; ?></guid>
 
                 <description>

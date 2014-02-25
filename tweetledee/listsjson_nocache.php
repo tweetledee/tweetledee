@@ -1,23 +1,26 @@
 <?php
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
- *   favoritesjson_pp.php -- User favorites formatted as pretty printed JSON
- *   Version: 0.3.6
- * Copyright 2013 Christopher Simpkins
+ *   listsjson.php -- User list tweets formatted as JSON
+ *   Version: 0.4.0
+ * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
-    - Access the default user favorites feed (count = 25, includes both RT's & replies) at the following URL:
-            e.g. http://<yourdomain>/tweetledee/favoritesjson_pp.php
-==> User Favorites JSON parameters:
+    - Access the default user list feed (count = 25, includes both RT's & replies) at the following URL:
+            e.g. http://<yourdomain>/tweetledee/listsjson.php?list=<list-slug>
+==> User List JSON parameters:
     - 'c' - specify a tweet count (range 1 - 200, default = 25)
-            e.g. http://<yourdomain>/tweetledee/favoritesjson_pp.php?c=100
+            e.g. http://<yourdomain>/tweetledee/listsjson.php?list=<list-slug>&c=100
+    - 'list' - the list name for the specified user (default = account associated with access token)
+            e.g. http://<yourdomain>/tweetledee/listsjson.php?list=theblacklist
     - 'user' - specify the Twitter user whose favorites you would like to retrieve (default = account associated with access token)
-            e.g. http://<yourdomain>/tweetledee/favoritesjson_pp.php?user=cooluser
+            e.g. http://<yourdomain>/tweetledee/listsjson.php?list=<list-slug>&user=cooluser
+    - 'xrt' - exclude retweets in the returned data (set to 1 to exclude, default = include retweets)
     - Example of all of the available parameters:
-            e.g. http://<yourdomain>/tweetledee/favoritesjson_pp.php?c=100&user=cooluser
+            e.g. http://<yourdomain>/tweetledee/listsjson.php?c=100&user=santaclaus&list=nicelist&xrt=1
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
 *  Debugging Flag
@@ -28,6 +31,13 @@ if ($TLD_DEBUG == 1){
     error_reporting(E_ALL | E_STRICT);
 }
 
+/*******************************************************************
+*  Client Side JavaScript Access Flag (default = 0 = off)
+********************************************************************/
+$TLD_JS = 0;
+if ($TLD_JS == 1) {
+    header('Access-Control-Allow-Origin: *');
+}
 
 /*******************************************************************
 *  Includes
@@ -42,6 +52,37 @@ require 'tldlib/keys/tweetledee_keys.php';
 // include Geoff Smith's utility functions
 require 'tldlib/tldUtilities.php';
 
+
+/***************************************************************************************
+*  Mandatory parameter (list)
+*   - do not execute the OAuth authentication request if missing (keep before OAuth code)
+****************************************************************************************/
+// list = list name for a list owned by the specified user (or if no user specified, the user associated with the access token account)
+if (isset($_GET["list"])){
+    $list_name = $_GET["list"];
+}
+else if (defined('STDIN')) {
+    if (isset($argv)){
+        $shortopts = "";
+        $longopts = array(
+            "list:",
+        );
+    }
+    else {
+        die("Error: missing user list name in your request.  Please use the 'list' parameter in your request.");
+    }
+    $params = getopt($shortopts, $longopts);
+    if (isset($params['list'])){
+        $list_name = $params['list'];
+    }
+    else{
+        die("Error: unable to parse the user list name in your request.  Please use the 'list' parameter in your request.");
+    }
+}
+else{
+    die("Error: missing user list name in your request.  Please use the 'list' parameter in your request.");
+}
+
 /*******************************************************************
 *  OAuth
 ********************************************************************/
@@ -55,7 +96,7 @@ $tmhOAuth = new tmhOAuth(array(
 
 // request the user information
 $code = $tmhOAuth->user_request(array(
-            'url' => $tmhOAuth->url('1.1/account/verify_credentials')
+			'url' => $tmhOAuth->url('1.1/account/verify_credentials')
           )
         );
 
@@ -71,14 +112,20 @@ if ($code <> 200) {
 // Decode JSON
 $data = json_decode($tmhOAuth->response['response'], true);
 
+// Parse information from response
+$twitterName = $data['screen_name'];
+$fullName = $data['name'];
+$twitterAvatarUrl = $data['profile_image_url'];
+
 /*******************************************************************
 *  Defaults
 ********************************************************************/
 $count = 25;  //default tweet number = 25
-$screen_name = $data['screen_name'];  //default is the requesting user
+$include_retweets = true;  //default to include retweets
+$screen_name = $data['screen_name'];
 
 /*******************************************************************
-*   Parameters
+*   Optional Parameters
 *    - can pass via URL to web server
 *    - or as a short or long switch at the command line
 ********************************************************************/
@@ -89,6 +136,7 @@ if (defined('STDIN')) {
         $shortopts = "c:";
         $longopts = array(
             "user:",
+            "xrt",
         );
         $params = getopt($shortopts, $longopts);
         if (isset($params['c'])){
@@ -98,9 +146,13 @@ if (defined('STDIN')) {
         if (isset($params['user'])){
             $screen_name = $params['user'];
         }
+        if (isset($params['xrt'])){
+            $include_retweets = false;
+        }
     }
-}
-else {
+} //end if defined 'stdin'
+// Web server URL parameter definitions //
+else{
     // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
     if (isset($_GET["c"])){
         if ($_GET["c"] > 0 && $_GET["c"] <= 200){
@@ -112,26 +164,36 @@ else {
     if (isset($_GET["user"])){
         $screen_name = $_GET["user"];
     }
-} // end else
+
+    // xrt = exclude retweets
+    if (isset($_GET["xrt"])){
+        $include_retweets = false;
+    }
+} //end else
 
 /*******************************************************************
 *  Request
 ********************************************************************/
 $code = $tmhOAuth->user_request(array(
-            'url' => $tmhOAuth->url('1.1/favorites/list'),
-            'params' => array(
-                'include_entities' => true,
-                'count' => $count,
-                'screen_name' => $screen_name,
-            )
+			'url' => $tmhOAuth->url('1.1/lists/statuses'),
+			'params' => array(
+          		'include_entities' => true,
+    			'count' => $count,
+    			'owner_screen_name' => $screen_name,
+                'slug' => $list_name,
+                'include_rts' => $include_retweets,
+        	)
         ));
 
 // Anything except code 200 is a failure to get the information
 if ($code <> 200) {
     echo $tmhOAuth->response['error'];
-    die("user_favorites connection failure");
+    echo("Please confirm that you included the required parameters and the correct list name (slug name for list).");
+    die(" (user_list connection failure)");
 }
 
-$userFavoritesObj = json_decode($tmhOAuth->response['response'], true);
+$userListObj = json_decode($tmhOAuth->response['response'], true);
+
 header('Content-Type: application/json');
-echo json_encode($userFavoritesObj, JSON_PRETTY_PRINT);
+echo json_encode($userListObj);
+
