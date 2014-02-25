@@ -11,7 +11,7 @@ Tweetledee
 - Developer Docs: [http://chrissimpkins.github.io/tweetledee/developer.html](http://chrissimpkins.github.io/tweetledee/developer.html)
 
 ## Current Release
-- <b>0.4.0</b> : added caching to all Tweetledee files with default 90 sec duration.  Great big thanks to Christian Varga (@levymetal) for his contributions to this update!  The non-cached versions of the files from v0.3.6 have been renamed with an appended `_nocache` (e.g. `userrss.php` > `userrss_nocache.php`)
+- <b>0.4.0</b> : added caching to all Tweetledee files with default 90 sec duration (which can be changed with the `cache_interval` URL parameter (in seconds).  Great big thanks to Christian Varga (@levymetal) for his contributions to this update!  The non-cached versions of the files from v0.3.6 have been renamed with an appended `_nocache` (e.g. `userrss.php` > `userrss_nocache.php`) for anyone who would like to implement their own caching.
 
 ## Recent Changes
 - <b>0.3.6</b> : bug fix for multi-parameter search query exception bug [issue #30](https://github.com/chrissimpkins/tweetledee/issues/30).  Thanks much for the issue report @adjeD!
