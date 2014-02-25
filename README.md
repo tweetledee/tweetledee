@@ -11,9 +11,10 @@ Tweetledee
 - Developer Docs: [http://chrissimpkins.github.io/tweetledee/developer.html](http://chrissimpkins.github.io/tweetledee/developer.html)
 
 ## Current Release
-- <b>0.3.6</b> : bug fix for multi-parameter search query exception bug [issue #30](https://github.com/chrissimpkins/tweetledee/issues/30).  Thanks much for the issue report @adjeD!
+- <b>0.4.0</b> : added caching to all Tweetledee files with default 90 sec duration.  Great big thanks to Christian Varga (@levymetal) for his contributions to this update!
 
 ## Recent Changes
+- <b>0.3.6</b> : bug fix for multi-parameter search query exception bug [issue #30](https://github.com/chrissimpkins/tweetledee/issues/30).  Thanks much for the issue report @adjeD!
 - <b>0.3.5</b> : bug fix for Twitter search filters [issue #28](https://github.com/chrissimpkins/tweetledee/issues/28).  Thanks much for the issue report @molis83!
 - <b>0.3.4</b> : added Python and Ruby wrappers for the Tweetledee files
 - <b>0.3.3</b> : bug fixes for [issue #15](https://github.com/chrissimpkins/tweetledee/issues/15) & [issue #16](https://github.com/chrissimpkins/tweetledee/issues/16).  Thanks much for the contributions from @jjschwartz, @kabookey, and @mikeklimczak.
