@@ -1,7 +1,7 @@
 Tweetledee
 ==========
 
-**A PHP library that provides an incredibly easy way to access Twitter data as JSON, pretty printed JSON, or RSS feeds by URL or standard command line syntax.**
+**A PHP library that provides an incredibly easy way to access Twitter data as JSON, pretty printed JSON, or RSS feeds by URL or standard command line syntax.  The Tweetledee files include caching to avoid exceeding the Twitter API v1.1 rate limits (see caveats in the documentation!).**
 
 <a href="https://flattr.com/submit/auto?user_id=pixsied&url=http://github.com/chrissimpkins/tweetledee&title=Tweetledee&description=Tweetledee&language=en_GB&tags=Twitter,RSS,JSON,feed,programming,developer&category=software"><img src="https://flattr.com/_img/icons/flattr_logo_16.png" alt="Flattr Tweetledee!" /> Flattr Tweetledee!</a>
 
