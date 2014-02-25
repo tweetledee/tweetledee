@@ -47,26 +47,26 @@ Tweetledee
 That was easy... Go crazy, be good, have fun.
 
 ## What You Get
-### RSS Feeds
-##### Twitter Favorites RSS Feed [<code>favoritesrss.php</code>] + [<code>favoritesrss_nocache.php</code>]
-##### Twitter Home Timeline RSS Feed [<code>homerss.php</code>] + [<code>homerss_nocache.php</code>]
-##### Twitter User Lists RSS Feed [<code>listsrss.php</code>] + [<code>listrss_nocache.php</code>]
-##### Twitter User Timeline RSS Feed [<code>userrss.php</code>] + [<code>userrss_nocache.php</code>]
-##### Twitter Search RSS Feed [<code>searchrss.php</code>] + [<code>searchrss_nocache.php</code>]
+### Twitter RSS Feeds
+##### Favorites RSS Feed [<code>favoritesrss.php</code>] + [<code>favoritesrss_nocache.php</code>]
+##### Home Timeline RSS Feed [<code>homerss.php</code>] + [<code>homerss_nocache.php</code>]
+##### User Lists RSS Feed [<code>listsrss.php</code>] + [<code>listrss_nocache.php</code>]
+##### User Timeline RSS Feed [<code>userrss.php</code>] + [<code>userrss_nocache.php</code>]
+##### Search RSS Feed [<code>searchrss.php</code>] + [<code>searchrss_nocache.php</code>]
 
-### JSON
-##### Twitter Favorites JSON [<code>favoritesjson.php</code>] + [<code>favoritesjson_nocache.php</code>]
-##### Twitter Home Timeline JSON [<code>homejson.php</code>] + [<code>homejson_nocache.php</code>]
-##### Twitter User Lists JSON [<code>listsjson.php</code>] + [<code>listsjson_nocache.php</code>]
-##### Twitter User Timeline JSON [<code>userjson.php</code>] + [<code>userjson_nocache.php</code>]
-##### Twitter Search JSON [<code>searchjson.php</code>] + + [<code>searchjson_nocache.php</code>]
+### Twitter JSON
+##### Favorites JSON [<code>favoritesjson.php</code>] + [<code>favoritesjson_nocache.php</code>]
+##### Home Timeline JSON [<code>homejson.php</code>] + [<code>homejson_nocache.php</code>]
+##### User Lists JSON [<code>listsjson.php</code>] + [<code>listsjson_nocache.php</code>]
+##### User Timeline JSON [<code>userjson.php</code>] + [<code>userjson_nocache.php</code>]
+##### Search JSON [<code>searchjson.php</code>] + + [<code>searchjson_nocache.php</code>]
 
 ### Pretty Printed JSON
-##### Twitter Favorites Pretty Printed JSON [<code>favoritesjson_pp.php</code>] + [<code>favoritesjson_pp_nocache.php</code>]
-##### Twitter Home Timeline Pretty Printed JSON [<code>homejson_pp.php</code>] + [<code>homejson_pp_nocache.php</code>]
-##### Twitter User Lists Pretty Printed JSON [<code>listsjson_pp.php</code>] + [<code>listsjson_pp_nocache.php</code>]
-##### Twitter User Timeline Pretty Printed JSON [<code>userjson_pp.php</code>] + [<code>userjson_pp_nocache.php</code>]
-##### Twitter Search Pretty Printed JSON [<code>searchjson_pp.php</code>] + [<code>searchjson_pp_nocache.php</code>]
+##### Favorites Pretty Printed JSON [<code>favoritesjson_pp.php</code>] + [<code>favoritesjson_pp_nocache.php</code>]
+##### Home Timeline Pretty Printed JSON [<code>homejson_pp.php</code>] + [<code>homejson_pp_nocache.php</code>]
+##### User Lists Pretty Printed JSON [<code>listsjson_pp.php</code>] + [<code>listsjson_pp_nocache.php</code>]
+##### User Timeline Pretty Printed JSON [<code>userjson_pp.php</code>] + [<code>userjson_pp_nocache.php</code>]
+##### Search Pretty Printed JSON [<code>searchjson_pp.php</code>] + [<code>searchjson_pp_nocache.php</code>]
 
 ## Usage
 <a href="http://chrissimpkins.github.io/tweetledee/usage.html">Tweetledee Usage Examples</a>
