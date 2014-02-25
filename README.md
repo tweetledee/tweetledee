@@ -48,25 +48,25 @@ That was easy... Go crazy, be good, have fun.
 
 ## What You Get
 ### RSS Feeds
-##### Twitter Favorites RSS Feed [<code>favoritesrss.php</code>]
-##### Twitter Home Timeline RSS Feed [<code>homerss.php</code>]
-##### Twitter User Lists RSS Feed [<code>listsrss.php</code>]
-##### Twitter User Timeline RSS Feed [<code>userrss.php</code>]
-##### Twitter Search RSS Feed [<code>searchrss.php</code>]
+##### Twitter Favorites RSS Feed [<code>favoritesrss.php</code>] + [<code>favoritesrss_nocache.php</code>]
+##### Twitter Home Timeline RSS Feed [<code>homerss.php</code>] + [<code>homerss_nocache.php</code>]
+##### Twitter User Lists RSS Feed [<code>listsrss.php</code>] + [<code>listrss_nocache.php</code>]
+##### Twitter User Timeline RSS Feed [<code>userrss.php</code>] + [<code>userrss_nocache.php</code>]
+##### Twitter Search RSS Feed [<code>searchrss.php</code>] + [<code>searchrss_nocache.php</code>]
 
 ### JSON
-##### Twitter Favorites JSON [<code>favoritesjson.php</code>]
-##### Twitter Home Timeline JSON [<code>homejson.php</code>]
-##### Twitter User Lists JSON [<code>listsjson.php</code>]
-##### Twitter User Timeline JSON [<code>userjson.php</code>]
-##### Twitter Search JSON [<code>searchjson.php</code>]
+##### Twitter Favorites JSON [<code>favoritesjson.php</code>] + [<code>favoritesjson_nocache.php</code>]
+##### Twitter Home Timeline JSON [<code>homejson.php</code>] + [<code>homejson_nocache.php</code>]
+##### Twitter User Lists JSON [<code>listsjson.php</code>] + [<code>listsjson_nocache.php</code>]
+##### Twitter User Timeline JSON [<code>userjson.php</code>] + [<code>userjson_nocache.php</code>]
+##### Twitter Search JSON [<code>searchjson.php</code>] + + [<code>searchjson_nocache.php</code>]
 
 ### Pretty Printed JSON
-##### Twitter Favorites Pretty Printed JSON [<code>favoritesjson_pp.php</code>]
-##### Twitter Home Timeline Pretty Printed JSON [<code>homejson_pp.php</code>]
-##### Twitter User Lists Pretty Printed JSON [<code>listsjson_pp.php</code>]
-##### Twitter User Timeline Pretty Printed JSON [<code>userjson_pp.php</code>]
-##### Twitter Search Pretty Printed JSON [<code>searchjson_pp.php</code>]
+##### Twitter Favorites Pretty Printed JSON [<code>favoritesjson_pp.php</code>] + [<code>favoritesjson_pp_nocache.php</code>]
+##### Twitter Home Timeline Pretty Printed JSON [<code>homejson_pp.php</code>] + [<code>homejson_pp_nocache.php</code>]
+##### Twitter User Lists Pretty Printed JSON [<code>listsjson_pp.php</code>] + [<code>listsjson_pp_nocache.php</code>]
+##### Twitter User Timeline Pretty Printed JSON [<code>userjson_pp.php</code>] + [<code>userjson_pp_nocache.php</code>]
+##### Twitter Search Pretty Printed JSON [<code>searchjson_pp.php</code>] + [<code>searchjson_pp_nocache.php</code>]
 
 ## Usage
 <a href="http://chrissimpkins.github.io/tweetledee/usage.html">Tweetledee Usage Examples</a>
@@ -78,7 +78,7 @@ Looking for support? Check <a href="http://chrissimpkins.github.io/tweetledee/su
 
 
 ## Contribute
-If you would like to contribute to the project, by all means, please do so.  Fork the Tweetledee development branch and submit a pull request back to the repository.
+If you would like to contribute to the project, have at it.  Fork the Tweetledee development branch and submit a pull request back to the repository.
 
 ## License
 MIT License - see the LICENSE.txt file in the source distribution
