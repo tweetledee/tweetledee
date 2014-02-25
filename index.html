@@ -53,7 +53,7 @@
 
 <p>Tweetledee provides ready-bake PHP files that allow you to access Twitter user timelines, user favorites, lists, home timelines, and tweet search data in a JSON or RSS format.  This approach works after the Twitter API 1.1 changes that eliminated Twitter support for RSS feeds.</p>
 <p>Grab your API tokens from Twitter, upload the Tweetledee files to your server, and use them.  It's that simple.</p>
-<p class="info-box"><i class="icon-search"></i> Tweetledee was updated to support all Twitter search filters.</p>
+<p>As of version 0.4.0, the Tweetledee files implement caching to help you remain within the Twitter API v1.1 rate limits.</p>
 
 <h2>
 <a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h2>
@@ -117,38 +117,82 @@
 <p>Try this as a quick test to confirm that it is working.  This will display your user timeline RSS feed:</p>
 <h5>Your New User Timeline Feed</h5>
 <pre><code>http://[yourdomain]/tweetledee/userrss.php</code></pre>
-<p>Note that the default is 25 tweets in this feed.  You can modify this with URL parameters that you pass to the Tweetledee file (up to 200 tweets).  See the <a href="usage.html">usage section</a> for more information about the options that you have with each of the returned data types.</p>
+<p>Note that the default is 25 tweets in this feed.  You can modify this with URL parameters that you pass to the Tweetledee file (up to 200 tweets).  The default files cache your results for 90 seconds in order to remain within the Twitter API v1.1 rate limits.  For this reason, you will not see updated results for 90 seconds after you initially run the PHP script.  You can modify this interval with a URL parameter <code>cache_interval</code>.  See the <a href="usage.html">usage section</a> for more information about the options that you have with each of the returned data types.</p>
 <h2><a name="file-types" class="anchor" href="#file-types"><span class="octicon octicon-link"></span></a>What Tweetledee Includes</h2>
 <h3><i class="icon-sign-blank burntorange"></i> Favorites (User) JSON</h3>
 <pre><code>http://[yourdomain]/tweetledee/favoritesjson.php</code></pre>
+<h3><i class="icon-sign-blank burntorange"></i> Favorites (User) JSON | Non-Cached</h3>
+<pre><code>http://[yourdomain]/tweetledee/favoritesjson_nocache.php</code></pre>
+
 <h3><i class="icon-sign-blank burntorange"></i> Favorites (User) JSON (pretty printed)</h3>
 <pre><code>http://[yourdomain]/tweetledee/favoritesjson_pp.php</code></pre>
+<h3><i class="icon-sign-blank burntorange"></i> Favorites (User) JSON (pretty printed) | Non-Cached</h3>
+<pre><code>http://[yourdomain]/tweetledee/favoritesjson_pp_nocache.php</code></pre>
+
 <h3><i class="icon-sign-blank burntorange"></i> Favorites (User) RSS</h3>
 <pre><code>http://[yourdomain]/tweetledee/favoritesrss.php</code></pre>
+<h3><i class="icon-sign-blank burntorange"></i> Favorites (User) RSS | Non-Cached</h3>
+<pre><code>http://[yourdomain]/tweetledee/favoritesrss_nocache.php</code></pre>
+
 <h3><i class="icon-sign-blank burntorange"></i> Home timeline JSON</h3>
 <pre><code>http://[yourdomain]/tweetledee/homejson.php</code></pre>
+<h3><i class="icon-sign-blank burntorange"></i> Home timeline JSON | Non-Cached</h3>
+<pre><code>http://[yourdomain]/tweetledee/homejson_nocache.php</code></pre>
+
 <h3><i class="icon-sign-blank burntorange"></i> Home timeline JSON (pretty printed)</h3>
 <pre><code>http://[yourdomain]/tweetledee/homejson_pp.php</code></pre>
+<h3><i class="icon-sign-blank burntorange"></i> Home timeline JSON (pretty printed) | Non-Cached</h3>
+<pre><code>http://[yourdomain]/tweetledee/homejson_pp_nocache.php</code></pre>
+
 <h3><i class="icon-sign-blank burntorange"></i> Home timeline RSS feed</h3>
 <pre><code>http://[yourdomain]/tweetledee/homerss.php</code></pre>
+<h3><i class="icon-sign-blank burntorange"></i> Home timeline RSS feed | Non-Cached</h3>
+<pre><code>http://[yourdomain]/tweetledee/homerss_nocache.php</code></pre>
+
 <h3><i class="icon-sign-blank burntorange"></i> List JSON</h3>
 <pre><code>http://[yourdomain]/tweetledee/listsjson.php?list=[list-slug]</code></pre>
+<h3><i class="icon-sign-blank burntorange"></i> List JSON | Non-Cached</h3>
+<pre><code>http://[yourdomain]/tweetledee/listsjson_nocache.php?list=[list-slug]</code></pre>
+
 <h3><i class="icon-sign-blank burntorange"></i> List JSON (pretty printed)</h3>
 <pre><code>http://[yourdomain]/tweetledee/listsjson_pp.php?list=[list-slug]</code></pre>
+<h3><i class="icon-sign-blank burntorange"></i> List JSON (pretty printed) | Non-Cached</h3>
+<pre><code>http://[yourdomain]/tweetledee/listsjson_pp_nocache.php?list=[list-slug]</code></pre>
+
 <h3><i class="icon-sign-blank burntorange"></i> List RSS Feed</h3>
 <pre><code>http://[yourdomain]/tweetledee/listsrss.php?list=[list-slug]</code></pre>
+<h3><i class="icon-sign-blank burntorange"></i> List RSS Feed | Non-Cached</h3>
+<pre><code>http://[yourdomain]/tweetledee/listsrss_nocache.php?list=[list-slug]</code></pre>
+
 <h3><i class="icon-sign-blank burntorange"></i> Tweet search JSON</h3>
 <pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=[search-query]</code></pre>
+<h3><i class="icon-sign-blank burntorange"></i> Tweet search JSON | Non-Cached</h3>
+<pre><code>http://[yourdomain]/tweetledee/searchjson_nocache.php?q=[search-query]</code></pre>
+
 <h3><i class="icon-sign-blank burntorange"></i> Tweet search JSON (pretty printed)</h3>
 <pre><code>http://[yourdomain]/tweetledee/searchjson_pp.php?q=[search-query]</code></pre>
+<h3><i class="icon-sign-blank burntorange"></i> Tweet search JSON (pretty printed) | Non-Cached</h3>
+<pre><code>http://[yourdomain]/tweetledee/searchjson_pp_nocache.php?q=[search-query]</code></pre>
+
 <h3><i class="icon-sign-blank burntorange"></i> Tweet search RSS feed</h3>
 <pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=[search-query]</code></pre>
+<h3><i class="icon-sign-blank burntorange"></i> Tweet search RSS feed | Non-Cached</h3>
+<pre><code>http://[yourdomain]/tweetledee/searchrss_nocache.php?q=[search-query]</code></pre>
+
 <h3><i class="icon-sign-blank burntorange"></i> User timeline JSON</h3>
 <pre><code>http://[yourdomain]/tweetledee/userjson.php</code></pre>
+<h3><i class="icon-sign-blank burntorange"></i> User timeline JSON | Non-Cached</h3>
+<pre><code>http://[yourdomain]/tweetledee/userjson_nocache.php</code></pre>
+
 <h3><i class="icon-sign-blank burntorange"></i> User timeline JSON (pretty printed)</h3>
 <pre><code>http://[yourdomain]/tweetledee/userjson_pp.php</code></pre>
+<h3><i class="icon-sign-blank burntorange"></i> User timeline JSON (pretty printed) | Non-Cached</h3>
+<pre><code>http://[yourdomain]/tweetledee/userjson_pp_nocache.php</code></pre>
+
 <h3><i class="icon-sign-blank burntorange"></i> User timeline RSS feed</h3>
 <pre><code>http://[yourdomain]/tweetledee/userrss.php</code></pre>
+<h3><i class="icon-sign-blank burntorange"></i> User timeline RSS feed | Non-Cached</h3>
+<pre><code>http://[yourdomain]/tweetledee/userrss_nocache.php</code></pre>
 
 <h2>
 <a name="download-info" class="anchor" href="#download-info"><span class="octicon octicon-link"></span></a>Download Tweetledee</h2>
