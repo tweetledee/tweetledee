@@ -49,7 +49,7 @@ require 'tldlib/tldCache.php';
 ********************************************************************/
 $count = 25;  //default tweet number = 25
 $exclude_replies = false;  //default to include replies
-$cache_interval = 300; // default cache interval = 300 seconds (5 minutes)
+$cache_interval = 90; // default cache interval = 90 seconds
 
 /*******************************************************************
 *   Parameters

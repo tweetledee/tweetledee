@@ -12,7 +12,7 @@
  */
 class tldCache {
   var $tmhOAuth;
-  var $interval = 300; // five minutes
+  var $interval = 90; // 90 seconds
 
   /**
    * Creates a new tldCache object
@@ -20,7 +20,7 @@ class tldCache {
    * @param array $keys, the auth keys used to create a new tmhOAuth object
    * @return void
    */
-  public function __construct( $keys=array(), $cache_interval = 300 ) {
+  public function __construct( $keys=array(), $cache_interval = 90 ) {
     $this->tmhOAuth = new tmhOAuth( $keys );
     $this->interval = $cache_interval;
   }
@@ -175,7 +175,7 @@ class tldCache {
    */
   private function set_cached_file( $file, $json ) {
     $cache_file = dirname(__FILE__).'/cache/'.$file;
-    
+
     if ( $json && is_writable( dirname( $cache_file ) ) ) {
       $cache_static = fopen( $cache_file, 'w' );
       fwrite( $cache_static, $json );

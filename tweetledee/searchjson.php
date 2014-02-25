@@ -85,7 +85,7 @@ else{
 ********************************************************************/
 $count = 25;  //default tweet number = 25
 $result_type = 'mixed'; //default to mixed popular and realtime results
-$cache_interval = 300; // default cache interval = 300 seconds (5 minutes)
+$cache_interval = 90; // default cache interval = 90 seconds
 
 /*******************************************************************
 *   Optional Parameters
