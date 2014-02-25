@@ -1,32 +1,25 @@
 <?php
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
- *   listsjson.php -- User list tweets formatted as JSON
-<<<<<<< HEAD:tweetledee/listsjson_nocache.php
+ *   homejson_pp.php -- Home timeline results formatted as pretty printed JSON
  *   Version: 0.4.0
  * Copyright 2014 Christopher Simpkins
-=======
- *   Version: 0.3.7
- * Copyright 2013 Christopher Simpkins
->>>>>>> f7c7ba183eb8066b19854a5727e2fadb6142ccc9:tweetledee/listsjson.php
  * MIT License
  ************************************************************************************************/
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
-    - Access the default user list feed (count = 25, includes both RT's & replies) at the following URL:
-            e.g. http://<yourdomain>/tweetledee/listsjson.php?list=<list-slug>
-==> User List JSON parameters:
+    - Access the default home timeline JSON (count = 25 & includes replies) at the following URL:
+            e.g. http://<yourdomain>/tweetledee/homejson_pp.php
+==> User's Home Timeline Pretty Printed JSON parameters:
     - 'c' - specify a tweet count (range 1 - 200, default = 25)
-            e.g. http://<yourdomain>/tweetledee/listsjson.php?list=<list-slug>&c=100
-    - 'list' - the list name for the specified user (default = account associated with access token)
-            e.g. http://<yourdomain>/tweetledee/listsjson.php?list=theblacklist
-    - 'user' - specify the Twitter user whose favorites you would like to retrieve (default = account associated with access token)
-            e.g. http://<yourdomain>/tweetledee/listsjson.php?list=<list-slug>&user=cooluser
-    - 'xrt' - exclude retweets in the returned data (set to 1 to exclude, default = include retweets)
+            e.g. http://<yourdomain>/tweetledee/homejson_pp.php?c=100
+    - 'xrp' - exclude replies (1=true, default = false)
+            e.g. http://<yourdomain>/tweetledee/homejson_pp.php?xrp=1
     - Example of all of the available parameters:
-            e.g. http://<yourdomain>/tweetledee/listsjson.php?c=100&user=santaclaus&list=nicelist&xrt=1
+            e.g. http://<yourdomain>/tweetledee/homejson_pp.php?c=100&xrp=1
 --------------------------------------------------------------------------------------------------*/
+
 /*******************************************************************
 *  Debugging Flag
 ********************************************************************/
@@ -34,14 +27,6 @@ $TLD_DEBUG = 0;
 if ($TLD_DEBUG == 1){
     ini_set('display_errors', 'On');
     error_reporting(E_ALL | E_STRICT);
-}
-
-/*******************************************************************
-*  Client Side JavaScript Access Flag (default = 0 = off)
-********************************************************************/
-$TLD_JS = 0;
-if ($TLD_JS == 1) {
-    header('Access-Control-Allow-Origin: *');
 }
 
 /*******************************************************************
@@ -60,46 +45,15 @@ require 'tldlib/tldUtilities.php';
 // include Christian Varga's twitter cache
 require 'tldlib/tldCache.php';
 
-/***************************************************************************************
-*  Mandatory parameter (list)
-*   - do not execute the OAuth authentication request if missing (keep before OAuth code)
-****************************************************************************************/
-// list = list name for a list owned by the specified user (or if no user specified, the user associated with the access token account)
-if (isset($_GET["list"])){
-    $list_name = $_GET["list"];
-}
-else if (defined('STDIN')) {
-    if (isset($argv)){
-        $shortopts = "";
-        $longopts = array(
-            "list:",
-        );
-    }
-    else {
-        die("Error: missing user list name in your request.  Please use the 'list' parameter in your request.");
-    }
-    $params = getopt($shortopts, $longopts);
-    if (isset($params['list'])){
-        $list_name = $params['list'];
-    }
-    else{
-        die("Error: unable to parse the user list name in your request.  Please use the 'list' parameter in your request.");
-    }
-}
-else{
-    die("Error: missing user list name in your request.  Please use the 'list' parameter in your request.");
-}
-
 /*******************************************************************
 *  Defaults
 ********************************************************************/
 $count = 25;  //default tweet number = 25
-$include_retweets = true;  //default to include retweets
-$screen_name = '';
+$exclude_replies = false;  //default to include replies
 $cache_interval = 300; // default cache interval = 300 seconds (5 minutes)
 
 /*******************************************************************
-*   Optional Parameters
+*   Parameters
 *    - can pass via URL to web server
 *    - or as a short or long switch at the command line
 ********************************************************************/
@@ -109,42 +63,40 @@ if (defined('STDIN')) {
     if (isset($argv)){
         $shortopts = "c:";
         $longopts = array(
-            "user:",
-            "xrt",
+            "xrp",
         );
         $params = getopt($shortopts, $longopts);
         if (isset($params['c'])){
             if ($params['c'] > 0 && $params['c'] <= 200)
                 $count = $params['c'];  //assign to the count variable
         }
-        if (isset($params['user'])){
-            $screen_name = $params['user'];
+        if (isset($params['xrp'])){
+            $exclude_replies = true;
         }
-        if (isset($params['xrt'])){
-            $include_retweets = false;
+        if (isset($params['xrp'])){
+            $exclude_replies = true;
         }
         if (isset($params['cache_interval'])){
             $cache_interval = $params['cache_interval'];
         }
     }
-} //end if defined 'stdin'
+
+} //end if
 // Web server URL parameter definitions //
 else{
     // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
     if (isset($_GET["c"])){
-        if ($_GET["c"] > 0 && $_GET["c"] <= 200){
-            $count = $_GET["c"];
+        $getcount = $_GET["c"];
+        if ($getcount > 0 && $getcount <= 200){
+            $count = $getcount;
         }
     }
 
-    // user = Twitter screen name for the user favorites that the user is requesting (default = their own, possible values = any other Twitter user name)
-    if (isset($_GET["user"])){
-        $screen_name = $_GET["user"];
-    }
-
-    // xrt = exclude retweets
-    if (isset($_GET["xrt"])){
-        $include_retweets = false;
+    // xrp = exclude replies from the timeline (possible values: 1=true, else false)
+    if (isset($_GET["xrp"])){
+        if ($_GET["xrp"] == 1){
+            $exclude_replies = true;
+        }
     }
 
     // cache_interval = the amount of time to keep the cached file
@@ -169,25 +121,24 @@ $tldCache = new tldCache(array(
 $data = $tldCache->auth_request();
 
 // Parse information from response
-if ( $screen_name == '' ) $screen_name = $data['screen_name'];
+$twitterName = $data['screen_name'];
 $fullName = $data['name'];
 $twitterAvatarUrl = $data['profile_image_url'];
+$feedTitle = ' Twitter home timeline for ' . $twitterName;
+$screen_name = $data['screen_name'];
+
 
 /*******************************************************************
 *  Request
 ********************************************************************/
-
-$userListObj = $tldCache->user_request(array(
-            'url' => '1.1/lists/statuses',
+$homeTimelineObj = $tldCache->user_request(array(
+            'url' => '1.1/statuses/home_timeline',
             'params' => array(
                 'include_entities' => true,
                 'count' => $count,
-                'owner_screen_name' => $screen_name,
-                'slug' => $list_name,
-                'include_rts' => $include_retweets,
+                'exclude_replies' => $exclude_replies,
             )
         ));
 
 header('Content-Type: application/json');
-echo json_encode($userListObj);
-
+echo json_encode($homeTimelineObj, JSON_PRETTY_PRINT);

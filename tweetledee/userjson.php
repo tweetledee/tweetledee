@@ -1,14 +1,9 @@
 <?php
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
- *   userjson_pp.php -- User timeline results formatted as pretty printed JSON
-<<<<<<< HEAD:tweetledee/userjson_pp_nocache.php
+ *   userjson.php -- User timeline results formatted as JSON
  *   Version: 0.4.0
  * Copyright 2014 Christopher Simpkins
-=======
- *   Version: 0.3.7
- * Copyright 2013 Christopher Simpkins
->>>>>>> f7c7ba183eb8066b19854a5727e2fadb6142ccc9:tweetledee/userjson_pp.php
  * MIT License
  ************************************************************************************************/
 /*-----------------------------------------------------------------------------------------------
@@ -38,8 +33,17 @@ if ($TLD_DEBUG == 1){
 }
 
 /*******************************************************************
+*  Client Side JavaScript Access Flag (default = 0 = off)
+********************************************************************/
+$TLD_JS = 0;
+if ($TLD_JS == 1) {
+    header('Access-Control-Allow-Origin: *');
+}
+
+/*******************************************************************
 *  Includes
 ********************************************************************/
+
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
 require 'tldlib/tmhUtilities.php';
@@ -165,5 +169,5 @@ $userTimelineObj = $tldCache->user_request(array(
         ));
 
 header('Content-Type: application/json');
-echo json_encode($userTimelineObj, JSON_PRETTY_PRINT);
+echo json_encode($userTimelineObj);
 

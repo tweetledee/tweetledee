@@ -2,13 +2,8 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   favoritesjson.php -- User favorites formatted as JSON
-<<<<<<< HEAD:tweetledee/favoritesjson_nocache.php
  *   Version: 0.4.0
  * Copyright 2014 Christopher Simpkins
-=======
- *   Version: 0.3.7
- * Copyright 2013 Christopher Simpkins
->>>>>>> f7c7ba183eb8066b19854a5727e2fadb6142ccc9:tweetledee/favoritesjson.php
  * MIT License
  ************************************************************************************************/
 /*-----------------------------------------------------------------------------------------------

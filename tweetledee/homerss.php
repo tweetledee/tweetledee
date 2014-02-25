@@ -1,30 +1,24 @@
 <?php
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
- *   homejson_pp.php -- Home timeline results formatted as pretty printed JSON
-<<<<<<< HEAD:tweetledee/homejson_pp_nocache.php
+ *   homerss.php -- Home timeline results formatted as RSS feed
  *   Version: 0.4.0
  * Copyright 2014 Christopher Simpkins
-=======
- *   Version: 0.3.7
- * Copyright 2013 Christopher Simpkins
->>>>>>> f7c7ba183eb8066b19854a5727e2fadb6142ccc9:tweetledee/homejson_pp.php
  * MIT License
  ************************************************************************************************/
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
-    - Access the default home timeline JSON (count = 25 & includes replies) at the following URL:
-            e.g. http://<yourdomain>/tweetledee/homejson_pp.php
-==> User's Home Timeline Pretty Printed JSON parameters:
+    - Access the default home timeline feed (count = 25, includes both RT's & replies) at the following URL:
+            e.g. http://<yourdomain>/tweetledee/homerss.php
+==> User's Home Timeline RSS feed parameters:
     - 'c' - specify a tweet count (range 1 - 200, default = 25)
-            e.g. http://<yourdomain>/tweetledee/homejson_pp.php?c=100
+            e.g. http://<yourdomain>/tweetledee/homerss.php?c=100
     - 'xrp' - exclude replies (1=true, default = false)
-            e.g. http://<yourdomain>/tweetledee/homejson_pp.php?xrp=1
+            e.g. http://<yourdomain>/tweetledee/homerss.php?xrp=1
     - Example of all of the available parameters:
-            e.g. http://<yourdomain>/tweetledee/homejson_pp.php?c=100&xrp=1
+            e.g. http://<yourdomain>/tweetledee/homerss.php?c=100&xrp=1
 --------------------------------------------------------------------------------------------------*/
-
 /*******************************************************************
 *  Debugging Flag
 ********************************************************************/
@@ -137,13 +131,77 @@ $screen_name = $data['screen_name'];
 *  Request
 ********************************************************************/
 $homeTimelineObj = $tldCache->user_request(array(
-            'url' => '1.1/statuses/home_timeline',
-            'params' => array(
-                'include_entities' => true,
-                'count' => $count,
-                'exclude_replies' => $exclude_replies,
-            )
+			'url' => '1.1/statuses/home_timeline',
+			'params' => array(
+          		'include_entities' => true,
+    			'count' => $count,
+    			'exclude_replies' => $exclude_replies,
+        	)
         ));
 
-header('Content-Type: application/json');
-echo json_encode($homeTimelineObj, JSON_PRETTY_PRINT);
+//headers
+header("Content-Type: application/rss+xml");
+header("Content-type: text/xml; charset=utf-8");
+
+// Start the output
+?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <atom:link href="<?php echo $my_domain ?><?php echo $_SERVER['PHP_SELF'] ?>" rel="self" type="application/rss+xml" />
+        <lastBuildDate><?php echo date(DATE_RSS); ?></lastBuildDate>
+        <language>en</language>
+        <title><?php echo $feedTitle; ?></title>
+        <description>Twitter home timeline updates for <?php echo $fullName; ?> / <?php echo $twitterName; ?></description>
+        <link>http://www.twitter.com/<?php echo $twitterName; ?></link>
+        <ttl>960</ttl>
+        <generator>Tweetledee</generator>
+        <category>Personal</category>
+        <image>
+        <title><?php echo $feedTitle; ?></title>
+        <link>http://www.twitter.com/<?php echo $twitterName; ?></link>
+        <url><?php echo $twitterAvatarUrl ?></url>
+        </image>
+        <?php foreach ($homeTimelineObj as $currentitem) : ?>
+            <item>
+                 <?php
+                 $parsedTweet = tmhUtilities::entify_with_options(
+                 		objectToArray($currentitem),
+                 		array(
+                 			'target' => 'blank',
+                 		)
+				 );
+
+                if (isset($currentitem['retweeted_status'])) :
+                    $avatar = $currentitem['retweeted_status']['user']['profile_image_url'];
+                    $rt = '&nbsp;&nbsp;&nbsp;&nbsp;[<em style="font-size:smaller;">Retweeted by ' . $currentitem['user']['name'] . ' <a href=\'http://twitter.com/' . $currentitem['user']['screen_name'] . '\'>@' . $currentitem['user']['screen_name'] . '</a></em>]';
+                    $tweeter =  $currentitem['retweeted_status']['user']['screen_name'];
+                    $fullname = $currentitem['retweeted_status']['user']['name'];
+                    $tweetTitle = $currentitem['retweeted_status']['text'];
+                else :
+                    $avatar = $currentitem['user']['profile_image_url'];
+                    $rt = '';
+                    $tweeter = $currentitem['user']['screen_name'];
+                    $fullname = $currentitem['user']['name'];
+                    $tweetTitle = $currentitem['text'];
+               endif;
+                ?>
+				<title>[<?php echo $tweeter; ?>] <?php echo $tweetTitle; ?> </title>
+                <pubDate><?php echo reformatDate($currentitem['created_at']); ?></pubDate>
+                <link>https://twitter.com/<?php echo $twitterName ?>/statuses/<?php echo $currentitem['id_str']; ?></link>
+                <guid isPermaLink='false'><?php echo $currentitem['id_str']; ?></guid>
+
+                <description>
+                    <![CDATA[
+                        <div style='float:left;margin: 0 6px 6px 0;'>
+							<a href='https://twitter.com/<?php echo $twitterName ?>/statuses/<?php echo $currentitem['id_str']; ?>' border=0 target='blank'>
+								<img src='<?php echo $avatar; ?>' border=0 />
+							</a>
+						</div>
+                        <strong><?php echo $fullname; ?></strong> <a href='https://twitter.com/<?php echo $tweeter; ?>' target='blank'>@<?php echo $tweeter;?></a><?php echo $rt ?><br />
+                        <?php echo $parsedTweet; ?>
+                    ]]>
+               </description>
+            </item>
+        <?php endforeach; ?>
+    </channel>
+</rss>

@@ -1,28 +1,23 @@
 <?php
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
- *   homejson.php -- Home timeline results formatted as JSON
-<<<<<<< HEAD:tweetledee/homejson_nocache.php
+ *   favoritesjson_pp.php -- User favorites formatted as pretty printed JSON
  *   Version: 0.4.0
  * Copyright 2014 Christopher Simpkins
-=======
- *   Version: 0.3.7
- * Copyright 2013 Christopher Simpkins
->>>>>>> f7c7ba183eb8066b19854a5727e2fadb6142ccc9:tweetledee/homejson.php
  * MIT License
  ************************************************************************************************/
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
-    - Access the default home timeline JSON (count = 25 & includes replies) at the following URL:
-            e.g. http://<yourdomain>/tweetledee/homejson.php
-==> User's Home Timeline JSON parameters:
+    - Access the default user favorites feed (count = 25, includes both RT's & replies) at the following URL:
+            e.g. http://<yourdomain>/tweetledee/favoritesjson_pp.php
+==> User Favorites JSON parameters:
     - 'c' - specify a tweet count (range 1 - 200, default = 25)
-            e.g. http://<yourdomain>/tweetledee/homejson.php?c=100
-    - 'xrp' - exclude replies (1=true, default = false)
-            e.g. http://<yourdomain>/tweetledee/homejson.php?xrp=1
+            e.g. http://<yourdomain>/tweetledee/favoritesjson_pp.php?c=100
+    - 'user' - specify the Twitter user whose favorites you would like to retrieve (default = account associated with access token)
+            e.g. http://<yourdomain>/tweetledee/favoritesjson_pp.php?user=cooluser
     - Example of all of the available parameters:
-            e.g. http://<yourdomain>/tweetledee/homejson.php?c=100&xrp=1
+            e.g. http://<yourdomain>/tweetledee/favoritesjson_pp.php?c=100&user=cooluser
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
 *  Debugging Flag
@@ -33,13 +28,6 @@ if ($TLD_DEBUG == 1){
     error_reporting(E_ALL | E_STRICT);
 }
 
-/*******************************************************************
-*  Client Side JavaScript Access Flag (default = 0 = off)
-********************************************************************/
-$TLD_JS = 0;
-if ($TLD_JS == 1) {
-    header('Access-Control-Allow-Origin: *');
-}
 
 /*******************************************************************
 *  Includes
@@ -61,7 +49,7 @@ require 'tldlib/tldCache.php';
 *  Defaults
 ********************************************************************/
 $count = 25;  //default tweet number = 25
-$exclude_replies = false;  //default to include replies
+$screen_name = '';
 $cache_interval = 300; // default cache interval = 300 seconds (5 minutes)
 
 /*******************************************************************
@@ -75,47 +63,39 @@ if (defined('STDIN')) {
     if (isset($argv)){
         $shortopts = "c:";
         $longopts = array(
-            "xrp",
+            "user:",
         );
         $params = getopt($shortopts, $longopts);
         if (isset($params['c'])){
             if ($params['c'] > 0 && $params['c'] <= 200)
                 $count = $params['c'];  //assign to the count variable
         }
-        if (isset($params['xrp'])){
-            $exclude_replies = true;
-        }
-        if (isset($params['xrp'])){
-            $exclude_replies = true;
+        if (isset($params['user'])){
+            $screen_name = $params['user'];
         }
         if (isset($params['cache_interval'])){
             $cache_interval = $params['cache_interval'];
         }
     }
-
-} //end if
-// Web server URL parameter definitions //
-else{
+}
+else {
     // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
     if (isset($_GET["c"])){
-        $getcount = $_GET["c"];
-        if ($getcount > 0 && $getcount <= 200){
-            $count = $getcount;
+        if ($_GET["c"] > 0 && $_GET["c"] <= 200){
+            $count = $_GET["c"];
         }
     }
 
-    // xrp = exclude replies from the timeline (possible values: 1=true, else false)
-    if (isset($_GET["xrp"])){
-        if ($_GET["xrp"] == 1){
-            $exclude_replies = true;
-        }
+    // user = Twitter screen name for the user favorites that the user is requesting (default = their own, possible values = any other Twitter user name)
+    if (isset($_GET["user"])){
+        $screen_name = $_GET["user"];
     }
 
     // cache_interval = the amount of time to keep the cached file
     if (isset($_GET["cache_interval"])){
         $cache_interval = $_GET["cache_interval"];
     }
-} //end else
+} // end else
 
 /*******************************************************************
 *  OAuth
@@ -136,22 +116,19 @@ $data = $tldCache->auth_request();
 $twitterName = $data['screen_name'];
 $fullName = $data['name'];
 $twitterAvatarUrl = $data['profile_image_url'];
-$feedTitle = ' Twitter home timeline for ' . $twitterName;
-$screen_name = $data['screen_name'];
-
+if ( $screen_name == '' ) $screen_name = $data['screen_name'];
 
 /*******************************************************************
 *  Request
 ********************************************************************/
-$homeTimelineObj = $tldCache->user_request(array(
-            'url' => '1.1/statuses/home_timeline',
+$userFavoritesObj = $tldCache->user_request(array(
+            'url' => '1.1/favorites/list',
             'params' => array(
                 'include_entities' => true,
                 'count' => $count,
-                'exclude_replies' => $exclude_replies,
+                'screen_name' => $screen_name,
             )
         ));
 
 header('Content-Type: application/json');
-echo json_encode($homeTimelineObj);
-
+echo json_encode($userFavoritesObj, JSON_PRETTY_PRINT);
