@@ -19,8 +19,7 @@
     - 'user' - specify the Twitter user whose favorites you would like to retrieve (default = account associated with access token)
             e.g. http://<yourdomain>/tweetledee/listsjson.php?list=<list-slug>&user=cooluser
     - 'xrt' - exclude retweets in the returned data (set to 1 to exclude, default = include retweets)
-    - Example of all of the available parameters:
-            e.g. http://<yourdomain>/tweetledee/listsjson.php?c=100&user=santaclaus&list=nicelist&xrt=1
+    - 'cache_interval' - specify the duration of the cache interval in seconds (default = 90sec)
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
 *  Debugging Flag

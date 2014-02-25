@@ -20,8 +20,7 @@
             e.g. http://<yourdomain>/tweetledee/listsrss.php?list=<list-slug>&user=cooluser
     - 'xrt' - exclude retweets in the returned data (set to 1 to exclude, default = include retweets)
             e.g. http://<yourdomain>/tweetledee/listsrss.php?list=<list-slug>&xrt=1
-    - Example of all of the available parameters:
-            e.g. http://<yourdomain>/tweetledee/listsrss.php?c=100&user=santaclaus&list=nicelist&xrt=1
+    - 'cache_interval' - specify the duration of the cache interval in seconds (default = 90sec)
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
 *  Debugging Flag

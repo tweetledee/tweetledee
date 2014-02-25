@@ -16,8 +16,7 @@
             e.g. http://<yourdomain>/tweetledee/homejson.php?c=100
     - 'xrp' - exclude replies (1=true, default = false)
             e.g. http://<yourdomain>/tweetledee/homejson.php?xrp=1
-    - Example of all of the available parameters:
-            e.g. http://<yourdomain>/tweetledee/homejson.php?c=100&xrp=1
+    - 'cache_interval' - specify the duration of the cache interval in seconds (default = 90sec)
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
 *  Debugging Flag

@@ -20,8 +20,7 @@
             e.g. http://<yourdomain>/tweetledee/userjson.php?xrt=1
     - 'xrp' - exclude replies (1=true, default = false)
             e.g. http://<yourdomain>/tweetledee/userjson.php?xrp=1
-    - Example of all of the available parameters:
-            e.g. http://<yourdomain>/tweetledee/userjson.php?c=100&xrt=1&xrp=1&user=cooluser
+    - 'cache_interval' - specify the duration of the cache interval in seconds (default = 90sec)
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
 *  Debugging Flag

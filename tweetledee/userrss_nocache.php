@@ -10,18 +10,18 @@
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
     - Access the default user timeline feed (count = 25, includes both RT's & replies) at the following URL:
-            e.g. http://<yourdomain>/tweetledee/userrss.php
+            e.g. http://<yourdomain>/tweetledee/userrss_nocache.php
 ==> User Timeline RSS feed parameters:
     - 'c' - specify a tweet count (range 1 - 200, default = 25)
-            e.g. http://<yourdomain>/tweetledee/userrss.php?c=100
+            e.g. http://<yourdomain>/tweetledee/userrss_nocache.php?c=100
     - 'user' - specify the Twitter user whose timeline you would like to retrieve (default = account associated with access token)
-            e.g. http://<yourdomain>/tweetledee/userrss.php?user=cooluser
+            e.g. http://<yourdomain>/tweetledee/userrss_nocache.php?user=cooluser
     - 'xrt' - exclude retweets (1=true, default = false)
-            e.g. http://<yourdomain>/tweetledee/userrss.php?xrt=1
+            e.g. http://<yourdomain>/tweetledee/userrss_nocache.php?xrt=1
     - 'xrp' - exclude replies (1=true, default = false)
-            e.g. http://<yourdomain>/tweetledee/userrss.php?xrp=1
+            e.g. http://<yourdomain>/tweetledee/userrss_nocache.php?xrp=1
     - Example of all of the available parameters:
-            e.g. http://<yourdomain>/tweetledee/userrss.php?c=100&xrt=1&xrp=1&user=cooluser
+            e.g. http://<yourdomain>/tweetledee/userrss_nocache.php?c=100&xrt=1&xrp=1&user=cooluser
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
 *  Debugging Flag

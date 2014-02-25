@@ -10,14 +10,14 @@
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
     - Access the default home timeline feed (count = 25, includes both RT's & replies) at the following URL:
-            e.g. http://<yourdomain>/tweetledee/homerss.php
+            e.g. http://<yourdomain>/tweetledee/homerss_nocache.php
 ==> User's Home Timeline RSS feed parameters:
     - 'c' - specify a tweet count (range 1 - 200, default = 25)
-            e.g. http://<yourdomain>/tweetledee/homerss.php?c=100
+            e.g. http://<yourdomain>/tweetledee/homerss_nocache.php?c=100
     - 'xrp' - exclude replies (1=true, default = false)
-            e.g. http://<yourdomain>/tweetledee/homerss.php?xrp=1
+            e.g. http://<yourdomain>/tweetledee/homerss_nocache.php?xrp=1
     - Example of all of the available parameters:
-            e.g. http://<yourdomain>/tweetledee/homerss.php?c=100&xrp=1
+            e.g. http://<yourdomain>/tweetledee/homerss_nocache.php?c=100&xrp=1
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
 *  Debugging Flag

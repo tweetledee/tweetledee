@@ -10,16 +10,16 @@
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
     - Generic tweet search JSON URL (count = 25):
-            e.g. http://<yourdomain>/tweetledee/searchjson.php?q=<search-term>
+            e.g. http://<yourdomain>/tweetledee/searchjson_nocache.php?q=<search-term>
 ==> Twitter Tweet Search JSON parameters:
     - 'c' - specify a tweet count (range 1 - 200, default = 25)
-            e.g. http://<yourdomain>/tweetledee/searchjson.php?q=<search-term>&c=100
+            e.g. http://<yourdomain>/tweetledee/searchjson_nocache.php?q=<search-term>&c=100
     - 'rt' - result type (possible values: mixed, recent, popular; default = mixed)
-            e.g. http://<yourdomain>/tweetledee/searchjson.php?q=<search-term>&rt=recent
+            e.g. http://<yourdomain>/tweetledee/searchjson_nocache.php?q=<search-term>&rt=recent
     - 'q' - query term
-            e.g. http://<yourdomain>/tweetledee/searchjson.php?q=coolsearch
+            e.g. http://<yourdomain>/tweetledee/searchjson_nocache.php?q=coolsearch
     -  Example of all parameters
-            http://<yourdomain>/tweetledee/searchjson.php?q=coolsearch&c=50&rt=recent
+            http://<yourdomain>/tweetledee/searchjson_nocache.php?q=coolsearch&c=50&rt=recent
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
 *  Debugging Flag

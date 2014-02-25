@@ -16,8 +16,7 @@
             e.g. http://<yourdomain>/tweetledee/favoritesjson.php?c=100
     - 'user' - specify the Twitter user whose favorites you would like to retrieve (default = account associated with access token)
             e.g. http://<yourdomain>/tweetledee/favoritesjson.php?user=cooluser
-    - Example of all of the available parameters:
-            e.g. http://<yourdomain>/tweetledee/favoritesjson.php?c=100&user=cooluser
+    - 'cache_interval' - specify the duration of the cache interval in seconds (default = 90sec)
 --------------------------------------------------------------------------------------------------*/
 
 /*******************************************************************

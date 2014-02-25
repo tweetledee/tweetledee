@@ -10,18 +10,18 @@
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
     - Access the default user list feed (count = 25, includes both RT's & replies) at the following URL:
-            e.g. http://<yourdomain>/tweetledee/listsrss.php?list=<list-slug>
+            e.g. http://<yourdomain>/tweetledee/listsrss_nocache.php?list=<list-slug>
 ==> User List RSS feed parameters:
     - 'c' - specify a tweet count (range 1 - 200, default = 25)
-            e.g. http://<yourdomain>/tweetledee/listsrss.php?list=<list-slug>&c=100
+            e.g. http://<yourdomain>/tweetledee/listsrss_nocache.php?list=<list-slug>&c=100
     - 'list' - the list name for the specified user (default = account associated with access token)
-            e.g. http://<yourdomain>/tweetledee/listsrss.php?list=theblacklist
+            e.g. http://<yourdomain>/tweetledee/listsrss_nocache.php?list=theblacklist
     - 'user' - specify the Twitter user whose favorites you would like to retrieve (default = account associated with access token)
-            e.g. http://<yourdomain>/tweetledee/listsrss.php?list=<list-slug>&user=cooluser
+            e.g. http://<yourdomain>/tweetledee/listsrss_nocache.php?list=<list-slug>&user=cooluser
     - 'xrt' - exclude retweets in the returned data (set to 1 to exclude, default = include retweets)
-            e.g. http://<yourdomain>/tweetledee/listsrss.php?list=<list-slug>&xrt=1
+            e.g. http://<yourdomain>/tweetledee/listsrss_nocache.php?list=<list-slug>&xrt=1
     - Example of all of the available parameters:
-            e.g. http://<yourdomain>/tweetledee/listsrss.php?c=100&user=santaclaus&list=nicelist&xrt=1
+            e.g. http://<yourdomain>/tweetledee/listsrss_nocache.php?c=100&user=santaclaus&list=nicelist&xrt=1
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
 *  Debugging Flag

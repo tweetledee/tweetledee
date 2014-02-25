@@ -10,14 +10,14 @@
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
     - Access the default user favorites feed (count = 25, includes both RT's & replies) at the following URL:
-            e.g. http://<yourdomain>/tweetledee/favoritesrss.php
+            e.g. http://<yourdomain>/tweetledee/favoritesrss_nocache.php
 ==> User Favorites RSS feed parameters:
     - 'c' - specify a tweet count (range 1 - 200, default = 25)
-            e.g. http://<yourdomain>/tweetledee/favoritesrss.php?c=100
+            e.g. http://<yourdomain>/tweetledee/favoritesrss_nocache.php?c=100
     - 'user' - specify the Twitter user whose favorites you would like to retrieve (default = account associated with access token)
-            e.g. http://<yourdomain>/tweetledee/favoritesrss.php?user=cooluser
+            e.g. http://<yourdomain>/tweetledee/favoritesrss_nocache.php?user=cooluser
     - Example of all of the available parameters:
-            e.g. http://<yourdomain>/tweetledee/favoritesrss.php?c=100&user=cooluser
+            e.g. http://<yourdomain>/tweetledee/favoritesrss_nocache.php?c=100&user=cooluser
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
 *  Debugging Flag

@@ -18,8 +18,7 @@
             e.g. http://<yourdomain>/tweetledee/searchjson.php?q=<search-term>&rt=recent
     - 'q' - query term
             e.g. http://<yourdomain>/tweetledee/searchjson.php?q=coolsearch
-    -  Example of all parameters
-            http://<yourdomain>/tweetledee/searchjson.php?q=coolsearch&c=50&rt=recent
+    - 'cache_interval' - specify the duration of the cache interval in seconds (default = 90sec)
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
 *  Debugging Flag
