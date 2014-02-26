@@ -1,7 +1,7 @@
 Tweetledee
 ==========
 
-**A PHP library that provides an incredibly easy way to access Twitter data as JSON, pretty printed JSON, or RSS feeds by URL or standard command line syntax.  The Tweetledee files include caching to avoid exceeding the Twitter API v1.1 rate limits (see caveats in the documentation!).**
+**A PHP library that provides an incredibly easy way to access Twitter data as JSON, pretty printed JSON, or RSS feeds by URL or standard command line syntax.  The Tweetledee files include caching to avoid exceeding the Twitter API v1.1 rate limits (see [caveats in the documentation](http://chrissimpkins.github.io/tweetledee/caching.html)!).**
 
 ## Documentation
 - Docs Home: [http://chrissimpkins.github.io/tweetledee](http://chrissimpkins.github.io/tweetledee)
