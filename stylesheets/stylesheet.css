@@ -48,10 +48,10 @@ table {
 
 /* LAYOUT STYLES */
 body {
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.5;
   background: #fafafa url(../images/body-bg.jpg) 0 0 repeat;
-  font-family: 'Helvetica Neue', Helvetica, Arial, serif;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, serif;
   font-weight: 400;
   color: #666;
 }
@@ -121,6 +121,7 @@ aside#sidebar {
 
 aside#sidebar p.repo-owner,
 aside#sidebar p.repo-owner a {
+  font-family: 'Helvetica Neue', Helvetica, Arial, serif;
   font-weight: bold;
   font-size:18px;
   text-align:center;
@@ -221,8 +222,25 @@ ul, ol, dl {
   color:#2879d0 !important;
 }
 
+.example_header {
+  margin-top: 50px !important;
+}
+
 .bold {
   font-weight: 700 !important;
+}
+
+a.up_navigation {
+  opacity:0.3;
+}
+
+a.up_navigation:hover {
+  opacity:1.0;
+}
+
+.parameter_table {
+  font-size:14px;
+  font-weight: bold;
 }
 
 /* COMMON STYLES */
@@ -309,9 +327,9 @@ form {
 
 #main-content h4 {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, serif;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: bold;
-  color: #474747;
+  color: #26ADE4;
 }
 
 h4:before {

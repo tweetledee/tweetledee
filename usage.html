@@ -66,11 +66,11 @@
 <p><span style="color:#00aced !important;"><i class="icon-info"></i></span> :  Note that pretty printed JSON is obtained by adding the <code>_pp</code> suffix to the base file name.  For example, <code>userjson.php</code> becomes <code>userjson_pp.php</code> and <code>userjson_nocache.php</code> becomes <code>userjson_pp_nocache.php</code>.</p>
 <p>Pretty printed JSON requires PHP v5.4 and above.  Standard JSON results require PHP v5.3 and above.</p>
 
-<h3 class="blue" id="fav_json"><span style="color:green !important"><i class="icon-file-text"></i></span> Favorites JSON <code>favoritesjson.php</code> + <code>favoritesjson_pp.php</code></h3>
+<h3 class="blue example_header" id="fav_json"><span style="color:green !important"><i class="icon-file-text"></i></span> Favorites JSON <code>favoritesjson.php</code> + <code>favoritesjson_pp.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
 <h5>Default Favorites JSON</h5>
 <pre><code>http://[yourdomain]/tweetledee/favoritesjson.php</code></pre>
 <h5>Optional URL Parameters</h5>
-<table>
+<table class="parameter_table">
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
  <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
  <tr>
@@ -90,11 +90,11 @@
 <h5>All Options</h5>
 <pre><code>http://[yourdomain]/tweetledee/favoritesjson.php?c=100&user=csimpkins&cache_interval=300</code></pre>
 
-<h3 class="blue" id="home_json"><span style="color:green !important"><i class="icon-file-text"></i></span> Home Timeline JSON <code>homejson.php</code> + <code>homejson_pp.php</code></h3>
+<h3 class="blue example_header" id="home_json"><span style="color:green !important;"><i class="icon-file-text"></i></span> Home Timeline JSON <code>homejson.php</code> + <code>homejson_pp.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
 <h5>Default Home Timeline JSON</h5>
 <pre><code>http://[yourdomain]/tweetledee/homejson.php</code></pre>
 <h5>Optional URL Parameters</h5>
-<table>
+<table class="parameter_table">
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
  <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
   <tr>
@@ -114,16 +114,16 @@
 <h5>All Options</h5>
 <pre><code>http://[yourdomain]/tweetledee/homejson.php?c=100&xrp=1&cache_interval=300</code></pre>
 
-<h3 class="blue" id="lists_json"><span style="color:green !important"><i class="icon-file-text"></i></span> List JSON <code>listsjson.php</code> + <code>listsjson_pp.php</code></h3>
+<h3 class="blue example_header" id="lists_json"><span style="color:green !important"><i class="icon-file-text"></i></span> List JSON <code>listsjson.php</code> + <code>listsjson_pp.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
 <h5>Default Lists JSON</h5>
 <pre><code>http://[yourdomain]/tweetledee/listsjson.php?list=[list-slug]</code></pre>
 <h5>Required URL Parameter</h5>
-<table>
+<table class="parameter_table">
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
  <tr><td>list</td><td>List slug name</td><td>(required)</td><td>any list slug</td></tr>
 </table>
 <h5>Optional URL Parameters</h5>
-<table>
+<table class="parameter_table">
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
  <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
    <tr>
@@ -148,16 +148,16 @@
 <h5>All options</h5>
 <pre><code>http://[yourdomain]/tweetledee/listsjson.php?user=anotheruser&list=reading-list&c=100&xrt=1&cache_interval=300</code></pre>
 
-<h3 class="blue" id="search_json"><span style="color:green !important"><i class="icon-file-text"></i></span> Tweet Search JSON <code>searchjson.php</code> + <code>searchjson_pp.php</code></h3>
+<h3 class="blue example_header" id="search_json"><span style="color:green !important"><i class="icon-file-text"></i></span> Tweet Search JSON <code>searchjson.php</code> + <code>searchjson_pp.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
 <h5>Default Tweet Search JSON</h5>
 <pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=[search_term]</code></pre>
 <h5>Required URL Parameter</h5>
-<table>
+<table class="parameter_table">
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
  <tr><td>q</td><td>Search query</td><td>(required)</td><td>any search term</td></tr>
 </table>
 <h5>Optional URL Parameters</h5>
-<table>
+<table class="parameter_table">
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
  <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
     <tr>
@@ -181,10 +181,10 @@
 <h5>All Options</h5>
 <pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=test&rt=recent&c=75&cache_interval=300</code></pre>
 
-<h3 class="blue" id="user_json"><span style="color:green !important"><i class="icon-file-text"></i></span> User Timeline JSON <code>userjson.php</code> + <code>userjson_pp.php</code></h3>
+<h3 class="blue example_header" id="user_json"><span style="color:green !important"><i class="icon-file-text"></i></span> User Timeline JSON <code>userjson.php</code> + <code>userjson_pp.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
 <h5>Default User Timeline JSON</h5>
 <pre><code>http://[yourdomain]/tweetledee/userjson.php</code></pre>
-<table>
+<table class="parameter_table">
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
  <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
  <tr>
@@ -210,14 +210,14 @@
 <h5>All Options</h5>
 <pre><code>http://[yourdomain]/tweetledee/userjson.php?c=100&user=csimpkins&xrp=1&xrt=1&cache_interval=300</code></pre>
 
-<h2><a name="rss-feed-examples" class="anchor" href="#rss-feed-examples"><span class="octicon octicon-link"></span></a>RSS Feed Types</h2>
+<h2 class="example_header"><a name="rss-feed-examples" class="anchor" href="#rss-feed-examples"><span class="octicon octicon-link"></span></a>RSS Feed Types</h2>
 <p><span style="color:#00aced !important;"><i class="icon-info"></i></span> :  RSS feeds require PHP v5.3 and above.</p>
 
-<h3 class="blue" id="fav_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> Favorites RSS Feed <code>favoritesrss.php</code></h3>
+<h3 class="blue example_header" id="fav_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> Favorites RSS Feed <code>favoritesrss.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
 <h5>Default Favorites RSS Feed</h5>
 <pre><code>http://[yourdomain]/tweetledee/favoritesrss.php</code></pre>
 <h5>Optional URL Parameters</h5>
-<table>
+<table class="parameter_table">
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
  <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
   <tr>
@@ -237,11 +237,11 @@
 <h5>All Options</h5>
 <pre><code>http://[yourdomain]/tweetledee/favoritesrss.php?c=100&user=csimpkins&cache_interval=300</code></pre>
 
-<h3 class="blue" id="home_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> Home Timeline RSS Feed <code>homerss.php</code></h3>
+<h3 class="blue example_header" id="home_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> Home Timeline RSS Feed <code>homerss.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
 <h5>Default Home Timeline URL</h5>
 <pre><code>http://[yourdomain]/tweetledee/homerss.php</code></pre>
 <h5>Optional URL Parameters</h5>
-<table>
+<table class="parameter_table">
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
  <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
    <tr>
@@ -261,16 +261,16 @@
 <h5>All Options</h5>
 <pre><code>http://[yourdomain]/tweetledee/homerss.php?c=100&xrp=1&cache_interval=300</code></pre>
 
-<h3 class="blue" id="lists_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> List RSS Feed <code>listsrss.php</code></h3>
+<h3 class="blue example_header" id="lists_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> List RSS Feed <code>listsrss.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
 <h5>Default Lists RSS Feed</h5>
 <pre><code>http://[yourdomain]/tweetledee/listsrss.php?list=[list-slug]</code></pre>
 <h5>Required URL Parameter</h5>
-<table>
+<table class="parameter_table">
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
  <tr><td>list</td><td>List slug name</td><td>(required)</td><td>any list slug</td></tr>
 </table>
 <h5>Optional URL Parameters</h5>
-<table>
+<table class="parameter_table">
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
  <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
   <tr>
@@ -296,16 +296,16 @@
 <pre><code>http://[yourdomain]/tweetledee/listsrss.php?user=anotheruser&list=reading-list&c=100&xrt=1&cache_interval=300</code></pre>
 
 
-<h3 class="blue" id="search_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> Tweet Search RSS Feed <code>searchrss.php</code></h3>
+<h3 class="blue example_header" id="search_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> Tweet Search RSS Feed <code>searchrss.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
 <h5>Default Tweet Search Feed URL</h5>
 <pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=[search_term]</code></pre>
 <h5>Required URL Parameter</h5>
-<table>
+<table class="parameter_table">
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
  <tr><td>q</td><td>Search query</td><td>(required)</td><td>any search term</td></tr>
 </table>
 <h5>Optional URL Parameters</h5>
-<table>
+<table class="parameter_table">
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
  <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
   <tr>
@@ -329,11 +329,11 @@
 <h5>All Options</h5>
 <pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test&rt=recent&c=75&cache_interval=300</code></pre>
 
-<h3 class="blue" id="user_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> User Timeline RSS Feed <code>userrss.php</code></h3>
+<h3 class="blue example_header" id="user_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> User Timeline RSS Feed <code>userrss.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
 <h5>Default User Timeline URL</h5>
 <pre><code>http://[yourdomain]/tweetledee/userrss.php</code></pre>
 <h5>Optional URL Parameters</h5>
-<table>
+<table class="parameter_table">
 <tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
  <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
   <tr>
