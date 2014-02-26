@@ -51,9 +51,10 @@
           <h1>
 <a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Easy Access to Your Twitter Data</h1>
 
+<p> <span style='color:red; font-size:24px'>Tweetledee now supports Twitter data caching to avoid exceeding the Twitter API v1.1 rate limits <i class="icon-forward"></i> <a href="caching.html">Learn More</a></span></p>
+
 <p>Tweetledee provides ready-bake PHP files that allow you to access Twitter user timelines, user favorites, lists, home timelines, and tweet search data in a JSON or RSS format.  This approach works after the Twitter API 1.1 changes that eliminated Twitter support for RSS feeds.</p>
 <p>Grab your API tokens from Twitter, upload the Tweetledee files to your server, and use them.  It's that simple.</p>
-<p>As of version 0.4.0, the Tweetledee files implement caching to help you remain within the Twitter API v1.1 rate limits.</p>
 
 <h2>
 <a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h2>
@@ -62,6 +63,7 @@
   <li>Access to a web server with PHP version 5.3 or greater (PHP 5.4+ for pretty printed JSON)</li>
   <li>libcurl installed on your web server (<a href="http://curl.haxx.se/libcurl/">cURL</a>)</li>
   <li>Twitter application OAuth settings and access tokens</li>
+  <li>Local file write access on the web server (if you are using the caching Tweetledee files)</li>
 </ul>
 
 <h2>
@@ -71,9 +73,9 @@
 <ul>
 <li><a href="https://dev.twitter.com/apps/new">Create a Twitter application on the Twitter Developers site</a></li>
 <li>For the application details:</li>
-<li>---> Name : assign any name that you'd like</li>
-<li>---> Description : brief description of the site where you are using Tweetledee</li>
-<li>---> Website : enter the domain where you will be using Tweetledee</li>
+<li><i class="icon-arrow-right"></i> Name : assign any name that you'd like</li>
+<li><i class="icon-arrow-right"></i> Description : brief description of the site where you are using Tweetledee</li>
+<li><i class="icon-arrow-right"></i> Website : enter the domain where you will be using Tweetledee</li>
 <li>Read and agree to the "Rules of the Road"</li>
 <li>Fill in the Captcha</li>
 <li>Click the 'Create Your Twitter Application' button</li>
@@ -117,7 +119,8 @@
 <p>Try this as a quick test to confirm that it is working.  This will display your user timeline RSS feed:</p>
 <h5>Your New User Timeline Feed</h5>
 <pre><code>http://[yourdomain]/tweetledee/userrss.php</code></pre>
-<p>Note that the default is 25 tweets in this feed.  You can modify this with URL parameters that you pass to the Tweetledee file (up to 200 tweets).  The default files cache your results for 90 seconds in order to remain within the Twitter API v1.1 rate limits.  For this reason, you will not see updated results for 90 seconds after you initially run the PHP script.  You can modify this interval with a URL parameter <code>cache_interval</code>.  See the <a href="usage.html">usage section</a> for more information about the options that you have with each of the returned data types.</p>
+<p>Note that the default is 25 tweets in this feed.  You can modify this with URL parameters that you pass to the Tweetledee file (up to 200 tweets).  The default files cache your results for 90 seconds in order to remain within the Twitter API v1.1 rate limits.  For this reason, you will not see updated results for 90 seconds after you initially access the PHP script.  You can modify this interval with a URL parameter <code>cache_interval</code>.  See the <a href="usage.html">Usage</a> and <a href="caching.html">Caching</a> docs for more information about caching.</p>
+<p>The <a href="usage.html">Usage</a> section of the documentation includes a large number of examples that will introduce you to all of the available parameters.</p>
 <h2><a name="file-types" class="anchor" href="#file-types"><span class="octicon octicon-link"></span></a>What Tweetledee Includes</h2>
 <h3><i class="icon-sign-blank burntorange"></i> Favorites (User) JSON</h3>
 <pre><code>http://[yourdomain]/tweetledee/favoritesjson.php</code></pre>
@@ -235,16 +238,19 @@
             Support
           </a>
 
-          <p class="repo-owner"><a href="https://github.com/chrissimpkins/tweetledee"></a> Developed by <a href="https://github.com/chrissimpkins">Chris Simpkins</a></p>
-          <p class="repo-owner sidebar-spacing middle-align"><span style="color:#00aced"><i class="icon-twitter icon-2x"></i></span> <a href="http://twitter.com/pixsied">@pixsied</a> | <a href="http://twitter.com/csimpkins">@csimpkins</a></p>
-          <p class="repo-owner sidebar-spacing middle-align"><a href="https://flattr.com/submit/auto?user_id=pixsied&url=http://github.com/chrissimpkins/tweetledee&title=Tweetledee&description=Tweetledee&language=en_GB&tags=Twitter,RSS,JSON,feed,programming,developer&category=software"><img src="https://flattr.com/_img/icons/flattr_logo_16.png" alt="Flattr Tweetledee!" /> Flattr Tweetledee!</a></p>
+          <p class="repo-owner"> Developed by <br><a href="https://github.com/chrissimpkins"><span style="font-size:20px;color:#751590; margin-right:4px"><i class="icon-github"></i></span></a><a href="http://sweetme.at">Chris Simpkins</a><a href="http://twitter.com/csimpkins"><span style="font-size:20px;color:#00aced; margin-left:4px"><i class="icon-twitter"></i></span></a></p>
+          <p class="repo-owner"><u>Contributors</u> <br>
+          <a href="https://github.com/levymetal">Christian Varga</a><br>
+          <a href="https://twitter.com/fogcat">Geoff Smith</a><br>
+          <a href="https://github.com/themattharris">Matt Harris</a><br>
+          <a href="https://github.com/jjschwarz">Jason Schwarz</a>
         </aside>
       </div>
     </div>
     <footer>
       <div class="inner">
       <div class="license">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a><br />This documentation is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+This documentation is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
       </div>
       </div>
     </footer>

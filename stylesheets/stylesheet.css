@@ -122,6 +122,8 @@ aside#sidebar {
 aside#sidebar p.repo-owner,
 aside#sidebar p.repo-owner a {
   font-weight: bold;
+  font-size:18px;
+  text-align:center;
 }
 
 #downloads {
@@ -394,9 +396,14 @@ footer {
 }
 
 .license{
+   opacity:0.4;
    margin-top:335px;
    width:100%;
    text-align: center;
+}
+
+.license a {
+  color:#888;
 }
 
 .license a:hover{

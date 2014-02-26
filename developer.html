@@ -52,7 +52,7 @@
                 <li><a href="#customrss">Customization of the RSS Feed Format</a></li>
               </ul>
             <h2><a name="debug" class="anchor" id="debug"><span class="octicon octicon-link"></span></a>Debugging Tweetledee</h2>
-            <p>Tweetledee provides a flag in every data file that permits you to turn on PHP debugging for a more verbose report of issues that arise with your use of the files.  This debugging feature is off by default.  To turn on debugging, switch the $TLD_DEBUG flag to 1.</p>
+            <p>Tweetledee provides a flag in every data file that permits you to turn on PHP debugging for a more verbose report of issues that arise with your use of the files.  This debugging feature is off by default.  To turn on debugging, switch the <code>$TLD_DEBUG</code> flag to 1.</p>
             <p>The default setting is 0</p>
             <pre><code>$TLD_DEBUG = 0;</code></pre>
             <p>Switch it to:</p>
@@ -80,7 +80,6 @@
             <p>This provides a relatively easy to implement Twitter data source for other applications.</p>
 
             <h2><a name="xsaccess" class="anchor" id="xsaccess"><span class="octicon octicon-link"></span></a>Cross Origin Resource Sharing of your Twitter Data</h2>
-            <p><span style="color:#00aced !important;"><i class="icon-info"></i> This feature is currently in testing.  Please submit any bug reports as a new issue on the GitHub repository.</span></p>
             <p>If you host your Tweetledee files on the domain mydata.com, access to the data from your other domain, myapp.com, where you are running the client-side JS code that needs to process it is prohibited by default.  The solution to this problem is for the server to deliver an appropriate response header to the client-side JS that provides "permission" to access the data.  This is known as cross origin resource sharing and permissions are modified with the Access-Control-Allow-Origin header.</p>
             <p>Tweetledee does not allow cross origin resource sharing by default but provides you with the option to activate this capability if you need it.  This is turned on through a flag that is available in all of the standard JSON data files.</p>
             <h5>The Default Tweetledee Cross Site Access Control Flag</h5>
@@ -142,18 +141,19 @@
             Support
           </a>
 
-          <p class="repo-owner"><a href="https://github.com/chrissimpkins/tweetledee"></a> Developed by <a href="https://github.com/chrissimpkins">Chris Simpkins</a></p>
-          <p class="repo-owner sidebar-spacing middle-align"><span style="color:#00aced"><i class="icon-twitter icon-2x"></i></span> <a href="http://twitter.com/pixsied">@pixsied</a> | <a href="http://twitter.com/csimpkins">@csimpkins</a></p>
-          <p class="repo-owner sidebar-spacing middle-align"><a href="https://flattr.com/submit/auto?user_id=pixsied&url=http://github.com/chrissimpkins/tweetledee&title=Tweetledee&description=Tweetledee&language=en_GB&tags=Twitter,RSS,JSON,feed,programming,developer&category=software"><img src="https://flattr.com/_img/icons/flattr_logo_16.png" alt="Flattr Tweetledee!" /> Flattr Tweetledee!</a>
-</p>
-
+          <p class="repo-owner"> Developed by <br><a href="https://github.com/chrissimpkins"><span style="font-size:20px;color:#751590; margin-right:4px"><i class="icon-github"></i></span></a><a href="http://sweetme.at">Chris Simpkins</a><a href="http://twitter.com/csimpkins"><span style="font-size:20px;color:#00aced; margin-left:4px"><i class="icon-twitter"></i></span></a></p>
+          <p class="repo-owner"><u>Contributors</u> <br>
+          <a href="https://github.com/levymetal">Christian Varga</a><br>
+          <a href="https://twitter.com/fogcat">Geoff Smith</a><br>
+          <a href="https://github.com/themattharris">Matt Harris</a><br>
+          <a href="https://github.com/jjschwarz">Jason Schwarz</a>
         </aside>
       </div>
     </div>
     <footer>
       <div class="inner">
       <div class="license">
-      <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a><br />This documentation is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+      This documentation is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
       </div>
       </div>
     </footer>

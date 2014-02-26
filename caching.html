@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <meta name="google-site-verification" content="7XYepMSTUejZjRrgHrRzGSlKmIenbVQFR-aAxPyeqyc" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Tweetledee : Caching Your Twitter Data</title>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42098785-1', 'chrissimpkins.github.io');
+  ga('send', 'pageview');
+
+</script>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Tweetledee</h1>
+        <h2>A PHP library that provides an incredibly easy way to access Twitter data formatted as JSON or a RSS feed</h2>
+        <a href="https://github.com/chrissimpkins/tweetledee" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1><a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Caching Guide</h1>
+          <p style='color:red; font-size:24px'>How to Cache Your Data and Stay Within the Twitter API v1.1 Rate Limits</p>
+          <p>The Twitter API includes data stream specific access rate limits that restrict how frequently you can pull new data from their servers.  Documentation of these limits is <a href="https://dev.twitter.com/docs/rate-limiting/1.1/limits">available on the Twitter developer site</a>.</p>
+
+          <h2>Why Do I Care?</h2>
+          <p>So why is this important for you? If you are using the Tweetledee files in a public facing application (e.g. to populate text on a website) and you receive more than one visitor per minute, the Twitter servers will lock your application account for a period of time, no new data will be served to you on new requests, and the Tweetledee script that you are using will respond with an error.  Users who repeatedly exceed the rate limits risk having their application blacklisted and losing all access to the Twitter API data.  Twitter currently uses 15 minute intervals to determine their rate limits and the number of permitted requests is as few as 15 over this interval, a value that differs by the API data type (see the link above).</p>
+
+          <h2>How Does Tweetledee Address This Issue?</h2>
+          <p>As of version 0.4.0, Tweetledee includes a built-in Twitter data caching mechanism with a default caching interval of 90 seconds.  This means that on the first request to the Tweetledee file, a cache file is saved locally on your web server and the saved file is served to users who make any new requests for the data over the next 90 seconds instead of attempting to request new data from the Twitter servers.  As a result, your application will request new data from the Twitter servers, at most, 10 times in a given 15 minute period irrespective of the number of requests made for data from your application.  This number of requests will keep you well below the rate limit across all of the Twitter API data types.</p>
+
+          <h2>Wait, Stale Data?</h2>
+          <p>Yep.  Unlimited access to 'real-time' Twitter data is not possible.  The details are available <a href="https://dev.twitter.com/docs/rate-limiting/1.1">here</a>.</p>
+
+          <h2>Rate Limit Protection Caveats</h2>
+          <p><span style="color:red; font-weight:bold">IMPORTANT</span>: Please recognize that the default rate limit protection that Tweetledee provides <span style="font-weight:bold">assumes that you are using only one file per application account at a time</span>.  Your API access counts are tallied across all of the Tweetledee files that are in active, simultaneous use for a given application account.</p>
+          <p>In order to address this issue, every cached Tweetledee file allows you to adjust the cache interval.  To do this, include the <code>cache_interval</code> parameter in your URL with a duration (in seconds) as the argument to this parameter.  There are examples for every Tweetledee file in the <a href="usage.html">Usage section</a> of the documentation.</p>
+          <p>Please make sure that you are familiar with the Twitter rate limits that are in place before you use these files in a production setting.</p>
+
+          <h2>Write Access Permission on Your Server</h2>
+          <p>The ability to cache Twitter data with Tweetledee requires local file write access on your web server.  If you find that your data are not being cached, please confirm that this permission is in place through your hosting provider.  If this does not appear to be the problem, please submit a detailed description of the issue on <a href="https://github.com/chrissimpkins/tweetledee/issues">the GitHub repository</a>.</p>
+
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/chrissimpkins/tweetledee/zipball/master" class="button" id="dl-btn-zip">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/chrissimpkins/tweetledee/tarball/master" class="button" id="dl-btn-gz">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+          <a href="index.html" class="tld-btn">
+            <small>Return</small>
+            Home
+          </a>
+          <a href="usage.html" class="tld-btn">
+            <small>Learn More</small>
+            Usage
+          </a>
+          <a href="support.html" class="tld-btn">
+            <small>Get Help</small>
+            Support
+          </a>
+
+          <p class="repo-owner"> Developed by <br><a href="https://github.com/chrissimpkins"><span style="font-size:20px;color:#751590; margin-right:4px"><i class="icon-github"></i></span></a><a href="http://sweetme.at">Chris Simpkins</a><a href="http://twitter.com/csimpkins"><span style="font-size:20px;color:#00aced; margin-left:4px"><i class="icon-twitter"></i></span></a></p>
+          <p class="repo-owner"><u>Contributors</u> <br>
+          <a href="https://github.com/levymetal">Christian Varga</a><br>
+          <a href="https://twitter.com/fogcat">Geoff Smith</a><br>
+          <a href="https://github.com/themattharris">Matt Harris</a><br>
+          <a href="https://github.com/jjschwarz">Jason Schwarz</a>
+        </aside>
+      </div>
+    </div>
+    <footer>
+      <div class="inner">
+      <div class="license">
+      This documentation is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+      </div>
+      </div>
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
