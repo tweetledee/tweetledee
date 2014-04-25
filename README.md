@@ -1,8 +1,6 @@
 Tweetledee
 ==========
 
-<small><a href="https://www.gittip.com/chrissimpkins/">Gittip</a></small>
-
 **A PHP library that provides an incredibly easy way to access Twitter data as JSON, pretty printed JSON, or RSS feeds by URL or standard command line syntax.  The Tweetledee files include caching to avoid exceeding the Twitter API v1.1 rate limits (see [caveats in the documentation](http://chrissimpkins.github.io/tweetledee/caching.html)!).**
 
 ## Documentation
