@@ -47,6 +47,9 @@ require 'tldlib/tldUtilities.php';
 // include Christian Varga's twitter cache
 require 'tldlib/tldCache.php';
 
+// include Martín Lucas Golini's pretty print functions
+require 'tldlib/tldPrettyPrint.php';
+
 /***************************************************************************************
 *  Mandatory parameter (list)
 *   - do not execute the OAuth authentication request if missing (keep before OAuth code)
@@ -176,5 +179,5 @@ $userListObj = $tldCache->user_request(array(
         ));
 
 header('Content-Type: application/json');
-echo json_encode($userListObj, JSON_PRETTY_PRINT);
+echo json_encode_pretty_print($userListObj);
 

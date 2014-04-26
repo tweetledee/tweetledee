@@ -42,6 +42,9 @@ require 'tldlib/keys/tweetledee_keys.php';
 // include Geoff Smith's utility functions
 require 'tldlib/tldUtilities.php';
 
+// include Martín Lucas Golini's pretty print functions
+require 'tldlib/tldPrettyPrint.php';
+
 /*******************************************************************
 *  OAuth
 ********************************************************************/
@@ -134,4 +137,4 @@ if ($code <> 200) {
 
 $userFavoritesObj = json_decode($tmhOAuth->response['response'], true);
 header('Content-Type: application/json');
-echo json_encode($userFavoritesObj, JSON_PRETTY_PRINT);
+echo json_encode_pretty_print($userFavoritesObj);

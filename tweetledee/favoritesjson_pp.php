@@ -44,6 +44,9 @@ require 'tldlib/tldUtilities.php';
 // include Christian Varga's twitter cache
 require 'tldlib/tldCache.php';
 
+// include Martín Lucas Golini's pretty print functions
+require 'tldlib/tldPrettyPrint.php';
+
 /*******************************************************************
 *  Defaults
 ********************************************************************/
@@ -130,4 +133,4 @@ $userFavoritesObj = $tldCache->user_request(array(
         ));
 
 header('Content-Type: application/json');
-echo json_encode($userFavoritesObj, JSON_PRETTY_PRINT);
+echo json_encode_pretty_print($userFavoritesObj);
