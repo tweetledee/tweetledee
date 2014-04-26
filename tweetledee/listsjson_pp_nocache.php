@@ -45,6 +45,9 @@ require 'tldlib/keys/tweetledee_keys.php';
 // include Geoff Smith's utility functions
 require 'tldlib/tldUtilities.php';
 
+// include Martín Lucas Golini's pretty print functions
+require 'tldlib/tldPrettyPrint.php';
+
 /***************************************************************************************
 *  Mandatory parameter (list)
 *   - do not execute the OAuth authentication request if missing (keep before OAuth code)
@@ -187,4 +190,4 @@ if ($code <> 200) {
 $userListObj = json_decode($tmhOAuth->response['response'], true);
 
 header('Content-Type: application/json');
-echo json_encode($userListObj, JSON_PRETTY_PRINT);
+echo json_encode_pretty_print($userListObj);
