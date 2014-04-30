@@ -1,5 +1,12 @@
 <?php
 
+/* Add PHP_VERSION_ID definition for PHP versions < 5.2.7*/
+if (!defined('PHP_VERSION_ID')) {
+    $version = explode('.', PHP_VERSION);
+
+    define('PHP_VERSION_ID', ($version[0] * 10000 + $version[1] * 100 + $version[2]));
+}
+
 /** pretty-prints json data, for human readability */
 function json_pretty_print( $json, $html = false ) {
 	$nl = $html ? "<br/>\n" : "\n";
@@ -64,4 +71,4 @@ function json_encode_pretty_print( $data ) {
 		return json_pretty_print( json_encode( $data ), false );
 	}
 }
- 
+
