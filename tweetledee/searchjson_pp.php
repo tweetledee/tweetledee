@@ -169,5 +169,4 @@ $searchResultsObj = $tldCache->user_request(array(
         ));
 
 header('Content-Type: application/json');
-//echo json_encode($searchResultsObj, JSON_PRETTY_PRINT);
 echo json_encode_pretty_print($searchResultsObj);
