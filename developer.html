@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -18,147 +19,204 @@
 
     <title>Tweetledee : Developer Guide</title>
     <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-  ga('create', 'UA-42098785-1', 'chrissimpkins.github.io');
-  ga('send', 'pageview');
+    ga('create', 'UA-42098785-1', 'chrissimpkins.github.io');
+    ga('send', 'pageview');
+    </script>
+</head>
 
-</script>
-  </head>
-
-  <body>
+<body>
     <header>
-      <div class="inner">
-        <h1>Tweetledee</h1>
-        <h2>A PHP library that provides an incredibly easy way to access Twitter data formatted as JSON or a RSS feed</h2>
-        <a href="https://github.com/chrissimpkins/tweetledee" class="button"><small>View project on</small>GitHub</a>
-      </div>
+        <div class="inner">
+            <h1>Tweetledee</h1>
+            <h2>A PHP library that provides an incredibly easy way to access Twitter data formatted as JSON or a RSS feed</h2>
+            <a href="https://github.com/chrissimpkins/tweetledee" class="button">
+                <small>View project on</small>GitHub</a>
+        </div>
     </header>
 
     <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1><a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Developer Guide</h1>
-              <p>This guide includes information that is intended for those who would like to modify the Tweetledee files or develop other projects with the data provided by the Tweetledee files.  If this is not your goal and you are trying to figure out how to use the files as released in the GitHub repository to generate RSS feed or JSON data, please see the <a href="usage.html">Usage Examples section</a>.</p>
-              <h2><a name="dev-toc" class="anchor" href="#dev-toc"><span class="octicon octicon-link"></span></a>Contents</h2>
-              <ul>
-                <li><a href="#debug">Debugging</a></li>
-                <li><a href="#cli">Access to Twitter Data from the Command Line</a></li>
-                <li><a href="#piping">Piping Twitter Data to Other Applications</a></li>
-                <li><a href="#xsaccess">Cross Origin Resource Sharing of your Twitter Data</a></li>
-                <li><a href="#customrss">Customization of the RSS Feed Format</a></li>
-              </ul>
-            <h2><a name="debug" class="anchor" id="debug"><span class="octicon octicon-link"></span></a>Debugging Tweetledee</h2>
-            <p>Tweetledee provides a flag in every data file that permits you to turn on PHP debugging for a more verbose report of issues that arise with your use of the files.  This debugging feature is off by default.  To turn on debugging, switch the <code>$TLD_DEBUG</code> flag to 1.</p>
-            <p>The default setting is 0</p>
-            <pre><code>$TLD_DEBUG = 0;</code></pre>
-            <p>Switch it to:</p>
-            <pre><code>$TLD_DEBUG = 1;</code></pre>
-            <p>Save the file and run it again.  Please include any error messages in bug reports that you submit as a new issue on the GitHub repository.</p>
+        <div class="inner clearfix">
+            <section id="main-content">
+                <h1>
+                    <a name="introduction" class="anchor" href="#introduction">
+                        <span class="octicon octicon-link"></span>
+                    </a>Developer Guide</h1>
+                <p>This guide includes information that is intended for those who would like to modify the Tweetledee files or develop other projects with the data provided by the Tweetledee files. If this is not your goal and you are trying to figure out how to use the files as released in the GitHub repository to generate RSS feed or JSON data, please see the <a href="usage.html">Usage Examples section</a>.</p>
+                <h2>
+                    <a name="dev-toc" class="anchor" href="#dev-toc">
+                        <span class="octicon octicon-link"></span>
+                    </a>Contents</h2>
+                <ul>
+                    <li><a href="#debug">Debugging</a>
+                    </li>
+                    <li><a href="#cli">Access to Twitter Data from the Command Line</a>
+                    </li>
+                    <li><a href="#piping">Piping Twitter Data to Other Applications</a>
+                    </li>
+                    <li><a href="#xsaccess">Cross Origin Resource Sharing of your Twitter Data</a>
+                    </li>
+                    <li><a href="#customrss">Customization of the RSS Feed Format</a>
+                    </li>
+                </ul>
+                <h2>
+                    <a name="debug" class="anchor" id="debug">
+                        <span class="octicon octicon-link"></span>
+                    </a>Debugging Tweetledee</h2>
+                <p>Tweetledee provides a flag in every data file that permits you to turn on PHP debugging for a more verbose report of issues that arise with your use of the files. This debugging feature is off by default. To turn on debugging, switch the
+                    <code>$TLD_DEBUG</code>flag to 1.</p>
+                <p>The default setting is 0</p>
+                <pre><code>$TLD_DEBUG = 0;</code></pre>
+                <p>Switch it to:</p>
+                <pre><code>$TLD_DEBUG = 1;</code></pre>
+                <p>Save the file and run it again. Please include any error messages in bug reports that you submit as a new issue on the GitHub repository.</p>
 
-            <h2><a name="cli" class="anchor" id="cli"><span class="octicon octicon-link"></span></a>Access to Twitter Data from the Command Line</h2>
-            <p>You can access Twitter JSON and RSS feed data with standard command line syntax and display your results in a terminal or pipe the data through the standard out stream to any other application (see <a href="#piping">below</a> for more information about this).  Instead of running the Tweetledee code with a URL, you run the script directly through the PHP interpreter.  The Tweetledee files automatically detect whether you are accessing the data by URL or from a terminal window.</p>
-            <p>All of the mandatory and optional parameter names remain the same with the CLI approach; however, you use standard CLI syntax to define them.  For single character options, use a short switch format (<code>-c</code>). For multiple character options, use a long switch format (<code>--user</code>).</p>
-            <p>Here are a few examples.  Navigate to the tweetledee directory and then try the following commands:</p>
-            <h5>Command line access to user timeline JSON (your own timeline)</h5>
-            <pre><code>php userjson.php</code></pre>
-            <h5>Command line access to user timeline JSON, different user</h5>
-            <pre><code>php userjson.php --user=csimpkins</code></pre>
-            <h5>Command line access to user timeline JSON, different user + exclude retweets</h5>
-            <pre><code>php userjson.php --user=csimpkins --xrt=1</code></pre>
-            <h5>Command line access to user timeline JSON, different user + exclude retweets + 5 tweets</h5>
-            <pre><code>php userjson.php --user=csimpkins --xrt=1 -c 5</code></pre>
-            <p>You get the idea.  You can use this approach with any of the data files.  The complete list of available options are in the <a href="usage.html">Usage Examples section</a> of the documentation.</p>
+                <h2>
+                    <a name="cli" class="anchor" id="cli">
+                        <span class="octicon octicon-link"></span>
+                    </a>Access to Twitter Data from the Command Line</h2>
+                <p>You can access Twitter JSON and RSS feed data with standard command line syntax and display your results in a terminal or pipe the data through the standard out stream to any other application (see <a href="#piping">below</a> for more information about this). Instead of running the Tweetledee code with a URL, you run the script directly through the PHP interpreter. The Tweetledee files automatically detect whether you are accessing the data by URL or from a terminal window.</p>
+                <p>All of the mandatory and optional parameter names remain the same with the CLI approach; however, you use standard CLI syntax to define them. For single character options, use a short switch format (
+                    <code>-c</code>). For multiple character options, use a long switch format (
+                    <code>--user</code>).</p>
+                <p>Here are a few examples. Navigate to the tweetledee directory and then try the following commands:</p>
+                <h5>Command line access to user timeline JSON (your own timeline)</h5>
+                <pre><code>php userjson.php</code></pre>
+                <h5>Command line access to user timeline JSON, different user</h5>
+                <pre><code>php userjson.php --user=csimpkins</code></pre>
+                <h5>Command line access to user timeline JSON, different user + exclude retweets</h5>
+                <pre><code>php userjson.php --user=csimpkins --xrt=1</code></pre>
+                <h5>Command line access to user timeline JSON, different user + exclude retweets + 5 tweets</h5>
+                <pre><code>php userjson.php --user=csimpkins --xrt=1 -c 5</code></pre>
+                <p>You get the idea. You can use this approach with any of the data files. The complete list of available options are in the <a href="usage.html">Usage Examples section</a> of the documentation.</p>
 
-            <h2><a name="piping" class="anchor" id="piping"><span class="octicon octicon-link"></span></a>Piping Twitter Data to Other Applications</h2>
-            <p>When you access the Tweetledee files from the command line, the data are transmitted through the standard out stream.  This makes it possible to pipe your results to any application that accepts data through the standard in stream.  As a trivial, relatively useless example to demonstrate this, here is how you would perform a word count on your user list (called "coollist") JSON data with the *nix wc application:</p>
-            <h5>Example of Piping Data from Tweetledee to Another Application</h5>
-            <pre><code>php listsjson.php --list=coollist | wc -w</code></pre>
-            <p>This provides a relatively easy to implement Twitter data source for other applications.</p>
+                <h2>
+                    <a name="piping" class="anchor" id="piping">
+                        <span class="octicon octicon-link"></span>
+                    </a>Piping Twitter Data to Other Applications</h2>
+                <p>When you access the Tweetledee files from the command line, the data are transmitted through the standard out stream. This makes it possible to pipe your results to any application that accepts data through the standard in stream. As a trivial, relatively useless example to demonstrate this, here is how you would perform a word count on your user list (called "coollist") JSON data with the *nix wc application:</p>
+                <h5>Example of Piping Data from Tweetledee to Another Application</h5>
+                <pre><code>php listsjson.php --list=coollist | wc -w</code></pre>
+                <p>This provides a relatively easy to implement Twitter data source for other applications.</p>
 
-            <h2><a name="xsaccess" class="anchor" id="xsaccess"><span class="octicon octicon-link"></span></a>Cross Origin Resource Sharing of your Twitter Data</h2>
-            <p>If you host your Tweetledee files on the domain mydata.com, access to the data from your other domain, myapp.com, where you are running the client-side JS code that needs to process it is prohibited by default.  The solution to this problem is for the server to deliver an appropriate response header to the client-side JS that provides "permission" to access the data.  This is known as cross origin resource sharing and permissions are modified with the Access-Control-Allow-Origin header.</p>
-            <p>Tweetledee does not allow cross origin resource sharing by default but provides you with the option to activate this capability if you need it.  This is turned on through a flag that is available in all of the standard JSON data files.</p>
-            <h5>The Default Tweetledee Cross Site Access Control Flag</h5>
-            <pre><code>$TLD_JS = 0;</code></pre>
-            <p>To activate cross site access, change this flag to 1 like this:</p>
-            <pre><code>$TLD_JS = 1;</code></pre>
-            <p>Save the file and upload it to your web server.  If you check in your browser developer tools, you will notice that this header is set as such:</p>
-            <pre><code>Access-Control-Allow-Origin: *</code></pre>
-            <p>This means that you are providing cross site, client side access to your data for ANY DOMAIN.  Read that again.  You just opened up your Tweetledee data to the JS for any website that would like to use it.  That may or may not be a problem for you, but please be aware that this is the default access level that is specified when you activate the flag.</p>
-            <p>If you would like to restrict the data access to a specific domain, say your myapp.com domain where your application is hosted, then you can modify the header definition in the Tweetledee file like this:</p>
-            <h5>Default Access-Control-Allow-Origin Header Definition</h5>
-            <pre><code>if ($TLD_JS == 1) {
+                <h2>
+                    <a name="xsaccess" class="anchor" id="xsaccess">
+                        <span class="octicon octicon-link"></span>
+                    </a>Cross Origin Resource Sharing of your Twitter Data</h2>
+                <p>If you host your Tweetledee files on the domain mydata.com, access to the data from your other domain, myapp.com, where you are running the client-side JS code that needs to process it is prohibited by default. The solution to this problem is for the server to deliver an appropriate response header to the client-side JS that provides "permission" to access the data. This is known as cross origin resource sharing and permissions are modified with the Access-Control-Allow-Origin header.</p>
+                <p>Tweetledee does not allow cross origin resource sharing by default but provides you with the option to activate this capability if you need it. This is turned on through a flag that is available in all of the standard JSON data files.</p>
+                <h5>The Default Tweetledee Cross Site Access Control Flag</h5>
+                <pre><code>$TLD_JS = 0;</code></pre>
+                <p>To activate cross site access, change this flag to 1 like this:</p>
+                <pre><code>$TLD_JS = 1;</code></pre>
+                <p>Save the file and upload it to your web server. If you check in your browser developer tools, you will notice that this header is set as such:</p>
+                <pre><code>Access-Control-Allow-Origin: *</code></pre>
+                <p>This means that you are providing cross site, client side access to your data for ANY DOMAIN. Read that again. You just opened up your Tweetledee data to the JS for any website that would like to use it. That may or may not be a problem for you, but please be aware that this is the default access level that is specified when you activate the flag.</p>
+                <p>If you would like to restrict the data access to a specific domain, say your myapp.com domain where your application is hosted, then you can modify the header definition in the Tweetledee file like this:</p>
+                <h5>Default Access-Control-Allow-Origin Header Definition</h5>
+                <pre><code>if ($TLD_JS == 1) {
     header('Access-Control-Allow-Origin: *');
 }</code></pre>
-            <p>is changed to:</p>
-            <h5>Your Site Access-Control-Allow-Origin Header Definition</h5>
-            <pre><code>if ($TLD_JS == 1) {
+                <p>is changed to:</p>
+                <h5>Your Site Access-Control-Allow-Origin Header Definition</h5>
+                <pre><code>if ($TLD_JS == 1) {
     header('Access-Control-Allow-Origin: http://www.myapp.com');
 }</code></pre>
-        <p>For more information on the CORS W3C spec, <a href="http://www.w3.org/TR/cors/">follow this link</a>.  <a href="http://www.html5rocks.com/en/tutorials/cors/">This is also a great article</a> that goes into a fair bit of detail on client side implementation with vanilla JS and jQuery, as well as browser support, for interested developers.</p>
-        <h2><a name="customrss" class="anchor" id="customrss"><span class="octicon octicon-link"></span></a>Custom RSS Formatting</h2>
-        <p>The default RSS feed format displays a tweet with the tweet sender's username in brackets followed by the tweet text like this:</p>
-        <pre><code>[username] The tweet text</code></pre>
-        <p>This is coded in the RSS feed files in the following line:</p>
-        <pre><code>&lt;title&gt;[&lt;?= $tweeter; ?&gt;] &lt;?= $tweetTitle; ?&gt; &lt;/title&gt;</code></pre>
-        <p><code>$tweeter</code> is a PHP variable that holds the user who posted the tweet and <code>$tweetTitle</code> is a PHP variable that holds the tweet text.</p>
-        <p>You can modify this line to display a tweet however you would like.  I have had a number of users request help with these modifications and will provide examples of a couple of their changes in order to provide a starting point for others who are interested.</p>
-        <h4>Remove the Brackets and Tweet Sender</h4>
-        <p>This is a straightforward modification of the above line.  Simply remove <code>[&lt;?= $tweeter; ?&gt;]</code>, save the file, and upload it again to your server.  The line should now look like this:</p>
-        <pre><code>&lt;title&gt;&lt;?= $tweetTitle; ?&gt;&lt;/title&gt;</code></pre>
-        <h4>Reformat the Tweet Sender</h4>
-        <p>A user wanted their tweets displayed like this:</p>
-        <pre><code>username said: The tweet text</code></pre>
-        <p>To make this adjustment, you need to remove the brackets, keep the <code>$tweeter</code> PHP variable, and modify the XML text so that it looks like this:</p>
-        <pre><code>&lt;title&gt;&lt;?= $tweeter; ?&gt; said: &lt;?= $tweetTitle; ?&gt;&lt;/title&gt;</code></pre>
-        <p>The XML readers will respect the spacing that you use in the file so include the appropriate spaces between words in the line.</p>
+                <p>For more information on the CORS W3C spec, <a href="http://www.w3.org/TR/cors/">follow this link</a>. <a href="http://www.html5rocks.com/en/tutorials/cors/">This is also a great article</a> that goes into a fair bit of detail on client side implementation with vanilla JS and jQuery, as well as browser support, for interested developers.</p>
+                <h2>
+                    <a name="customrss" class="anchor" id="customrss">
+                        <span class="octicon octicon-link"></span>
+                    </a>Custom RSS Formatting</h2>
+                <p>The default RSS feed format displays a tweet with the tweet sender's username in brackets followed by the tweet text like this:</p>
+                <pre><code>[username] The tweet text</code></pre>
+                <p>This is coded in the RSS feed files in the following line:</p>
+                <pre><code>&lt;title&gt;[&lt;?= $tweeter; ?&gt;] &lt;?= $tweetTitle; ?&gt; &lt;/title&gt;</code></pre>
+                <p>
+                    <code>$tweeter</code>is a PHP variable that holds the user who posted the tweet and
+                    <code>$tweetTitle</code>is a PHP variable that holds the tweet text.</p>
+                <p>You can modify this line to display a tweet however you would like. I have had a number of users request help with these modifications and will provide examples of a couple of their changes in order to provide a starting point for others who are interested.</p>
+                <h4>Remove the Brackets and Tweet Sender</h4>
+                <p>This is a straightforward modification of the above line. Simply remove
+                    <code>[&lt;?= $tweeter; ?&gt;]</code>, save the file, and upload it again to your server. The line should now look like this:</p>
+                <pre><code>&lt;title&gt;&lt;?= $tweetTitle; ?&gt;&lt;/title&gt;</code></pre>
+                <h4>Reformat the Tweet Sender</h4>
+                <p>A user wanted their tweets displayed like this:</p>
+                <pre><code>username said: The tweet text</code></pre>
+                <p>To make this adjustment, you need to remove the brackets, keep the
+                    <code>$tweeter</code>PHP variable, and modify the XML text so that it looks like this:</p>
+                <pre><code>&lt;title&gt;&lt;?= $tweeter; ?&gt; said: &lt;?= $tweetTitle; ?&gt;&lt;/title&gt;</code></pre>
+                <p>The XML readers will respect the spacing that you use in the file so include the appropriate spaces between words in the line.</p>
 
-        </section>
+            </section>
 
-        <aside id="sidebar">
-          <a href="https://github.com/chrissimpkins/tweetledee/zipball/master" class="button" id="dl-btn-zip">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/chrissimpkins/tweetledee/tarball/master" class="button" id="dl-btn-gz">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-          <a href="index.html" class="tld-btn">
-            <small>Return</small>
-            Home
-          </a>
-          <a href="usage.html" class="tld-btn">
-            <small>Learn More</small>
-            Usage
-          </a>
-          <a href="support.html" class="tld-btn">
-            <small>Get Help</small>
-            Support
-          </a>
+            <aside id="sidebar">
+                <a href="https://github.com/chrissimpkins/tweetledee/zipball/master" class="button" id="dl-btn-zip">
+                    <small>Download</small>
+                    .zip file
+                </a>
+                <a href="https://github.com/chrissimpkins/tweetledee/tarball/master" class="button" id="dl-btn-gz">
+                    <small>Download</small>
+                    .tar.gz file
+                </a>
+                <a href="index.html" class="tld-btn">
+                    <small>Return</small>
+                    Home
+                </a>
+                <a href="usage.html" class="tld-btn">
+                    <small>Learn More</small>
+                    Usage
+                </a>
+                <a href="support.html" class="tld-btn">
+                    <small>Get Help</small>
+                    Support
+                </a>
 
-          <p class="repo-owner"> Developed by <br><a href="https://github.com/chrissimpkins"><span style="font-size:20px;color:#751590; margin-right:4px"><i class="icon-github"></i></span></a><a href="http://sweetme.at">Chris Simpkins</a><a href="http://twitter.com/csimpkins"><span style="font-size:20px;color:#00aced; margin-left:4px"><i class="icon-twitter"></i></span></a></p>
-          <p class="repo-owner"><u>Contributors</u> <br>
-          <a href="https://github.com/levymetal">Christian Varga</a><br>
-          <a href="https://twitter.com/fogcat">Geoff Smith</a><br>
-          <a href="https://github.com/themattharris">Matt Harris</a><br>
-          <a href="https://github.com/jjschwarz">Jason Schwarz</a>
-        </aside>
-      </div>
+                <p class="repo-owner">Developed by
+                    <br>
+                    <a href="https://github.com/chrissimpkins">
+                        <span style="font-size:20px;color:#751590; margin-right:4px"><i class="icon-github"></i>
+                        </span>
+                    </a><a href="http://sweetme.at">Chris Simpkins</a>
+                    <a href="http://twitter.com/csimpkins">
+                        <span style="font-size:20px;color:#00aced; margin-left:4px"><i class="icon-twitter"></i>
+                        </span>
+                    </a>
+                </p>
+                <p class="repo-owner"><u>Contributors</u>
+                    <br>
+                    <a href="https://github.com/levymetal">Christian Varga</a>
+                    <br>
+                    <a href="https://twitter.com/fogcat">Geoff Smith</a>
+                    <br>
+                    <a href="https://github.com/themattharris">Matt Harris</a>
+                    <br>
+                    <a href="https://github.com/jjschwarz">Jason Schwarz</a>
+                    <br>
+                    <a href="https://github.com/SpartanJ">Martín Lucas Golini</a>
+            </aside>
+        </div>
     </div>
     <footer>
-      <div class="inner">
-      <div class="license">
-      This documentation is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> <br>
-      Tweetledee is licensed under the <a href="https://github.com/chrissimpkins/tweetledee/blob/master/LICENSE.txt">MIT license</a>
-      </div>
-      </div>
+        <div class="inner">
+            <div class="license">
+                This documentation is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>
+                <br>Tweetledee is licensed under the <a href="https://github.com/chrissimpkins/tweetledee/blob/master/LICENSE.txt">MIT license</a>
+            </div>
+        </div>
     </footer>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="js/main.js"></script>
-  </body>
+</body>
+
 </html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -25,237 +26,283 @@
 
     <title>Tweetledee : Twitter RSS and JSON feeds</title>
     <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-  ga('create', 'UA-42098785-1', 'chrissimpkins.github.io');
-  ga('send', 'pageview');
+    ga('create', 'UA-42098785-1', 'chrissimpkins.github.io');
+    ga('send', 'pageview');
+    </script>
+</head>
 
-</script>
-  </head>
-
-  <body>
+<body>
     <header>
-      <div class="inner">
-        <h1>Tweetledee</h1>
-        <h2>A PHP library that provides an incredibly easy way to access Twitter data formatted as JSON or a RSS feed</h2>
-        <a href="https://github.com/chrissimpkins/tweetledee" class="button"><small>View project on</small>GitHub</a>
-      </div>
+        <div class="inner">
+            <h1>Tweetledee</h1>
+            <h2>A PHP library that provides an incredibly easy way to access Twitter data formatted as JSON or a RSS feed</h2>
+            <a href="https://github.com/chrissimpkins/tweetledee" class="button">
+                <small>View project on</small>GitHub</a>
+        </div>
     </header>
 
     <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1>
-<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Easy Access to Your Data</h1>
+        <div class="inner clearfix">
+            <section id="main-content">
+                <h1>
+                    <a name="introduction" class="anchor" href="#introduction">
+                        <span class="octicon octicon-link"></span>
+                    </a>Easy Access to Your Data</h1>
 
-<p> <span style='color:red; font-size:24px'>Tweetledee now supports Twitter data caching to avoid exceeding the Twitter API v1.1 rate limits <i class="icon-forward"></i> <a href="caching.html">Learn More</a></span></p>
+                <p>
+                    <span style='color:red; font-size:24px'>Tweetledee now supports Twitter data caching to avoid exceeding the Twitter API v1.1 rate limits <i class="icon-forward"></i>  <a href="caching.html">Learn More</a>
+                    </span>
+                </p>
 
-<p>Tweetledee provides ready-bake PHP files that allow you to access Twitter user timelines, user favorites, lists, home timelines, and tweet search data in a JSON or RSS format.  This approach works after the Twitter API 1.1 changes that eliminated Twitter support for RSS feeds.</p>
-<p>Grab your API tokens from Twitter, upload the Tweetledee files to your server, and use them.  It's that simple.</p>
+                <p>Tweetledee provides ready-bake PHP files that allow you to access Twitter user timelines, user favorites, lists, home timelines, and tweet search data in a JSON or RSS format. This approach works after the Twitter API 1.1 changes that eliminated Twitter support for RSS feeds.</p>
+                <p>Grab your API tokens from Twitter, upload the Tweetledee files to your server, and use them. It's that simple.</p>
 
-<h2>
-<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h2>
-<p>You will need the following to use Tweetledee:</p>
-<ul>
-  <li>Access to a web server with PHP version 5.3 or greater (PHP 5.4+ for pretty printed JSON)</li>
-  <li>libcurl installed on your web server (<a href="http://curl.haxx.se/libcurl/">cURL</a>)</li>
-  <li>Twitter application OAuth settings and access tokens</li>
-  <li>Local file write access on the web server (if you are using the caching Tweetledee files)</li>
-</ul>
+                <h2>
+                    <a name="requirements" class="anchor" href="#requirements">
+                        <span class="octicon octicon-link"></span>
+                    </a>Requirements</h2>
+                <p>You will need the following to use Tweetledee:</p>
+                <ul>
+                    <li>Access to a web server with PHP version 5.3 or greater.  As of Tweetledee v0.4.1, JSON pretty printing is also supported for PHP version 5.3 or greater (previously v5.4+).</li>
+                    <li>libcurl installed on your web server (<a href="http://curl.haxx.se/libcurl/">cURL</a>)</li>
+                    <li>Twitter application OAuth settings and access tokens</li>
+                    <li>Local file write access on the web server (if you are using the caching Tweetledee files)</li>
+                </ul>
 
-<h2>
-<a name="three-minute-install" class="anchor" href="#three-minute-install"><span class="octicon octicon-link"></span></a>The 3 Minute Install Guide</h2>
+                <h2>
+                    <a name="three-minute-install" class="anchor" href="#three-minute-install">
+                        <span class="octicon octicon-link"></span>
+                    </a>The 3 Minute Install Guide</h2>
 
-<h3><i class="icon-chevron-sign-right"></i> Step 1 : Create a Twitter Application</h3>
-<ul>
-<li><a href="https://dev.twitter.com/apps/new">Create a Twitter application on the Twitter Developers site</a></li>
-<li>For the application details:</li>
-<li><i class="icon-arrow-right"></i> Name : assign any name that you'd like</li>
-<li><i class="icon-arrow-right"></i> Description : brief description of the site where you are using Tweetledee</li>
-<li><i class="icon-arrow-right"></i> Website : enter the domain where you will be using Tweetledee</li>
-<li>Read and agree to the "Rules of the Road"</li>
-<li>Fill in the Captcha</li>
-<li>Click the 'Create Your Twitter Application' button</li>
-</ul>
-<p>Presto! You now have a Twitter application and access to the Twitter API.  This will provide you with the necessary tokens to access Twitter data with Tweetledee.</p>
-<h3><i class="icon-chevron-sign-right"></i> Step 2 : Download the Tweetledee files</h3>
-<ul>
-    <li>Use one of the handy buttons on the right side of this page</li>
-    <li>Decompress the files locally on your machine</li>
-    <li>This will result in a .zip or .gz compressed directory that contains the delectable goods which reside within the 'tweetledee' directory inside</li>
-    <li>The outer decompressed directory includes a FAQ, LICENSE, and README files.  They are worth a read, but they do not need to be included in the installation of Tweetledee on your server.  The 'tweetledee' directory inside is the one that you want.</li>
-</ul>
-<h3><i class="icon-chevron-sign-right"></i> Step 3 : Obtain Your Twitter OAuth Settings</h3>
-<ul>
-  <li>Open your application settings page on the Twitter developers site</li>
-  <li>Click the details tab for your application (if it is not selected)</li>
-  <li>Scroll to the bottom of the page and click the 'Create My Access Token Button'</li>
-  <li>Click the OAuth Tool tab in your application settings</li>
-  <li>You are now viewing the four tokens that you need to access Twitter through Tweetledee</li>
-  <li>You will enter these in Tweetledee in the next step</li>
-</ul>
-<h3><i class="icon-chevron-sign-right"></i> Step 4 : Enter your OAuth Settings in Tweetledee</h3>
-<ul>
-  <li>Open the directory where you decompressed the Tweetledee files in Step 2 above</li>
-  <li>Open the file located on this file path in any text editor : tweetledee > tldlib > keys > tweetledee_keys.php</li>
-  <li>Copy your consumer key from Step 3 and paste into the appropriate spot in the tweetledee_keys.php file</li>
-  <li>Copy your consumer secret from Step 3 and paste into the appropriate spot in the tweetledee_keys.php file</li>
-  <li>Copy your access token from Step 3 and paste into the appropriate spot in the tweetledee_keys.php file</li>
-  <li>Copy your access token secret from Step 3 and paste into the appropriate spot in the tweetledee_keys.php file</li>
-  <li>Confirm that you did not modify any other part of the settings file and that you maintained the single quotes around all of your tokens/keys</li>
-  <li>Save the tweetledee_keys.php file</li>
-</ul>
-<h3><i class="icon-chevron-sign-right"></i> Step 5 : Upload the Tweetledee files to your Server</h3>
-<ul>
-  <li>Upload the tweetledee directory that you downloaded in Step 2 to your web server</li>
-  <li>You do not need to upload the outer directory (probably called tweetledee-master or chrissimpkins-tweetledee-version) or the top level files in the outer directory (LICENSE, FAQ, etc) that you decompressed</li>
-</ul>
-<p>That's it. You are done.  The <a href="usage.html">usage section examples</a> assume that you uploaded the files to your top level public facing web server directory so that the tweetledee directory appears in your URL like this:</p>
-<h5>Example Tweetledee URL path</h5>
-<pre><code>http://[yourdomain]/tweetledee/[tweetledee_file]</code></pre>
-<p>Try this as a quick test to confirm that it is working.  This will display your user timeline RSS feed:</p>
-<h5>Your New User Timeline Feed</h5>
-<pre><code>http://[yourdomain]/tweetledee/userrss.php</code></pre>
-<p>Note that the default is 25 tweets in this feed.  You can modify this with URL parameters that you pass to the Tweetledee file (up to 200 tweets).  The default files cache your results for 90 seconds in order to remain within the Twitter API v1.1 rate limits.  For this reason, you will not see updated results for 90 seconds after you initially access the PHP script.  You can modify this interval with a URL parameter <code>cache_interval</code>.  See the <a href="usage.html">Usage</a> and <a href="caching.html">Caching</a> docs for more information about caching.</p>
-<p>The <a href="usage.html">Usage</a> section of the documentation includes a large number of examples that will introduce you to all of the available parameters.</p>
-<h2><a name="file-types" class="anchor" href="#file-types"><span class="octicon octicon-link"></span></a>What Tweetledee Includes</h2>
-<h3><i class="icon-sign-blank burntorange"></i> Favorites (User) JSON</h3>
-<pre><code>http://[yourdomain]/tweetledee/favoritesjson.php</code></pre>
-<h3><i class="icon-sign-blank burntorange"></i> Favorites (User) JSON | Non-Cached</h3>
-<pre><code>http://[yourdomain]/tweetledee/favoritesjson_nocache.php</code></pre>
+                <h3><i class="icon-chevron-sign-right"></i> Step 1 : Create a Twitter Application</h3>
+                <ul>
+                    <li><a href="https://dev.twitter.com/apps/new">Create a Twitter application on the Twitter Developers site</a>
+                    </li>
+                    <li>For the application details:</li>
+                    <li><i class="icon-arrow-right"></i> Name : assign any name that you'd like</li>
+                    <li><i class="icon-arrow-right"></i> Description : brief description of the site where you are using Tweetledee</li>
+                    <li><i class="icon-arrow-right"></i> Website : enter the domain where you will be using Tweetledee</li>
+                    <li>Read and agree to the "Rules of the Road"</li>
+                    <li>Fill in the Captcha</li>
+                    <li>Click the 'Create Your Twitter Application' button</li>
+                </ul>
+                <p>Presto! You now have a Twitter application and access to the Twitter API. This will provide you with the necessary tokens to access Twitter data with Tweetledee.</p>
+                <h3><i class="icon-chevron-sign-right"></i> Step 2 : Download the Tweetledee files</h3>
+                <ul>
+                    <li>Use one of the handy buttons on the right side of this page</li>
+                    <li>Decompress the files locally on your machine</li>
+                    <li>This will result in a .zip or .gz compressed directory that contains the delectable goods which reside within the 'tweetledee' directory inside</li>
+                    <li>The outer decompressed directory includes a FAQ, LICENSE, and README files. They are worth a read, but they do not need to be included in the installation of Tweetledee on your server. The 'tweetledee' directory inside is the one that you want.</li>
+                </ul>
+                <h3><i class="icon-chevron-sign-right"></i> Step 3 : Obtain Your Twitter OAuth Settings</h3>
+                <ul>
+                    <li>Open your application settings page on the Twitter developers site</li>
+                    <li>Click the details tab for your application (if it is not selected)</li>
+                    <li>Scroll to the bottom of the page and click the 'Create My Access Token Button'</li>
+                    <li>Click the OAuth Tool tab in your application settings</li>
+                    <li>You are now viewing the four tokens that you need to access Twitter through Tweetledee</li>
+                    <li>You will enter these in Tweetledee in the next step</li>
+                </ul>
+                <h3><i class="icon-chevron-sign-right"></i> Step 4 : Enter your OAuth Settings in Tweetledee</h3>
+                <ul>
+                    <li>Open the directory where you decompressed the Tweetledee files in Step 2 above</li>
+                    <li>Open the file located on this file path in any text editor : tweetledee > tldlib > keys > tweetledee_keys.php</li>
+                    <li>Copy your consumer key from Step 3 and paste into the appropriate spot in the tweetledee_keys.php file</li>
+                    <li>Copy your consumer secret from Step 3 and paste into the appropriate spot in the tweetledee_keys.php file</li>
+                    <li>Copy your access token from Step 3 and paste into the appropriate spot in the tweetledee_keys.php file</li>
+                    <li>Copy your access token secret from Step 3 and paste into the appropriate spot in the tweetledee_keys.php file</li>
+                    <li>Confirm that you did not modify any other part of the settings file and that you maintained the single quotes around all of your tokens/keys</li>
+                    <li>Save the tweetledee_keys.php file</li>
+                </ul>
+                <h3><i class="icon-chevron-sign-right"></i> Step 5 : Upload the Tweetledee files to your Server</h3>
+                <ul>
+                    <li>Upload the tweetledee directory that you downloaded in Step 2 to your web server</li>
+                    <li>You do not need to upload the outer directory (probably called tweetledee-master or chrissimpkins-tweetledee-version) or the top level files in the outer directory (LICENSE, FAQ, etc) that you decompressed</li>
+                </ul>
+                <p>That's it. You are done. The <a href="usage.html">usage section examples</a> assume that you uploaded the files to your top level public facing web server directory so that the tweetledee directory appears in your URL like this:</p>
+                <h5>Example Tweetledee URL path</h5>
+                <pre><code>http://[yourdomain]/tweetledee/[tweetledee_file]</code></pre>
+                <p>Try this as a quick test to confirm that it is working. This will display your user timeline RSS feed:</p>
+                <h5>Your New User Timeline Feed</h5>
+                <pre><code>http://[yourdomain]/tweetledee/userrss.php</code></pre>
+                <p>Note that the default is 25 tweets in this feed. You can modify this with URL parameters that you pass to the Tweetledee file (up to 200 tweets). The default files cache your results for 90 seconds in order to remain within the Twitter API v1.1 rate limits. For this reason, you will not see updated results for 90 seconds after you initially access the PHP script. You can modify this interval with a URL parameter
+                    <code>cache_interval</code>. See the <a href="usage.html">Usage</a> and <a href="caching.html">Caching</a> docs for more information about caching.</p>
+                <p>The <a href="usage.html">Usage</a> section of the documentation includes a large number of examples that will introduce you to all of the available parameters.</p>
+                <h2>
+                    <a name="file-types" class="anchor" href="#file-types">
+                        <span class="octicon octicon-link"></span>
+                    </a>What Tweetledee Includes</h2>
+                <h3><i class="icon-sign-blank burntorange"></i> Favorites (User) JSON</h3>
+                <pre><code>http://[yourdomain]/tweetledee/favoritesjson.php</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> Favorites (User) JSON | Non-Cached</h3>
+                <pre><code>http://[yourdomain]/tweetledee/favoritesjson_nocache.php</code></pre>
 
-<h3><i class="icon-sign-blank burntorange"></i> Favorites (User) JSON (pretty printed)</h3>
-<pre><code>http://[yourdomain]/tweetledee/favoritesjson_pp.php</code></pre>
-<h3><i class="icon-sign-blank burntorange"></i> Favorites (User) JSON (pretty printed) | Non-Cached</h3>
-<pre><code>http://[yourdomain]/tweetledee/favoritesjson_pp_nocache.php</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> Favorites (User) JSON (pretty printed)</h3>
+                <pre><code>http://[yourdomain]/tweetledee/favoritesjson_pp.php</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> Favorites (User) JSON (pretty printed) | Non-Cached</h3>
+                <pre><code>http://[yourdomain]/tweetledee/favoritesjson_pp_nocache.php</code></pre>
 
-<h3><i class="icon-sign-blank burntorange"></i> Favorites (User) RSS</h3>
-<pre><code>http://[yourdomain]/tweetledee/favoritesrss.php</code></pre>
-<h3><i class="icon-sign-blank burntorange"></i> Favorites (User) RSS | Non-Cached</h3>
-<pre><code>http://[yourdomain]/tweetledee/favoritesrss_nocache.php</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> Favorites (User) RSS</h3>
+                <pre><code>http://[yourdomain]/tweetledee/favoritesrss.php</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> Favorites (User) RSS | Non-Cached</h3>
+                <pre><code>http://[yourdomain]/tweetledee/favoritesrss_nocache.php</code></pre>
 
-<h3><i class="icon-sign-blank burntorange"></i> Home timeline JSON</h3>
-<pre><code>http://[yourdomain]/tweetledee/homejson.php</code></pre>
-<h3><i class="icon-sign-blank burntorange"></i> Home timeline JSON | Non-Cached</h3>
-<pre><code>http://[yourdomain]/tweetledee/homejson_nocache.php</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> Home timeline JSON</h3>
+                <pre><code>http://[yourdomain]/tweetledee/homejson.php</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> Home timeline JSON | Non-Cached</h3>
+                <pre><code>http://[yourdomain]/tweetledee/homejson_nocache.php</code></pre>
 
-<h3><i class="icon-sign-blank burntorange"></i> Home timeline JSON (pretty printed)</h3>
-<pre><code>http://[yourdomain]/tweetledee/homejson_pp.php</code></pre>
-<h3><i class="icon-sign-blank burntorange"></i> Home timeline JSON (pretty printed) | Non-Cached</h3>
-<pre><code>http://[yourdomain]/tweetledee/homejson_pp_nocache.php</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> Home timeline JSON (pretty printed)</h3>
+                <pre><code>http://[yourdomain]/tweetledee/homejson_pp.php</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> Home timeline JSON (pretty printed) | Non-Cached</h3>
+                <pre><code>http://[yourdomain]/tweetledee/homejson_pp_nocache.php</code></pre>
 
-<h3><i class="icon-sign-blank burntorange"></i> Home timeline RSS feed</h3>
-<pre><code>http://[yourdomain]/tweetledee/homerss.php</code></pre>
-<h3><i class="icon-sign-blank burntorange"></i> Home timeline RSS feed | Non-Cached</h3>
-<pre><code>http://[yourdomain]/tweetledee/homerss_nocache.php</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> Home timeline RSS feed</h3>
+                <pre><code>http://[yourdomain]/tweetledee/homerss.php</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> Home timeline RSS feed | Non-Cached</h3>
+                <pre><code>http://[yourdomain]/tweetledee/homerss_nocache.php</code></pre>
 
-<h3><i class="icon-sign-blank burntorange"></i> List JSON</h3>
-<pre><code>http://[yourdomain]/tweetledee/listsjson.php?list=[list-slug]</code></pre>
-<h3><i class="icon-sign-blank burntorange"></i> List JSON | Non-Cached</h3>
-<pre><code>http://[yourdomain]/tweetledee/listsjson_nocache.php?list=[list-slug]</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> List JSON</h3>
+                <pre><code>http://[yourdomain]/tweetledee/listsjson.php?list=[list-slug]</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> List JSON | Non-Cached</h3>
+                <pre><code>http://[yourdomain]/tweetledee/listsjson_nocache.php?list=[list-slug]</code></pre>
 
-<h3><i class="icon-sign-blank burntorange"></i> List JSON (pretty printed)</h3>
-<pre><code>http://[yourdomain]/tweetledee/listsjson_pp.php?list=[list-slug]</code></pre>
-<h3><i class="icon-sign-blank burntorange"></i> List JSON (pretty printed) | Non-Cached</h3>
-<pre><code>http://[yourdomain]/tweetledee/listsjson_pp_nocache.php?list=[list-slug]</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> List JSON (pretty printed)</h3>
+                <pre><code>http://[yourdomain]/tweetledee/listsjson_pp.php?list=[list-slug]</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> List JSON (pretty printed) | Non-Cached</h3>
+                <pre><code>http://[yourdomain]/tweetledee/listsjson_pp_nocache.php?list=[list-slug]</code></pre>
 
-<h3><i class="icon-sign-blank burntorange"></i> List RSS Feed</h3>
-<pre><code>http://[yourdomain]/tweetledee/listsrss.php?list=[list-slug]</code></pre>
-<h3><i class="icon-sign-blank burntorange"></i> List RSS Feed | Non-Cached</h3>
-<pre><code>http://[yourdomain]/tweetledee/listsrss_nocache.php?list=[list-slug]</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> List RSS Feed</h3>
+                <pre><code>http://[yourdomain]/tweetledee/listsrss.php?list=[list-slug]</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> List RSS Feed | Non-Cached</h3>
+                <pre><code>http://[yourdomain]/tweetledee/listsrss_nocache.php?list=[list-slug]</code></pre>
 
-<h3><i class="icon-sign-blank burntorange"></i> Tweet search JSON</h3>
-<pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=[search-query]</code></pre>
-<h3><i class="icon-sign-blank burntorange"></i> Tweet search JSON | Non-Cached</h3>
-<pre><code>http://[yourdomain]/tweetledee/searchjson_nocache.php?q=[search-query]</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> Tweet search JSON</h3>
+                <pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=[search-query]</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> Tweet search JSON | Non-Cached</h3>
+                <pre><code>http://[yourdomain]/tweetledee/searchjson_nocache.php?q=[search-query]</code></pre>
 
-<h3><i class="icon-sign-blank burntorange"></i> Tweet search JSON (pretty printed)</h3>
-<pre><code>http://[yourdomain]/tweetledee/searchjson_pp.php?q=[search-query]</code></pre>
-<h3><i class="icon-sign-blank burntorange"></i> Tweet search JSON (pretty printed) | Non-Cached</h3>
-<pre><code>http://[yourdomain]/tweetledee/searchjson_pp_nocache.php?q=[search-query]</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> Tweet search JSON (pretty printed)</h3>
+                <pre><code>http://[yourdomain]/tweetledee/searchjson_pp.php?q=[search-query]</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> Tweet search JSON (pretty printed) | Non-Cached</h3>
+                <pre><code>http://[yourdomain]/tweetledee/searchjson_pp_nocache.php?q=[search-query]</code></pre>
 
-<h3><i class="icon-sign-blank burntorange"></i> Tweet search RSS feed</h3>
-<pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=[search-query]</code></pre>
-<h3><i class="icon-sign-blank burntorange"></i> Tweet search RSS feed | Non-Cached</h3>
-<pre><code>http://[yourdomain]/tweetledee/searchrss_nocache.php?q=[search-query]</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> Tweet search RSS feed</h3>
+                <pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=[search-query]</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> Tweet search RSS feed | Non-Cached</h3>
+                <pre><code>http://[yourdomain]/tweetledee/searchrss_nocache.php?q=[search-query]</code></pre>
 
-<h3><i class="icon-sign-blank burntorange"></i> User timeline JSON</h3>
-<pre><code>http://[yourdomain]/tweetledee/userjson.php</code></pre>
-<h3><i class="icon-sign-blank burntorange"></i> User timeline JSON | Non-Cached</h3>
-<pre><code>http://[yourdomain]/tweetledee/userjson_nocache.php</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> User timeline JSON</h3>
+                <pre><code>http://[yourdomain]/tweetledee/userjson.php</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> User timeline JSON | Non-Cached</h3>
+                <pre><code>http://[yourdomain]/tweetledee/userjson_nocache.php</code></pre>
 
-<h3><i class="icon-sign-blank burntorange"></i> User timeline JSON (pretty printed)</h3>
-<pre><code>http://[yourdomain]/tweetledee/userjson_pp.php</code></pre>
-<h3><i class="icon-sign-blank burntorange"></i> User timeline JSON (pretty printed) | Non-Cached</h3>
-<pre><code>http://[yourdomain]/tweetledee/userjson_pp_nocache.php</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> User timeline JSON (pretty printed)</h3>
+                <pre><code>http://[yourdomain]/tweetledee/userjson_pp.php</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> User timeline JSON (pretty printed) | Non-Cached</h3>
+                <pre><code>http://[yourdomain]/tweetledee/userjson_pp_nocache.php</code></pre>
 
-<h3><i class="icon-sign-blank burntorange"></i> User timeline RSS feed</h3>
-<pre><code>http://[yourdomain]/tweetledee/userrss.php</code></pre>
-<h3><i class="icon-sign-blank burntorange"></i> User timeline RSS feed | Non-Cached</h3>
-<pre><code>http://[yourdomain]/tweetledee/userrss_nocache.php</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> User timeline RSS feed</h3>
+                <pre><code>http://[yourdomain]/tweetledee/userrss.php</code></pre>
+                <h3><i class="icon-sign-blank burntorange"></i> User timeline RSS feed | Non-Cached</h3>
+                <pre><code>http://[yourdomain]/tweetledee/userrss_nocache.php</code></pre>
 
-<h2>
-<a name="download-info" class="anchor" href="#download-info"><span class="octicon octicon-link"></span></a>Download Tweetledee</h2>
-<p>Please use one of the buttons on the right side of this screen.  You will receive a compressed directory that contains all of the Tweetledee files.</p>
-<p>Git users can clone the project with one of the following links:</p>
-<p><a href="https://github.com/chrissimpkins/tweetledee.git">https://github.com/chrissimpkins/tweetledee.git</a> | <a href="git@github.com:chrissimpkins/tweetledee.git">git@github.com:chrissimpkins/tweetledee.git</a></p>
-<p>Subversion users can checkout the project with the following URL : </p>
-<p><a href="">https://github.com/chrissimpkins/tweetledee</a></p>
+                <h2>
+                    <a name="download-info" class="anchor" href="#download-info">
+                        <span class="octicon octicon-link"></span>
+                    </a>Download Tweetledee</h2>
+                <p>Please use one of the buttons on the right side of this screen. You will receive a compressed directory that contains all of the Tweetledee files.</p>
+                <p>Git users can clone the project with one of the following links:</p>
+                <p><a href="https://github.com/chrissimpkins/tweetledee.git">https://github.com/chrissimpkins/tweetledee.git</a> | <a href="git@github.com:chrissimpkins/tweetledee.git">git@github.com:chrissimpkins/tweetledee.git</a>
+                </p>
+                <p>Subversion users can checkout the project with the following URL :</p>
+                <p><a href="">https://github.com/chrissimpkins/tweetledee</a>
+                </p>
 
-<h2>
-<a name="go-to-usage" class="anchor" href="#go-to-usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+                <h2>
+                    <a name="go-to-usage" class="anchor" href="#go-to-usage">
+                        <span class="octicon octicon-link"></span>
+                    </a>Usage</h2>
 
-<p>There are a number of available options for the returned JSON and RSS data.  For example, you can change the number of returned tweets, switch user timelines, exclude retweets and replies, and retrieve tweets based upon a search query.  These are all documented as comments in the respective PHP files.</p>
-<p>For more detailed treatment of usage, head over to <a href="usage.html">this page</a> to see examples of Tweetledee in action.</p>
-<h2>
-<a name="go-to-support" class="anchor" href="#go-to-support"><span class="octicon octicon-link"></span></a>Get Help</h2>
+                <p>There are a number of available options for the returned JSON and RSS data. For example, you can change the number of returned tweets, switch user timelines, exclude retweets and replies, and retrieve tweets based upon a search query. These are all documented as comments in the respective PHP files.</p>
+                <p>For more detailed treatment of usage, head over to <a href="usage.html">this page</a> to see examples of Tweetledee in action.</p>
+                <h2>
+                    <a name="go-to-support" class="anchor" href="#go-to-support">
+                        <span class="octicon octicon-link"></span>
+                    </a>Get Help</h2>
 
-<p>Need help?  Here's <a href="support.html">the support page</a>.</p>
-        </section>
+                <p>Need help? Here's <a href="support.html">the support page</a>.</p>
+            </section>
 
-        <aside id="sidebar">
-          <a href="https://github.com/chrissimpkins/tweetledee/zipball/master" class="button" id="dl-btn-zip">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/chrissimpkins/tweetledee/tarball/master" class="button" id="dl-btn-gz">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-          <a href="usage.html" class="tld-btn">
-            <small>Learn More</small>
-            Usage
-          </a>
-          <a href="developer.html" class="tld-btn">
-            <small>Extend It</small>
-            Developers
-          </a>
-          <a href="support.html" class="tld-btn">
-            <small>Get Help</small>
-            Support
-          </a>
+            <aside id="sidebar">
+                <a href="https://github.com/chrissimpkins/tweetledee/zipball/master" class="button" id="dl-btn-zip">
+                    <small>Download</small>
+                    .zip file
+                </a>
+                <a href="https://github.com/chrissimpkins/tweetledee/tarball/master" class="button" id="dl-btn-gz">
+                    <small>Download</small>
+                    .tar.gz file
+                </a>
+                <a href="usage.html" class="tld-btn">
+                    <small>Learn More</small>
+                    Usage
+                </a>
+                <a href="developer.html" class="tld-btn">
+                    <small>Extend It</small>
+                    Developers
+                </a>
+                <a href="support.html" class="tld-btn">
+                    <small>Get Help</small>
+                    Support
+                </a>
 
-          <p class="repo-owner"> Developed by <br><a href="https://github.com/chrissimpkins"><span style="font-size:20px;color:#751590; margin-right:4px"><i class="icon-github"></i></span></a><a href="http://sweetme.at">Chris Simpkins</a><a href="http://twitter.com/csimpkins"><span style="font-size:20px;color:#00aced; margin-left:4px"><i class="icon-twitter"></i></span></a></p>
-          <p class="repo-owner"><u>Contributors</u> <br>
-          <a href="https://github.com/levymetal">Christian Varga</a><br>
-          <a href="https://twitter.com/fogcat">Geoff Smith</a><br>
-          <a href="https://github.com/themattharris">Matt Harris</a><br>
-          <a href="https://github.com/jjschwarz">Jason Schwarz</a>
-        </aside>
-      </div>
+                <p class="repo-owner">Developed by
+                    <br>
+                    <a href="https://github.com/chrissimpkins">
+                        <span style="font-size:20px;color:#751590; margin-right:4px"><i class="icon-github"></i>
+                        </span>
+                    </a><a href="http://sweetme.at">Chris Simpkins</a>
+                    <a href="http://twitter.com/csimpkins">
+                        <span style="font-size:20px;color:#00aced; margin-left:4px"><i class="icon-twitter"></i>
+                        </span>
+                    </a>
+                </p>
+                <p class="repo-owner"><u>Contributors</u>
+                    <br>
+                    <a href="https://github.com/levymetal">Christian Varga</a>
+                    <br>
+                    <a href="https://twitter.com/fogcat">Geoff Smith</a>
+                    <br>
+                    <a href="https://github.com/themattharris">Matt Harris</a>
+                    <br>
+                    <a href="https://github.com/jjschwarz">Jason Schwarz</a>
+                    <br>
+                    <a href="https://github.com/SpartanJ">Martín Lucas Golini</a>
+            </aside>
+        </div>
     </div>
     <footer>
-      <div class="inner">
-      <div class="license">
-This documentation is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> <br>
-      Tweetledee is licensed under the <a href="https://github.com/chrissimpkins/tweetledee/blob/master/LICENSE.txt">MIT license</a>
-      </div>
-      </div>
+        <div class="inner">
+            <div class="license">
+                This documentation is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>
+                <br>Tweetledee is licensed under the <a href="https://github.com/chrissimpkins/tweetledee/blob/master/LICENSE.txt">MIT license</a>
+            </div>
+        </div>
     </footer>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="js/main.js"></script>
-  </body>
+</body>
+
 </html>

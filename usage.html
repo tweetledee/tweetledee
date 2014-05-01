@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -17,390 +18,720 @@
 
     <title>Tweetledee : Example Usage</title>
     <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-  ga('create', 'UA-42098785-1', 'chrissimpkins.github.io');
-  ga('send', 'pageview');
+    ga('create', 'UA-42098785-1', 'chrissimpkins.github.io');
+    ga('send', 'pageview');
+    </script>
+</head>
 
-</script>
-  </head>
-
-  <body>
+<body>
     <header>
-      <div class="inner">
-        <h1>Tweetledee</h1>
-        <h2>A PHP library that provides an incredibly easy way to access Twitter data formatted as JSON or a RSS feed</h2>
-        <a href="https://github.com/chrissimpkins/tweetledee" class="button"><small>View project on</small>GitHub</a>
-      </div>
+        <div class="inner">
+            <h1>Tweetledee</h1>
+            <h2>A PHP library that provides an incredibly easy way to access Twitter data formatted as JSON or a RSS feed</h2>
+            <a href="https://github.com/chrissimpkins/tweetledee" class="button">
+                <small>View project on</small>GitHub</a>
+        </div>
     </header>
 
     <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1><a name="usage-guide-introduction" class="anchor" href="#usage-guide-introduction"><span class="octicon octicon-link"></span></a>Tweetledee Usage</h1>
-          <p style='color:red; font-size:24px'>How to Use the Tweetledee Files on Your Server</p>
-<p>The following examples demonstrate how to use Tweetledee on your web server.  They assume that you uploaded the Tweetledee files as shown in <a href="index.html#three-minute-install">the install guide</a>. If you are having problems with Tweetledee, you can find more information about how to get help and report bugs <a href="support.html">here</a>.</p>
-<p>The following file types come in two flavors, a non-cached version (i.e. the original versions of the files through release v0.3.6) and a cached version (included since release v0.4.0).</p>
-<p>To implement the caching yourself, append the suffix <code>_nocache</code> to the filenames below.  For instance, the non-cached version of <code>userrss.php</code> is <code>userrss_nocache.php</code> and the non-cached version of <code>userjson_pp.php</code> is <code>userjson_pp_nocache.php</code>.</p>
-<h2><a name="usage-toc" class="anchor" href="#usage-toc"><span class="octicon octicon-link"></span></a>Contents</h2>
-<h3><span style="color:green !important"><i class="icon-file-text"></i></span> JSON Types</h3>
-<ul>
-  <li><a href="#fav_json">Favorites JSON</a></li>
-  <li><a href="#home_json">Home timeline JSON</a></li>
-  <li><a href="#lists_json">List JSON</a></li>
-  <li><a href="#search_json">Tweet search JSON</a></li>
-  <li><a href="#user_json">User timeline JSON</a></li>
-</ul>
-<h3><span style="color:orange !important"><i class="icon-rss-sign"></i></span> RSS Feed Types</h3>
-<ul>
-  <li><a href="#fav_rss">Favorites RSS feed</a></li>
-  <li><a href="#home_rss">Home timeline RSS feed</a></li>
-  <li><a href="#lists_rss">List RSS feed</a></li>
-  <li><a href="#search_rss">Tweet search RSS feed</a></li>
-  <li><a href="#user_rss">User timeline RSS feed</a></li>
-</ul>
-<h2><a name="json-examples" class="anchor" href="#json-examples"><span class="octicon octicon-link"></span></a>JSON Types</h2>
-<p><span style="color:#00aced !important;"><i class="icon-info"></i></span> :  Note that pretty printed JSON is obtained by adding the <code>_pp</code> suffix to the base file name.  For example, <code>userjson.php</code> becomes <code>userjson_pp.php</code> and <code>userjson_nocache.php</code> becomes <code>userjson_pp_nocache.php</code>.</p>
-<p>Pretty printed JSON requires PHP v5.4 and above.  Standard JSON results require PHP v5.3 and above.</p>
+        <div class="inner clearfix">
+            <section id="main-content">
+                <h1>
+                    <a name="usage-guide-introduction" class="anchor" href="#usage-guide-introduction">
+                        <span class="octicon octicon-link"></span>
+                    </a>Tweetledee Usage</h1>
+                <p style='color:red; font-size:24px'>How to Use the Tweetledee Files on Your Server</p>
+                <p>The following examples demonstrate how to use Tweetledee on your web server. They assume that you uploaded the Tweetledee files as shown in <a href="index.html#three-minute-install">the install guide</a>. If you are having problems with Tweetledee, you can find more information about how to get help and report bugs <a href="support.html">here</a>.</p>
+                <p>The following file types come in two flavors, a non-cached version (i.e. the original versions of the files through release v0.3.6) and a cached version (included since release v0.4.0).</p>
+                <p>To implement the caching yourself, append the suffix
+                    <code>_nocache</code>to the filenames below. For instance, the non-cached version of
+                    <code>userrss.php</code>is
+                    <code>userrss_nocache.php</code>and the non-cached version of
+                    <code>userjson_pp.php</code>is
+                    <code>userjson_pp_nocache.php</code>.</p>
+                <h2>
+                    <a name="usage-toc" class="anchor" href="#usage-toc">
+                        <span class="octicon octicon-link"></span>
+                    </a>Contents</h2>
+                <h3>
+                    <span style="color:green !important"><i class="icon-file-text"></i>
+                    </span>JSON Types</h3>
+                <ul>
+                    <li><a href="#fav_json">Favorites JSON</a>
+                    </li>
+                    <li><a href="#home_json">Home timeline JSON</a>
+                    </li>
+                    <li><a href="#lists_json">List JSON</a>
+                    </li>
+                    <li><a href="#search_json">Tweet search JSON</a>
+                    </li>
+                    <li><a href="#user_json">User timeline JSON</a>
+                    </li>
+                </ul>
+                <h3>
+                    <span style="color:orange !important"><i class="icon-rss-sign"></i>
+                    </span>RSS Feed Types</h3>
+                <ul>
+                    <li><a href="#fav_rss">Favorites RSS feed</a>
+                    </li>
+                    <li><a href="#home_rss">Home timeline RSS feed</a>
+                    </li>
+                    <li><a href="#lists_rss">List RSS feed</a>
+                    </li>
+                    <li><a href="#search_rss">Tweet search RSS feed</a>
+                    </li>
+                    <li><a href="#user_rss">User timeline RSS feed</a>
+                    </li>
+                </ul>
+                <h2>
+                    <a name="json-examples" class="anchor" href="#json-examples">
+                        <span class="octicon octicon-link"></span>
+                    </a>JSON Types</h2>
+                <p>
+                    <span style="color:#00aced !important;"><i class="icon-info"></i>
+                    </span>  Note that pretty printed JSON is obtained by adding the
+                    <code>_pp</code>suffix to the base file name. For example,
+                    <code>userjson.php</code>becomes
+                    <code>userjson_pp.php</code>and
+                    <code>userjson_nocache.php</code>becomes
+                    <code>userjson_pp_nocache.php</code>.</p>
+                <p><span style="color:#00aced !important;"><i class="icon-info"></i>
+                    </span>  Standard JSON and pretty printed JSON require PHP v5.3 and above. Prior to version 0.4.1 of Tweetledee, pretty printed JSON was supported for PHP versions 5.4 and above.</p>
 
-<h3 class="blue example_header" id="fav_json"><span style="color:green !important"><i class="icon-file-text"></i></span> Favorites JSON <code>favoritesjson.php</code> + <code>favoritesjson_pp.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
-<h5>Default Favorites JSON</h5>
-<pre><code>http://[yourdomain]/tweetledee/favoritesjson.php</code></pre>
-<h5>Optional URL Parameters</h5>
-<table class="parameter_table">
-<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
- <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
- <tr>
-   <td>cache_interval</td>
-   <td>Caching interval</td>
-   <td>90 sec</td>
-   <td>any (in secs)</td>
- </tr>
- <tr><td>user</td><td>Twitter user</td><td>you</td><td>any username</td></tr>
-</table>
-<h5>Favorites JSON with 100 Tweets</h5>
-<pre><code>http://[yourdomain]/tweetledee/favoritesjson.php?c=100</code></pre>
-<h5>Favorites JSON with Caching Interval of 5 Minutes (300 sec)</h5>
-<pre><code>http://[yourdomain]/tweetledee/favoritesjson.php?cache_interval=300</code></pre>
-<h5>Favorites JSON for a Different User</h5>
-<pre><code>http://[yourdomain]/tweetledee/favoritesjson.php?user=csimpkins</code></pre>
-<h5>All Options</h5>
-<pre><code>http://[yourdomain]/tweetledee/favoritesjson.php?c=100&user=csimpkins&cache_interval=300</code></pre>
+                <h3 class="blue example_header" id="fav_json">
+                    <span style="color:green !important"><i class="icon-file-text"></i>
+                    </span>Favorites JSON
+                    <code>favoritesjson.php</code>+
+                    <code>favoritesjson_pp.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a>
+                </h3>
+                <h5>Default Favorites JSON</h5>
+                <pre><code>http://[yourdomain]/tweetledee/favoritesjson.php</code></pre>
+                <h5>Optional URL Parameters</h5>
+                <table class="parameter_table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Values</th>
+                    </tr>
+                    <tr>
+                        <td>c</td>
+                        <td>Tweet count</td>
+                        <td>25</td>
+                        <td>1 - 200</td>
+                    </tr>
+                    <tr>
+                        <td>cache_interval</td>
+                        <td>Caching interval</td>
+                        <td>90 sec</td>
+                        <td>any (in secs)</td>
+                    </tr>
+                    <tr>
+                        <td>user</td>
+                        <td>Twitter user</td>
+                        <td>you</td>
+                        <td>any username</td>
+                    </tr>
+                </table>
+                <h5>Favorites JSON with 100 Tweets</h5>
+                <pre><code>http://[yourdomain]/tweetledee/favoritesjson.php?c=100</code></pre>
+                <h5>Favorites JSON with Caching Interval of 5 Minutes (300 sec)</h5>
+                <pre><code>http://[yourdomain]/tweetledee/favoritesjson.php?cache_interval=300</code></pre>
+                <h5>Favorites JSON for a Different User</h5>
+                <pre><code>http://[yourdomain]/tweetledee/favoritesjson.php?user=csimpkins</code></pre>
+                <h5>All Options</h5>
+                <pre><code>http://[yourdomain]/tweetledee/favoritesjson.php?c=100&user=csimpkins&cache_interval=300</code></pre>
 
-<h3 class="blue example_header" id="home_json"><span style="color:green !important;"><i class="icon-file-text"></i></span> Home Timeline JSON <code>homejson.php</code> + <code>homejson_pp.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
-<h5>Default Home Timeline JSON</h5>
-<pre><code>http://[yourdomain]/tweetledee/homejson.php</code></pre>
-<h5>Optional URL Parameters</h5>
-<table class="parameter_table">
-<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
- <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
-  <tr>
-   <td>cache_interval</td>
-   <td>Caching interval</td>
-   <td>90 sec</td>
-   <td>any (in secs)</td>
- </tr>
- <tr><td>xrp</td><td>Exclude replies</td><td>0 (=false)</td><td>1 (=true)</td></tr>
-</table>
-<h5>Home Timeline with 100 Tweets</h5>
-<pre><code>http://[yourdomain]/tweetledee/homejson.php?c=100</code></pre>
-<h5>Home Timeline with Caching Interval of 5 Minutes (300 sec)</h5>
-<pre><code>http://[yourdomain]/tweetledee/homejson.php?cache_interval=300</code></pre>
-<h5>Home Timeline, Exclude Replies</h5>
-<pre><code>http://[yourdomain]/tweetledee/homejson.php?xrp=1</code></pre>
-<h5>All Options</h5>
-<pre><code>http://[yourdomain]/tweetledee/homejson.php?c=100&xrp=1&cache_interval=300</code></pre>
+                <h3 class="blue example_header" id="home_json">
+                    <span style="color:green !important;"><i class="icon-file-text"></i>
+                    </span>Home Timeline JSON
+                    <code>homejson.php</code>+
+                    <code>homejson_pp.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a>
+                </h3>
+                <h5>Default Home Timeline JSON</h5>
+                <pre><code>http://[yourdomain]/tweetledee/homejson.php</code></pre>
+                <h5>Optional URL Parameters</h5>
+                <table class="parameter_table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Values</th>
+                    </tr>
+                    <tr>
+                        <td>c</td>
+                        <td>Tweet count</td>
+                        <td>25</td>
+                        <td>1 - 200</td>
+                    </tr>
+                    <tr>
+                        <td>cache_interval</td>
+                        <td>Caching interval</td>
+                        <td>90 sec</td>
+                        <td>any (in secs)</td>
+                    </tr>
+                    <tr>
+                        <td>xrp</td>
+                        <td>Exclude replies</td>
+                        <td>0 (=false)</td>
+                        <td>1 (=true)</td>
+                    </tr>
+                </table>
+                <h5>Home Timeline with 100 Tweets</h5>
+                <pre><code>http://[yourdomain]/tweetledee/homejson.php?c=100</code></pre>
+                <h5>Home Timeline with Caching Interval of 5 Minutes (300 sec)</h5>
+                <pre><code>http://[yourdomain]/tweetledee/homejson.php?cache_interval=300</code></pre>
+                <h5>Home Timeline, Exclude Replies</h5>
+                <pre><code>http://[yourdomain]/tweetledee/homejson.php?xrp=1</code></pre>
+                <h5>All Options</h5>
+                <pre><code>http://[yourdomain]/tweetledee/homejson.php?c=100&xrp=1&cache_interval=300</code></pre>
 
-<h3 class="blue example_header" id="lists_json"><span style="color:green !important"><i class="icon-file-text"></i></span> List JSON <code>listsjson.php</code> + <code>listsjson_pp.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
-<h5>Default Lists JSON</h5>
-<pre><code>http://[yourdomain]/tweetledee/listsjson.php?list=[list-slug]</code></pre>
-<h5>Required URL Parameter</h5>
-<table class="parameter_table">
-<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
- <tr><td>list</td><td>List slug name</td><td>(required)</td><td>any list slug</td></tr>
-</table>
-<h5>Optional URL Parameters</h5>
-<table class="parameter_table">
-<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
- <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
-   <tr>
-   <td>cache_interval</td>
-   <td>Caching interval</td>
-   <td>90 sec</td>
-   <td>any (in secs)</td>
- </tr>
- <tr><td>user</td><td>Twitter user</td><td>you</td><td>any username</td></tr>
- <tr><td>xrt</td><td>Exclude retweets</td><td>0 (=false)</td><td>1 (=true)</td></tr>
-</table>
-<h5>Your list called "reading-list"</h5>
-<pre><code>http://[yourdomain]/tweetledee/listsjson.php?list=reading-list</code></pre>
-<h5>Your list called "reading-list" with caching interval of 5 minutes (300 sec)</h5>
-<pre><code>http://[yourdomain]/tweetledee/listsjson.php?list=reading-list&cache_interval=300</code></pre>
-<h5>@anotheruser's list called "reading-list"</h5>
-<pre><code>http://[yourdomain]/tweetledee/listsjson.php?user=anotheruser&list=reading-list</code></pre>
-<h5>100 tweets from your list called "reading-list"</h5>
-<pre><code>http://[yourdomain]/tweetledee/listsjson.php?c=100&list=reading-list</code></pre>
-<h5>Exclude retweets from your list called "reading-list"</h5>
-<pre><code>http://[yourdomain]/tweetledee/listsjson.php?xrt=1&list=reading-list</code></pre>
-<h5>All options</h5>
-<pre><code>http://[yourdomain]/tweetledee/listsjson.php?user=anotheruser&list=reading-list&c=100&xrt=1&cache_interval=300</code></pre>
+                <h3 class="blue example_header" id="lists_json">
+                    <span style="color:green !important"><i class="icon-file-text"></i>
+                    </span>List JSON
+                    <code>listsjson.php</code>+
+                    <code>listsjson_pp.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a>
+                </h3>
+                <h5>Default Lists JSON</h5>
+                <pre><code>http://[yourdomain]/tweetledee/listsjson.php?list=[list-slug]</code></pre>
+                <h5>Required URL Parameter</h5>
+                <table class="parameter_table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Values</th>
+                    </tr>
+                    <tr>
+                        <td>list</td>
+                        <td>List slug name</td>
+                        <td>(required)</td>
+                        <td>any list slug</td>
+                    </tr>
+                </table>
+                <h5>Optional URL Parameters</h5>
+                <table class="parameter_table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Values</th>
+                    </tr>
+                    <tr>
+                        <td>c</td>
+                        <td>Tweet count</td>
+                        <td>25</td>
+                        <td>1 - 200</td>
+                    </tr>
+                    <tr>
+                        <td>cache_interval</td>
+                        <td>Caching interval</td>
+                        <td>90 sec</td>
+                        <td>any (in secs)</td>
+                    </tr>
+                    <tr>
+                        <td>user</td>
+                        <td>Twitter user</td>
+                        <td>you</td>
+                        <td>any username</td>
+                    </tr>
+                    <tr>
+                        <td>xrt</td>
+                        <td>Exclude retweets</td>
+                        <td>0 (=false)</td>
+                        <td>1 (=true)</td>
+                    </tr>
+                </table>
+                <h5>Your list called "reading-list"</h5>
+                <pre><code>http://[yourdomain]/tweetledee/listsjson.php?list=reading-list</code></pre>
+                <h5>Your list called "reading-list" with caching interval of 5 minutes (300 sec)</h5>
+                <pre><code>http://[yourdomain]/tweetledee/listsjson.php?list=reading-list&cache_interval=300</code></pre>
+                <h5>@anotheruser's list called "reading-list"</h5>
+                <pre><code>http://[yourdomain]/tweetledee/listsjson.php?user=anotheruser&list=reading-list</code></pre>
+                <h5>100 tweets from your list called "reading-list"</h5>
+                <pre><code>http://[yourdomain]/tweetledee/listsjson.php?c=100&list=reading-list</code></pre>
+                <h5>Exclude retweets from your list called "reading-list"</h5>
+                <pre><code>http://[yourdomain]/tweetledee/listsjson.php?xrt=1&list=reading-list</code></pre>
+                <h5>All options</h5>
+                <pre><code>http://[yourdomain]/tweetledee/listsjson.php?user=anotheruser&list=reading-list&c=100&xrt=1&cache_interval=300</code></pre>
 
-<h3 class="blue example_header" id="search_json"><span style="color:green !important"><i class="icon-file-text"></i></span> Tweet Search JSON <code>searchjson.php</code> + <code>searchjson_pp.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
-<h5>Default Tweet Search JSON</h5>
-<pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=[search_term]</code></pre>
-<h5>Required URL Parameter</h5>
-<table class="parameter_table">
-<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
- <tr><td>q</td><td>Search query</td><td>(required)</td><td>any search term</td></tr>
-</table>
-<h5>Optional URL Parameters</h5>
-<table class="parameter_table">
-<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
- <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
-    <tr>
-   <td>cache_interval</td>
-   <td>Caching interval</td>
-   <td>90 sec</td>
-   <td>any (in secs)</td>
- </tr>
- <tr><td>rt</td><td>Result type</td><td>mixed</td><td>popular | recent</td></tr>
-</table>
-<h5>Search for "test"</h5>
-<pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=test</code></pre>
-<h5>Search for "test" with caching interval of 5 minutes (300 sec)</h5>
-<pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=test&cache_interval=300</code></pre>
-<h5>Search for "test", Return 200 Results</h5>
-<pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=test&c=200</code></pre>
-<h5>Search for "test", Realtime Tweet Search (i.e. recent)</h5>
-<pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=test&rt=recent</code></pre>
-<h5>Search for "test", Popular Tweet Search (i.e. popular)</h5>
-<pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=test&rt=popular</code></pre>
-<h5>All Options</h5>
-<pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=test&rt=recent&c=75&cache_interval=300</code></pre>
+                <h3 class="blue example_header" id="search_json">
+                    <span style="color:green !important"><i class="icon-file-text"></i>
+                    </span>Tweet Search JSON
+                    <code>searchjson.php</code>+
+                    <code>searchjson_pp.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a>
+                </h3>
+                <h5>Default Tweet Search JSON</h5>
+                <pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=[search_term]</code></pre>
+                <h5>Required URL Parameter</h5>
+                <table class="parameter_table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Values</th>
+                    </tr>
+                    <tr>
+                        <td>q</td>
+                        <td>Search query</td>
+                        <td>(required)</td>
+                        <td>any search term</td>
+                    </tr>
+                </table>
+                <h5>Optional URL Parameters</h5>
+                <table class="parameter_table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Values</th>
+                    </tr>
+                    <tr>
+                        <td>c</td>
+                        <td>Tweet count</td>
+                        <td>25</td>
+                        <td>1 - 200</td>
+                    </tr>
+                    <tr>
+                        <td>cache_interval</td>
+                        <td>Caching interval</td>
+                        <td>90 sec</td>
+                        <td>any (in secs)</td>
+                    </tr>
+                    <tr>
+                        <td>rt</td>
+                        <td>Result type</td>
+                        <td>mixed</td>
+                        <td>popular | recent</td>
+                    </tr>
+                </table>
+                <h5>Search for "test"</h5>
+                <pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=test</code></pre>
+                <h5>Search for "test" with caching interval of 5 minutes (300 sec)</h5>
+                <pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=test&cache_interval=300</code></pre>
+                <h5>Search for "test", Return 200 Results</h5>
+                <pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=test&c=200</code></pre>
+                <h5>Search for "test", Realtime Tweet Search (i.e. recent)</h5>
+                <pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=test&rt=recent</code></pre>
+                <h5>Search for "test", Popular Tweet Search (i.e. popular)</h5>
+                <pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=test&rt=popular</code></pre>
+                <h5>All Options</h5>
+                <pre><code>http://[yourdomain]/tweetledee/searchjson.php?q=test&rt=recent&c=75&cache_interval=300</code></pre>
 
-<h3 class="blue example_header" id="user_json"><span style="color:green !important"><i class="icon-file-text"></i></span> User Timeline JSON <code>userjson.php</code> + <code>userjson_pp.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
-<h5>Default User Timeline JSON</h5>
-<pre><code>http://[yourdomain]/tweetledee/userjson.php</code></pre>
-<table class="parameter_table">
-<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
- <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
- <tr>
-   <td>cache_interval</td>
-   <td>Caching interval</td>
-   <td>90 sec</td>
-   <td>any (in secs)</td>
- </tr>
- <tr><td>user</td><td>Twitter user</td><td>you</td><td>any username</td></tr>
- <tr><td>xrp</td><td>Exclude replies</td><td>0 (=false)</td><td>1 (=true)</td></tr>
- <tr><td>xrt</td><td>Exclude retweets</td><td>0 (=false)</td><td>1 (=true)</td></tr>
-</table>
-<h5>User Timeline with 100 Tweets</h5>
-<pre><code>http://[yourdomain]/tweetledee/userjson.php?c=100</code></pre>
-<h5>User Timeline with 100 Tweets and Caching Interval of 5 Minutes (300 sec)</h5>
-<pre><code>http://[yourdomain]/tweetledee/userjson.php?c=100&cache_interval=300</code></pre>
-<h5>User Timeline of a Different User (@csimpkins)</h5>
-<pre><code>http://[yourdomain]/tweetledee/userjson.php?user=csimpkins</code></pre>
-<h5>User Timeline, Excluding All Replies</h5>
-<pre><code>http://[yourdomain]/tweetledee/userjson.php?xrp=1</code></pre>
-<h5>User Timeline, Excluding All Retweets</h5>
-<pre><code>http://[yourdomain]/tweetledee/userjson.php?xrt=1</code></pre>
-<h5>All Options</h5>
-<pre><code>http://[yourdomain]/tweetledee/userjson.php?c=100&user=csimpkins&xrp=1&xrt=1&cache_interval=300</code></pre>
+                <h3 class="blue example_header" id="user_json">
+                    <span style="color:green !important"><i class="icon-file-text"></i>
+                    </span>User Timeline JSON
+                    <code>userjson.php</code>+
+                    <code>userjson_pp.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a>
+                </h3>
+                <h5>Default User Timeline JSON</h5>
+                <pre><code>http://[yourdomain]/tweetledee/userjson.php</code></pre>
+                <table class="parameter_table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Values</th>
+                    </tr>
+                    <tr>
+                        <td>c</td>
+                        <td>Tweet count</td>
+                        <td>25</td>
+                        <td>1 - 200</td>
+                    </tr>
+                    <tr>
+                        <td>cache_interval</td>
+                        <td>Caching interval</td>
+                        <td>90 sec</td>
+                        <td>any (in secs)</td>
+                    </tr>
+                    <tr>
+                        <td>user</td>
+                        <td>Twitter user</td>
+                        <td>you</td>
+                        <td>any username</td>
+                    </tr>
+                    <tr>
+                        <td>xrp</td>
+                        <td>Exclude replies</td>
+                        <td>0 (=false)</td>
+                        <td>1 (=true)</td>
+                    </tr>
+                    <tr>
+                        <td>xrt</td>
+                        <td>Exclude retweets</td>
+                        <td>0 (=false)</td>
+                        <td>1 (=true)</td>
+                    </tr>
+                </table>
+                <h5>User Timeline with 100 Tweets</h5>
+                <pre><code>http://[yourdomain]/tweetledee/userjson.php?c=100</code></pre>
+                <h5>User Timeline with 100 Tweets and Caching Interval of 5 Minutes (300 sec)</h5>
+                <pre><code>http://[yourdomain]/tweetledee/userjson.php?c=100&cache_interval=300</code></pre>
+                <h5>User Timeline of a Different User (@csimpkins)</h5>
+                <pre><code>http://[yourdomain]/tweetledee/userjson.php?user=csimpkins</code></pre>
+                <h5>User Timeline, Excluding All Replies</h5>
+                <pre><code>http://[yourdomain]/tweetledee/userjson.php?xrp=1</code></pre>
+                <h5>User Timeline, Excluding All Retweets</h5>
+                <pre><code>http://[yourdomain]/tweetledee/userjson.php?xrt=1</code></pre>
+                <h5>All Options</h5>
+                <pre><code>http://[yourdomain]/tweetledee/userjson.php?c=100&user=csimpkins&xrp=1&xrt=1&cache_interval=300</code></pre>
 
-<h2 class="example_header"><a name="rss-feed-examples" class="anchor" href="#rss-feed-examples"><span class="octicon octicon-link"></span></a>RSS Feed Types</h2>
-<p><span style="color:#00aced !important;"><i class="icon-info"></i></span> :  RSS feeds require PHP v5.3 and above.</p>
+                <h2 class="example_header">
+                    <a name="rss-feed-examples" class="anchor" href="#rss-feed-examples">
+                        <span class="octicon octicon-link"></span>
+                    </a>RSS Feed Types</h2>
+                <p>
+                    <span style="color:#00aced !important;"><i class="icon-info"></i>
+                    </span>: RSS feeds require PHP v5.3 and above.</p>
 
-<h3 class="blue example_header" id="fav_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> Favorites RSS Feed <code>favoritesrss.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
-<h5>Default Favorites RSS Feed</h5>
-<pre><code>http://[yourdomain]/tweetledee/favoritesrss.php</code></pre>
-<h5>Optional URL Parameters</h5>
-<table class="parameter_table">
-<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
- <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
-  <tr>
-   <td>cache_interval</td>
-   <td>Caching interval</td>
-   <td>90 sec</td>
-   <td>any (in secs)</td>
- </tr>
- <tr><td>user</td><td>Twitter user</td><td>you</td><td>any username</td></tr>
-</table>
-<h5>Favorites RSS Feed with 100 Tweets</h5>
-<pre><code>http://[yourdomain]/tweetledee/favoritesrss.php?c=100</code></pre>
-<h5>Favorites RSS Feed with Caching Interval of 5 Minutes (300 sec)</h5>
-<pre><code>http://[yourdomain]/tweetledee/favoritesrss.php?cache_interval=300</code></pre>
-<h5>Favorites RSS Feed for a Different User</h5>
-<pre><code>http://[yourdomain]/tweetledee/favoritesrss.php?user=csimpkins</code></pre>
-<h5>All Options</h5>
-<pre><code>http://[yourdomain]/tweetledee/favoritesrss.php?c=100&user=csimpkins&cache_interval=300</code></pre>
+                <h3 class="blue example_header" id="fav_rss">
+                    <span style="color:orange !important"><i class="icon-rss-sign"></i>
+                    </span>Favorites RSS Feed
+                    <code>favoritesrss.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a>
+                </h3>
+                <h5>Default Favorites RSS Feed</h5>
+                <pre><code>http://[yourdomain]/tweetledee/favoritesrss.php</code></pre>
+                <h5>Optional URL Parameters</h5>
+                <table class="parameter_table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Values</th>
+                    </tr>
+                    <tr>
+                        <td>c</td>
+                        <td>Tweet count</td>
+                        <td>25</td>
+                        <td>1 - 200</td>
+                    </tr>
+                    <tr>
+                        <td>cache_interval</td>
+                        <td>Caching interval</td>
+                        <td>90 sec</td>
+                        <td>any (in secs)</td>
+                    </tr>
+                    <tr>
+                        <td>user</td>
+                        <td>Twitter user</td>
+                        <td>you</td>
+                        <td>any username</td>
+                    </tr>
+                </table>
+                <h5>Favorites RSS Feed with 100 Tweets</h5>
+                <pre><code>http://[yourdomain]/tweetledee/favoritesrss.php?c=100</code></pre>
+                <h5>Favorites RSS Feed with Caching Interval of 5 Minutes (300 sec)</h5>
+                <pre><code>http://[yourdomain]/tweetledee/favoritesrss.php?cache_interval=300</code></pre>
+                <h5>Favorites RSS Feed for a Different User</h5>
+                <pre><code>http://[yourdomain]/tweetledee/favoritesrss.php?user=csimpkins</code></pre>
+                <h5>All Options</h5>
+                <pre><code>http://[yourdomain]/tweetledee/favoritesrss.php?c=100&user=csimpkins&cache_interval=300</code></pre>
 
-<h3 class="blue example_header" id="home_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> Home Timeline RSS Feed <code>homerss.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
-<h5>Default Home Timeline URL</h5>
-<pre><code>http://[yourdomain]/tweetledee/homerss.php</code></pre>
-<h5>Optional URL Parameters</h5>
-<table class="parameter_table">
-<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
- <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
-   <tr>
-   <td>cache_interval</td>
-   <td>Caching interval</td>
-   <td>90 sec</td>
-   <td>any (in secs)</td>
- </tr>
- <tr><td>xrp</td><td>Exclude replies</td><td>0 (=false)</td><td>1 (=true)</td></tr>
-</table>
-<h5>Home Timeline with 100 Tweets</h5>
-<pre><code>http://[yourdomain]/tweetledee/homerss.php?c=100</code></pre>
-<h5>Home Timeline with Caching Interval of 5 Minutes (300 sec)</h5>
-<pre><code>http://[yourdomain]/tweetledee/homerss.php?cache_interval=300</code></pre>
-<h5>Home Timeline, Exclude Replies</h5>
-<pre><code>http://[yourdomain]/tweetledee/homerss.php?xrp=1</code></pre>
-<h5>All Options</h5>
-<pre><code>http://[yourdomain]/tweetledee/homerss.php?c=100&xrp=1&cache_interval=300</code></pre>
+                <h3 class="blue example_header" id="home_rss">
+                    <span style="color:orange !important"><i class="icon-rss-sign"></i>
+                    </span>Home Timeline RSS Feed
+                    <code>homerss.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a>
+                </h3>
+                <h5>Default Home Timeline URL</h5>
+                <pre><code>http://[yourdomain]/tweetledee/homerss.php</code></pre>
+                <h5>Optional URL Parameters</h5>
+                <table class="parameter_table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Values</th>
+                    </tr>
+                    <tr>
+                        <td>c</td>
+                        <td>Tweet count</td>
+                        <td>25</td>
+                        <td>1 - 200</td>
+                    </tr>
+                    <tr>
+                        <td>cache_interval</td>
+                        <td>Caching interval</td>
+                        <td>90 sec</td>
+                        <td>any (in secs)</td>
+                    </tr>
+                    <tr>
+                        <td>xrp</td>
+                        <td>Exclude replies</td>
+                        <td>0 (=false)</td>
+                        <td>1 (=true)</td>
+                    </tr>
+                </table>
+                <h5>Home Timeline with 100 Tweets</h5>
+                <pre><code>http://[yourdomain]/tweetledee/homerss.php?c=100</code></pre>
+                <h5>Home Timeline with Caching Interval of 5 Minutes (300 sec)</h5>
+                <pre><code>http://[yourdomain]/tweetledee/homerss.php?cache_interval=300</code></pre>
+                <h5>Home Timeline, Exclude Replies</h5>
+                <pre><code>http://[yourdomain]/tweetledee/homerss.php?xrp=1</code></pre>
+                <h5>All Options</h5>
+                <pre><code>http://[yourdomain]/tweetledee/homerss.php?c=100&xrp=1&cache_interval=300</code></pre>
 
-<h3 class="blue example_header" id="lists_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> List RSS Feed <code>listsrss.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
-<h5>Default Lists RSS Feed</h5>
-<pre><code>http://[yourdomain]/tweetledee/listsrss.php?list=[list-slug]</code></pre>
-<h5>Required URL Parameter</h5>
-<table class="parameter_table">
-<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
- <tr><td>list</td><td>List slug name</td><td>(required)</td><td>any list slug</td></tr>
-</table>
-<h5>Optional URL Parameters</h5>
-<table class="parameter_table">
-<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
- <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
-  <tr>
-   <td>cache_interval</td>
-   <td>Caching interval</td>
-   <td>90 sec</td>
-   <td>any (in secs)</td>
- </tr>
- <tr><td>user</td><td>Twitter user</td><td>you</td><td>any username</td></tr>
- <tr><td>xrt</td><td>Exclude retweets</td><td>0 (=false)</td><td>1 (=true)</td></tr>
-</table>
-<h5>Your list called "reading-list"</h5>
-<pre><code>http://[yourdomain]/tweetledee/listsrss.php?list=reading-list</code></pre>
-<h5>Your list called "reading-list" with caching interval of 5 minutes (300 sec)</h5>
-<pre><code>http://[yourdomain]/tweetledee/listsrss.php?list=reading-list&cache_interval=300</code></pre>
-<h5>@anotheruser's list called "reading-list"</h5>
-<pre><code>http://[yourdomain]/tweetledee/listsrss.php?user=anotheruser&list=reading-list</code></pre>
-<h5>100 tweets from your list called "reading-list"</h5>
-<pre><code>http://[yourdomain]/tweetledee/listsrss.php?c=100&list=reading-list</code></pre>
-<h5>Exclude retweets from your list called "reading-list"</h5>
-<pre><code>http://[yourdomain]/tweetledee/listsrss.php?xrt=1&list=reading-list</code></pre>
-<h5>All options</h5>
-<pre><code>http://[yourdomain]/tweetledee/listsrss.php?user=anotheruser&list=reading-list&c=100&xrt=1&cache_interval=300</code></pre>
+                <h3 class="blue example_header" id="lists_rss">
+                    <span style="color:orange !important"><i class="icon-rss-sign"></i>
+                    </span>List RSS Feed
+                    <code>listsrss.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a>
+                </h3>
+                <h5>Default Lists RSS Feed</h5>
+                <pre><code>http://[yourdomain]/tweetledee/listsrss.php?list=[list-slug]</code></pre>
+                <h5>Required URL Parameter</h5>
+                <table class="parameter_table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Values</th>
+                    </tr>
+                    <tr>
+                        <td>list</td>
+                        <td>List slug name</td>
+                        <td>(required)</td>
+                        <td>any list slug</td>
+                    </tr>
+                </table>
+                <h5>Optional URL Parameters</h5>
+                <table class="parameter_table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Values</th>
+                    </tr>
+                    <tr>
+                        <td>c</td>
+                        <td>Tweet count</td>
+                        <td>25</td>
+                        <td>1 - 200</td>
+                    </tr>
+                    <tr>
+                        <td>cache_interval</td>
+                        <td>Caching interval</td>
+                        <td>90 sec</td>
+                        <td>any (in secs)</td>
+                    </tr>
+                    <tr>
+                        <td>user</td>
+                        <td>Twitter user</td>
+                        <td>you</td>
+                        <td>any username</td>
+                    </tr>
+                    <tr>
+                        <td>xrt</td>
+                        <td>Exclude retweets</td>
+                        <td>0 (=false)</td>
+                        <td>1 (=true)</td>
+                    </tr>
+                </table>
+                <h5>Your list called "reading-list"</h5>
+                <pre><code>http://[yourdomain]/tweetledee/listsrss.php?list=reading-list</code></pre>
+                <h5>Your list called "reading-list" with caching interval of 5 minutes (300 sec)</h5>
+                <pre><code>http://[yourdomain]/tweetledee/listsrss.php?list=reading-list&cache_interval=300</code></pre>
+                <h5>@anotheruser's list called "reading-list"</h5>
+                <pre><code>http://[yourdomain]/tweetledee/listsrss.php?user=anotheruser&list=reading-list</code></pre>
+                <h5>100 tweets from your list called "reading-list"</h5>
+                <pre><code>http://[yourdomain]/tweetledee/listsrss.php?c=100&list=reading-list</code></pre>
+                <h5>Exclude retweets from your list called "reading-list"</h5>
+                <pre><code>http://[yourdomain]/tweetledee/listsrss.php?xrt=1&list=reading-list</code></pre>
+                <h5>All options</h5>
+                <pre><code>http://[yourdomain]/tweetledee/listsrss.php?user=anotheruser&list=reading-list&c=100&xrt=1&cache_interval=300</code></pre>
 
 
-<h3 class="blue example_header" id="search_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> Tweet Search RSS Feed <code>searchrss.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
-<h5>Default Tweet Search Feed URL</h5>
-<pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=[search_term]</code></pre>
-<h5>Required URL Parameter</h5>
-<table class="parameter_table">
-<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
- <tr><td>q</td><td>Search query</td><td>(required)</td><td>any search term</td></tr>
-</table>
-<h5>Optional URL Parameters</h5>
-<table class="parameter_table">
-<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
- <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
-  <tr>
-   <td>cache_interval</td>
-   <td>Caching interval</td>
-   <td>90 sec</td>
-   <td>any (in secs)</td>
- </tr>
- <tr><td>rt</td><td>Result type</td><td>mixed</td><td>popular | recent</td></tr>
-</table>
-<h5>Search for "test"</h5>
-<pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test</code></pre>
-<h5>Search for "test" with caching interval of 5 minutes (300 sec)</h5>
-<pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test&cache_interval=300</code></pre>
-<h5>Search for "test", Return 200 Results</h5>
-<pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test&c=200</code></pre>
-<h5>Search for "test", Realtime Tweet Search (i.e. recent)</h5>
-<pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test&rt=recent</code></pre>
-<h5>Search for "test", Popular Tweet Search (i.e. popular)</h5>
-<pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test&rt=popular</code></pre>
-<h5>All Options</h5>
-<pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test&rt=recent&c=75&cache_interval=300</code></pre>
+                <h3 class="blue example_header" id="search_rss">
+                    <span style="color:orange !important"><i class="icon-rss-sign"></i>
+                    </span>Tweet Search RSS Feed
+                    <code>searchrss.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a>
+                </h3>
+                <h5>Default Tweet Search Feed URL</h5>
+                <pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=[search_term]</code></pre>
+                <h5>Required URL Parameter</h5>
+                <table class="parameter_table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Values</th>
+                    </tr>
+                    <tr>
+                        <td>q</td>
+                        <td>Search query</td>
+                        <td>(required)</td>
+                        <td>any search term</td>
+                    </tr>
+                </table>
+                <h5>Optional URL Parameters</h5>
+                <table class="parameter_table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Values</th>
+                    </tr>
+                    <tr>
+                        <td>c</td>
+                        <td>Tweet count</td>
+                        <td>25</td>
+                        <td>1 - 200</td>
+                    </tr>
+                    <tr>
+                        <td>cache_interval</td>
+                        <td>Caching interval</td>
+                        <td>90 sec</td>
+                        <td>any (in secs)</td>
+                    </tr>
+                    <tr>
+                        <td>rt</td>
+                        <td>Result type</td>
+                        <td>mixed</td>
+                        <td>popular | recent</td>
+                    </tr>
+                </table>
+                <h5>Search for "test"</h5>
+                <pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test</code></pre>
+                <h5>Search for "test" with caching interval of 5 minutes (300 sec)</h5>
+                <pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test&cache_interval=300</code></pre>
+                <h5>Search for "test", Return 200 Results</h5>
+                <pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test&c=200</code></pre>
+                <h5>Search for "test", Realtime Tweet Search (i.e. recent)</h5>
+                <pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test&rt=recent</code></pre>
+                <h5>Search for "test", Popular Tweet Search (i.e. popular)</h5>
+                <pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test&rt=popular</code></pre>
+                <h5>All Options</h5>
+                <pre><code>http://[yourdomain]/tweetledee/searchrss.php?q=test&rt=recent&c=75&cache_interval=300</code></pre>
 
-<h3 class="blue example_header" id="user_rss"><span style="color:orange !important"><i class="icon-rss-sign"></i></span> User Timeline RSS Feed <code>userrss.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a></h3>
-<h5>Default User Timeline URL</h5>
-<pre><code>http://[yourdomain]/tweetledee/userrss.php</code></pre>
-<h5>Optional URL Parameters</h5>
-<table class="parameter_table">
-<tr><th>Parameter</th><th>Description</th><th>Default</th><th>Values</th></tr>
- <tr><td>c</td><td>Tweet count</td><td>25</td><td>1 - 200</td></tr>
-  <tr>
-   <td>cache_interval</td>
-   <td>Caching interval</td>
-   <td>90 sec</td>
-   <td>any (in secs)</td>
- </tr>
- <tr><td>user</td><td>Twitter user</td><td>you</td><td>any username</td></tr>
- <tr><td>xrp</td><td>Exclude replies</td><td>0 (=false)</td><td>1 (=true)</td></tr>
- <tr><td>xrt</td><td>Exclude retweets</td><td>0 (=false)</td><td>1 (=true)</td></tr>
-</table>
-<h5>User Timeline with 100 Tweets</h5>
-<pre><code>http://[yourdomain]/tweetledee/userrss.php?c=100</code></pre>
-<h5>User Timeline with 100 Tweets and Caching Interval of 5 Minutes (300 sec)</h5>
-<pre><code>http://[yourdomain]/tweetledee/userrss.php?c=100&cache_interval=300</code></pre>
-<h5>User Timeline of a Different User (@csimpkins)</h5>
-<pre><code>http://[yourdomain]/tweetledee/userrss.php?user=csimpkins</code></pre>
-<h5>User Timeline, Excluding All Replies</h5>
-<pre><code>http://[yourdomain]/tweetledee/userrss.php?xrp=1</code></pre>
-<h5>User Timeline, Excluding All Retweets</h5>
-<pre><code>http://[yourdomain]/tweetledee/userrss.php?xrt=1</code></pre>
-<h5>All Options</h5>
-<pre><code>http://[yourdomain]/tweetledee/userrss.php?c=100&user=csimpkins&xrp=1&xrt=1&cache_interval=300</code></pre>
+                <h3 class="blue example_header" id="user_rss">
+                    <span style="color:orange !important"><i class="icon-rss-sign"></i>
+                    </span>User Timeline RSS Feed
+                    <code>userrss.php</code> <a href="#" class="up_navigation"><i class="icon icon-arrow-up"></i></a>
+                </h3>
+                <h5>Default User Timeline URL</h5>
+                <pre><code>http://[yourdomain]/tweetledee/userrss.php</code></pre>
+                <h5>Optional URL Parameters</h5>
+                <table class="parameter_table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Values</th>
+                    </tr>
+                    <tr>
+                        <td>c</td>
+                        <td>Tweet count</td>
+                        <td>25</td>
+                        <td>1 - 200</td>
+                    </tr>
+                    <tr>
+                        <td>cache_interval</td>
+                        <td>Caching interval</td>
+                        <td>90 sec</td>
+                        <td>any (in secs)</td>
+                    </tr>
+                    <tr>
+                        <td>user</td>
+                        <td>Twitter user</td>
+                        <td>you</td>
+                        <td>any username</td>
+                    </tr>
+                    <tr>
+                        <td>xrp</td>
+                        <td>Exclude replies</td>
+                        <td>0 (=false)</td>
+                        <td>1 (=true)</td>
+                    </tr>
+                    <tr>
+                        <td>xrt</td>
+                        <td>Exclude retweets</td>
+                        <td>0 (=false)</td>
+                        <td>1 (=true)</td>
+                    </tr>
+                </table>
+                <h5>User Timeline with 100 Tweets</h5>
+                <pre><code>http://[yourdomain]/tweetledee/userrss.php?c=100</code></pre>
+                <h5>User Timeline with 100 Tweets and Caching Interval of 5 Minutes (300 sec)</h5>
+                <pre><code>http://[yourdomain]/tweetledee/userrss.php?c=100&cache_interval=300</code></pre>
+                <h5>User Timeline of a Different User (@csimpkins)</h5>
+                <pre><code>http://[yourdomain]/tweetledee/userrss.php?user=csimpkins</code></pre>
+                <h5>User Timeline, Excluding All Replies</h5>
+                <pre><code>http://[yourdomain]/tweetledee/userrss.php?xrp=1</code></pre>
+                <h5>User Timeline, Excluding All Retweets</h5>
+                <pre><code>http://[yourdomain]/tweetledee/userrss.php?xrt=1</code></pre>
+                <h5>All Options</h5>
+                <pre><code>http://[yourdomain]/tweetledee/userrss.php?c=100&user=csimpkins&xrp=1&xrt=1&cache_interval=300</code></pre>
 
-        </section>
+            </section>
 
-        <aside id="sidebar">
-          <a href="https://github.com/chrissimpkins/tweetledee/zipball/master" class="button" id="dl-btn-zip">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/chrissimpkins/tweetledee/tarball/master" class="button" id="dl-btn-gz">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-          <a href="index.html" class="tld-btn">
-            <small>Return</small>
-            Home
-          </a>
-          <a href="developer.html" class="tld-btn">
-            <small>Extend It</small>
-            Developers
-          </a>
-          <a href="support.html" class="tld-btn">
-            <small>Get Help</small>
-            Support
-          </a>
+            <aside id="sidebar">
+                <a href="https://github.com/chrissimpkins/tweetledee/zipball/master" class="button" id="dl-btn-zip">
+                    <small>Download</small>
+                    .zip file
+                </a>
+                <a href="https://github.com/chrissimpkins/tweetledee/tarball/master" class="button" id="dl-btn-gz">
+                    <small>Download</small>
+                    .tar.gz file
+                </a>
+                <a href="index.html" class="tld-btn">
+                    <small>Return</small>
+                    Home
+                </a>
+                <a href="developer.html" class="tld-btn">
+                    <small>Extend It</small>
+                    Developers
+                </a>
+                <a href="support.html" class="tld-btn">
+                    <small>Get Help</small>
+                    Support
+                </a>
 
-          <p class="repo-owner"> Developed by <br><a href="https://github.com/chrissimpkins"><span style="font-size:20px;color:#751590; margin-right:4px"><i class="icon-github"></i></span></a><a href="http://sweetme.at">Chris Simpkins</a><a href="http://twitter.com/csimpkins"><span style="font-size:20px;color:#00aced; margin-left:4px"><i class="icon-twitter"></i></span></a></p>
-          <p class="repo-owner"><u>Contributors</u> <br>
-          <a href="https://github.com/levymetal">Christian Varga</a><br>
-          <a href="https://twitter.com/fogcat">Geoff Smith</a><br>
-          <a href="https://github.com/themattharris">Matt Harris</a><br>
-          <a href="https://github.com/jjschwarz">Jason Schwarz</a>
-        </aside>
-      </div>
+                <p class="repo-owner">Developed by
+                    <br>
+                    <a href="https://github.com/chrissimpkins">
+                        <span style="font-size:20px;color:#751590; margin-right:4px"><i class="icon-github"></i>
+                        </span>
+                    </a><a href="http://sweetme.at">Chris Simpkins</a>
+                    <a href="http://twitter.com/csimpkins">
+                        <span style="font-size:20px;color:#00aced; margin-left:4px"><i class="icon-twitter"></i>
+                        </span>
+                    </a>
+                </p>
+                <p class="repo-owner"><u>Contributors</u>
+                    <br>
+                    <a href="https://github.com/levymetal">Christian Varga</a>
+                    <br>
+                    <a href="https://twitter.com/fogcat">Geoff Smith</a>
+                    <br>
+                    <a href="https://github.com/themattharris">Matt Harris</a>
+                    <br>
+                    <a href="https://github.com/jjschwarz">Jason Schwarz</a>
+                    <br>
+                    <a href="https://github.com/SpartanJ">Martín Lucas Golini</a>
+            </aside>
+        </div>
     </div>
     <footer>
-      <div class="inner">
-      <div class="license">
-      This documentation is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a> <br>
-      Tweetledee is licensed under the <a href="https://github.com/chrissimpkins/tweetledee/blob/master/LICENSE.txt">MIT license</a>
-      </div>
-      </div>
+        <div class="inner">
+            <div class="license">
+                This documentation is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>
+                <br>Tweetledee is licensed under the <a href="https://github.com/chrissimpkins/tweetledee/blob/master/LICENSE.txt">MIT license</a>
+            </div>
+        </div>
     </footer>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="js/main.js"></script>
-  </body>
+</body>
+
 </html>
