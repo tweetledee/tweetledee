@@ -2,7 +2,7 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   listsjson.php -- User list tweets formatted as JSON
- *   Version: 0.4.0
+ *   Version: 0.4.1
  * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
