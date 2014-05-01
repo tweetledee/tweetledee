@@ -77,7 +77,7 @@ Looking for support? Check <a href="http://chrissimpkins.github.io/tweetledee/su
 
 
 ## Contribute
-If you would like to contribute to the project, have at it.  Fork the Tweetledee development branch and submit a pull request back to the repository.
+If you would like to contribute to the project, have at it.  <a href="https://help.github.com/articles/fork-a-repo">Fork the Tweetledee project</a>, include your changes, and <a href="https://help.github.com/articles/using-pull-requests">submit a pull request</a> back to the main repository.
 
 ## License
 MIT License - see the LICENSE.txt file in the source distribution
