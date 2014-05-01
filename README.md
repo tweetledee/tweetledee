@@ -9,7 +9,7 @@ Tweetledee
 - Developer Docs: [http://chrissimpkins.github.io/tweetledee/developer.html](http://chrissimpkins.github.io/tweetledee/developer.html)
 
 ## Current Release
-- <b>0.4.1</b> : added support for JSON pretty printing in PHP versions 5.3+ (from 5.4+ previously) [issue #40](https://github.com/chrissimpkins/tweetledee/pull/40).  Thanks much to Martín Lucas Golini @SpartanJ for his new pretty printing functions that led to this update.
+- <b>0.4.1</b> : added support for JSON pretty printing in PHP versions 5.3+ (from 5.4+ previously) [issue #40](https://github.com/chrissimpkins/tweetledee/pull/40).  Thanks much to Martín Lucas Golini @SpartanJ for his new pretty printing functions that led to this update!
 
 ## Recent Changes
 - <b>0.4.0</b> : added caching to all Tweetledee files with default 90 sec duration.  This default cache interval can be changed with the `cache_interval` URL parameter (with a value in seconds).  Great big thanks to Christian Varga (@levymetal) for his contributions to this update!  The non-cached versions of the files from v0.3.6 have been renamed with an appended `_nocache` (e.g. `userrss.php` > `userrss_nocache.php`) for anyone who would like to implement their own caching.
