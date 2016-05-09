@@ -9,9 +9,10 @@ Tweetledee
 - Developer Docs: [http://chrissimpkins.github.io/tweetledee/developer.html](http://chrissimpkins.github.io/tweetledee/developer.html)
 
 ## Current Release
-- <b>0.4.1</b> : added support for JSON pretty printing in PHP versions 5.3+ (from 5.4+ previously) [issue #40](https://github.com/chrissimpkins/tweetledee/pull/40).  Thanks much to Martín Lucas Golini @SpartanJ for his new pretty printing functions that led to this update!
+- <b>0.4.2</b> : added support for inline images in all RSS scripts [issue #51](https://github.com/chrissimpkins/tweetledee/issues/51).  A big thanks to Vinh Nguyen for his pull request to add support for this feature!
 
-## Recent Changes
+## Changes
+- <b>0.4.1</b> : added support for JSON pretty printing in PHP versions 5.3+ (from 5.4+ previously) [issue #40](https://github.com/chrissimpkins/tweetledee/pull/40).  Thanks much to Martín Lucas Golini @SpartanJ for his new pretty printing functions.
 - <b>0.4.0</b> : added caching to all Tweetledee files with default 90 sec duration.  This default cache interval can be changed with the `cache_interval` URL parameter (with a value in seconds).  Great big thanks to Christian Varga (@levymetal) for his contributions to this update!  The non-cached versions of the files from v0.3.6 have been renamed with an appended `_nocache` (e.g. `userrss.php` > `userrss_nocache.php`) for anyone who would like to implement their own caching.
 - <b>0.3.6</b> : bug fix for multi-parameter search query exception bug [issue #30](https://github.com/chrissimpkins/tweetledee/issues/30).  Thanks much for the issue report @adjeD!
 - <b>0.3.5</b> : bug fix for Twitter search filters [issue #28](https://github.com/chrissimpkins/tweetledee/issues/28).  Thanks much for the issue report @molis83!
