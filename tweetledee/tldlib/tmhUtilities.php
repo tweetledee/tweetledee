@@ -54,7 +54,7 @@ class tmhUtilities {
     }
 
     if (!isset($tweet['entities'])) {
-      return $tweet['text'];
+      return $tweet['full_text'];
     }
 
     $target = (!empty($opts['target'])) ? ' target="'.$opts['target'].'"' : '';
@@ -66,7 +66,7 @@ class tmhUtilities {
 
         switch ($type) {
           case 'hashtags':
-            $href = "<a href=\"https://twitter.com/search?q=%23{$value['text']}\"{$target}>#{$value['text']}</a>";
+            $href = "<a href=\"https://twitter.com/search?q=%23{$value['full_text']}\"{$target}>#{$value['full_text']}</a>";
             break;
           case 'user_mentions':
             $href = "@<a href=\"https://twitter.com/{$value['screen_name']}\" title=\"{$value['name']}\"{$target}>{$value['screen_name']}</a>";
@@ -81,7 +81,7 @@ class tmhUtilities {
             break;
         }
         $keys[$value['indices']['0']] = mb_substr(
-          $tweet['text'],
+          $tweet['full_text'],
           $value['indices']['0'],
           $value['indices']['1'] - $value['indices']['0']
         );
@@ -91,7 +91,7 @@ class tmhUtilities {
 
     ksort($replacements);
     $replacements = array_reverse($replacements, true);
-    $entified_tweet = $tweet['text'];
+    $entified_tweet = $tweet['full_text'];
     foreach ($replacements as $k => $v) {
       $entified_tweet = mb_substr($entified_tweet, 0, $k).$v.mb_substr($entified_tweet, $k + strlen($keys[$k]));
     }

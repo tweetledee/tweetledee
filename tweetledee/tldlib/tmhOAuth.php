@@ -316,6 +316,8 @@ class tmhOAuth {
       $params = $this->request_settings['params'];
     }
 
+    $params = array_merge(array('tweet_mode' => 'extended'), $params);
+
     // Parameters are sorted by name, using lexicographical byte value ordering.
     // Ref: Spec: 9.1.1 (1)
     uksort($params, 'strcmp');
