@@ -207,13 +207,16 @@ header("Content-type: text/xml; charset=utf-8");
                     $rt = '&nbsp;&nbsp;&nbsp;&nbsp;[<em style="font-size:smaller;">Retweeted by ' . $currentitem['user']['screen_name'] . ' <a href=\'http://twitter.com/' . $currentitem['user']['screen_name'] . '\'>@' . $currentitem['user']['screen_name'] . '</a></em>]';
                     $tweeter =  $currentitem['retweeted_status']['user']['screen_name'];
                     $fullname = $currentitem['retweeted_status']['user']['name'];
-                    $tweetTitle = $currentitem['retweeted_status']['text'];
+                    $tweetTitle = $currentitem['retweeted_status']['full_text'];
                 else :
                     $avatar = $currentitem['user']['profile_image_url'];
                     $rt = '';
                     $tweeter = $currentitem['user']['screen_name'];
                     $fullname = $currentitem['user']['name'];
-                    $tweetTitle = $currentitem['text'];
+                    $tweetTitle = $currentitem['full_text'];
+                    if(isset($currentitem['entities']['media'][0]['media_url'])):
+                    $picurl = $currentitem['entities']['media'][0]['media_url'];
+                    endif;
                endif;
                 ?>
                 <title>[<?php echo $tweeter; ?>] <?php echo $tweetTitle; ?> </title>
