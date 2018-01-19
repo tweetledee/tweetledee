@@ -1,11 +1,17 @@
 {
-    "name": "simpkins/tweetledee",
+    "name": "tweetledee/tweetledee",
     "type": "library",
     "description": "Easy access to Twitter RSS and JSON data",
     "keywords": ["Twitter","web","command line","RSS","JSON","social media"],
-    "homepage": "http://github.com/chrissimpkins/tweetledee",
+    "homepage": "http://github.com/tweetledee/tweetledee",
     "license": "MIT",
     "authors": [
+        {
+            "name": "Rodrigo Aguilera",
+            "email": "hi@rodrigoaguilera.net",
+            "homepage": "https://www.rodrigoaguilera.net",
+            "role": "Developer"
+        },
         {
             "name": "Christopher Simpkins",
             "email": "chris@zerolabs.net",
