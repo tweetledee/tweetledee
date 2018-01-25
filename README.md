@@ -82,6 +82,3 @@ If you would like to contribute to the project, have at it.  <a href="https://he
 
 ## License
 MIT License - see the LICENSE.txt file in the source distribution
-
-✪ Chris
-
