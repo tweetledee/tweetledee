@@ -215,8 +215,8 @@ header("Content-type: text/xml; charset=utf-8");
                     $tweeter = $currentitem['user']['screen_name'];
                     $fullname = $currentitem['user']['name'];
                     $tweetTitle = $currentitem['full_text'];
-                    if(isset($currentitem['entities']['media'][0]['media_url'])):
-                    $picurl = $currentitem['entities']['media'][0]['media_url'];
+                    if(isset($currentitem['entities']['media'][0]['media_url_https'])):
+                    $picurl = $currentitem['entities']['media'][0]['media_url_https'];
                     endif;
                endif;
                 ?>
@@ -234,8 +234,8 @@ header("Content-type: text/xml; charset=utf-8");
 						</div>
                         <strong><?php echo $fullname; ?></strong> <a href='https://twitter.com/<?php echo $tweeter; ?>' target='blank'>@<?php echo $tweeter;?></a><?php echo $rt ?><br />
                         <?php echo $parsedTweet; ?>
-                        <?php if(isset($currentitem['entities']['media'][0]['media_url'])): ?>
-                        <img src='<?php echo $currentitem['entities']['media'][0]['media_url']; ?>' border=0 />
+                        <?php if(isset($currentitem['entities']['media'][0]['media_url_https'])): ?>
+                        <img src='<?php echo $currentitem['entities']['media'][0]['media_url_https']; ?>' border=0 />
                         <?php endif; ?>
                     ]]>
                </description>
