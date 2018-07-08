@@ -66,7 +66,7 @@ class tmhUtilities {
 
         switch ($type) {
           case 'hashtags':
-            $href = "<a href=\"https://twitter.com/search?q=%23{$value['full_text']}\"{$target}>#{$value['full_text']}</a>";
+            $href = "<a href=\"https://twitter.com/search?q=%23{$value['text']}\"{$target}>#{$value['text']}</a>";
             break;
           case 'user_mentions':
             $href = "@<a href=\"https://twitter.com/{$value['screen_name']}\" title=\"{$value['name']}\"{$target}>{$value['screen_name']}</a>";
