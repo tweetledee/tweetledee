@@ -93,7 +93,7 @@ class tmhUtilities {
     $replacements = array_reverse($replacements, true);
     $entified_tweet = $tweet['full_text'];
     foreach ($replacements as $k => $v) {
-      $entified_tweet = mb_substr($entified_tweet, 0, $k).$v.mb_substr($entified_tweet, $k + strlen($keys[$k]));
+      $entified_tweet = mb_substr($entified_tweet, 0, $k).$v.mb_substr($entified_tweet, $k + mb_strlen($keys[$k]));
     }
     $replacements = array(
       'replacements' => $replacements,
