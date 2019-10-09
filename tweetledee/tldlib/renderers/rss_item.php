@@ -21,12 +21,12 @@ endif;
 ?>
     <title>[<?php echo $tweeter; ?>] <?php echo $tweetTitle; ?> </title>
     <pubDate><?php echo reformatDate($currentitem['created_at']); ?></pubDate>
-    <link>https://twitter.com/<?php echo $twitterName ?>/statuses/<?php echo $currentitem['id_str']; ?></link>
+    <link>https://twitter.com/<?php echo $tweeter ?>/statuses/<?php echo $currentitem['id_str']; ?></link>
     <guid isPermaLink='false'><?php echo $currentitem['id_str']; ?></guid>
     <description>
 	<![CDATA[
                         <div style='float:left;margin: 0 6px 6px 0;'>
-							<a href='https://twitter.com/<?php echo $twitterName ?>/statuses/<?php echo $currentitem['id_str']; ?>' border=0 target='blank'>
+							<a href='https://twitter.com/<?php echo $tweeter ?>/statuses/<?php echo $currentitem['id_str']; ?>' border=0 target='blank'>
 								<img src='<?php echo $avatar; ?>' border=0 />
 							</a>
 						</div>

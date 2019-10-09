@@ -4,7 +4,7 @@ require 'renderer.php';
 class RssRenderer extends AbstractRenderer
 {
 
-    public function render_parsed_tweet($twitterName, $currentitem, $parsedTweet)
+    public function render_parsed_tweet($currentitem, $parsedTweet)
     {
         $args = get_defined_vars();
         return template('tldlib/renderers/rss_item.php', $args);

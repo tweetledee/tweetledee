@@ -6,6 +6,9 @@
         <title><?php echo $title; ?></title>
         <description><?php echo $description; ?></description>
         <link><?php echo $link; ?></link>
+        <?php if (isset($url)) { ?>
+        <url><?php echo $url ?></url>
+        <?php } ?>
         <ttl>960</ttl>
         <generator>Tweetledee</generator>
         <category>Personal</category>
@@ -15,7 +18,7 @@
             <url><?php echo $twitterAvatarUrl ?></url>
         </image>
         <?php foreach ($tweets as $currentitem) : ?>
-                 <?= $renderer->render_tweet($twitterName, $currentitem)?>
+                 <?php echo $renderer->render_tweet($currentitem)?>
         <?php endforeach; ?>
     </channel>
 </rss>
