@@ -1,0 +1,21 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <atom:link href="<?php echo $link ?>" rel="self" type="application/rss+xml" />
+        <lastBuildDate><?php echo $lastBuildDate; ?></lastBuildDate>
+        <language>en</language>
+        <title><?php echo $title; ?></title>
+        <description><?php echo $description; ?></description>
+        <link><?php echo $link; ?></link>
+        <ttl>960</ttl>
+        <generator>Tweetledee</generator>
+        <category>Personal</category>
+        <image>
+            <title><?php echo $title; ?></title>
+            <link><?php echo $link; ?></link>
+            <url><?php echo $twitterAvatarUrl ?></url>
+        </image>
+        <?php foreach ($tweets as $currentitem) : ?>
+                 <?= $renderer->render_tweet($twitterName, $currentitem)?>
+        <?php endforeach; ?>
+    </channel>
+</rss>
