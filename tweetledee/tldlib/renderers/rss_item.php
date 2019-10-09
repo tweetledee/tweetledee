@@ -32,8 +32,10 @@ endif;
 						</div>
                         <strong><?php echo $fullname; ?></strong> <a href='https://twitter.com/<?php echo $tweeter; ?>' target='blank'>@<?php echo $tweeter;?></a><?php echo $rt ?><br />
                         <?php echo $parsedTweet; ?>
-                        <?php if(isset($currentitem['entities']['media'][0]['media_url_https'])): ?>
-                        <img src='<?php echo $currentitem['entities']['media'][0]['media_url_https'] ?>' border=0 />
+                        <?php if(isset($currentitem['extended_entities']['media'])): ?>
+                        <?php foreach ($currentitem['extended_entities']['media'] as $entity):?>
+                        <img src='<?php echo $entity['media_url_https'] ?>' border=0 />
+                        <?php endforeach;?>
                         <?php endif; ?>
                     ]]>
 	</description>
