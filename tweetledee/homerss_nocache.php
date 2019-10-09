@@ -155,7 +155,9 @@ header("Content-type: text/xml; charset=utf-8");
 
 $renderer = new RssRenderer();
 $config = array(
-    'link'              =>  $my_domain . $_SERVER['PHP_SELF'],
+    'atom'              =>  $my_domain . $_SERVER['PHP_SELF'],
+    'link'              =>  sprintf('http://www.twitter.com/%s', $twitterName),
+    'twitterName'       => $twitterName,
     'lastBuildDate'     =>  date(DATE_RSS),
     'title'             =>  $feedTitle,
     'description'       =>  sprintf('Twitter home timeline updates for %s/%s', $fullName, $twitterName),
