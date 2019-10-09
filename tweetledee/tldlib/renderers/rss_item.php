@@ -13,9 +13,6 @@ else :
     $tweeter = $currentitem['user']['screen_name'];
     $fullname = $currentitem['user']['name'];
     $tweetTitle = $currentitem['full_text'];
-    if (isset($currentitem['entities']['media'][0]['media_url_https'])) :
-        $picurl = $currentitem['entities']['media'][0]['media_url_https'];
-        endif;
 
 endif;
 ?>
@@ -25,16 +22,14 @@ endif;
     <guid isPermaLink='false'><?php echo $currentitem['id_str']; ?></guid>
     <description>
 	<![CDATA[
-                        <div style='float:left;margin: 0 6px 6px 0;'>
-							<a href='https://twitter.com/<?php echo $tweeter ?>/statuses/<?php echo $currentitem['id_str']; ?>' border=0 target='blank'>
-								<img src='<?php echo $avatar; ?>' border=0 />
-							</a>
-						</div>
-                        <strong><?php echo $fullname; ?></strong> <a href='https://twitter.com/<?php echo $tweeter; ?>' target='blank'>@<?php echo $tweeter;?></a><?php echo $rt ?><br />
-                        <?php echo $parsedTweet; ?>
-                        <?php if(isset($currentitem['entities']['media'][0]['media_url_https'])): ?>
-                        <img src='<?php echo $currentitem['entities']['media'][0]['media_url_https'] ?>' border=0 />
-                        <?php endif; ?>
+<?php echo template('tldlib/renderers/rss_item_html_enclosure.php', array(
+    'avatar' => $avatar,
+    'rt' => $rt,
+    'tweeter' => $tweeter,
+    'fullname' => $fullname,
+    'tweetTitle' => $tweetTitle,
+    'currentitem' => $currentitem, 
+    'parsedTweet' => $parsedTweet))?>
                     ]]>
 	</description>
 </item>
