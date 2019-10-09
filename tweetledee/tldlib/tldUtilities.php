@@ -88,6 +88,30 @@ function objectToArray($object)
   return array_map('objectToArray', $object );
 }
 
-
+/**
+ * Simple Templating function
+ *
+ * @param $file   - Path to the PHP file that acts as a template.
+ * @param $args   - Associative array of variables to pass to the template file.
+ * @return string - Output of the template file. Likely HTML.
+ * @see https://www.daggerhart.com/create-simple-php-templating-function/
+ */
+function template( $file, $args ){
+    // ensure the file exists
+    if ( !file_exists( $file ) ) {
+        error_log("Template file ".$file." can't be found. Are you sure your path matches what php include expects ?");
+        return 'NOT FOUND';
+    }
+    
+    // Make values in the associative array easier to access by extracting them
+    if ( is_array( $args ) ){
+        extract( $args );
+    }
+    
+    // buffer the output (including the file is "output")
+    ob_start();
+    include $file;
+    return ob_get_clean();
+}
 
 ?>
