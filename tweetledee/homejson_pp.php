@@ -47,65 +47,10 @@ require 'tldlib/tldCache.php';
 // include Martín Lucas Golini's pretty print functions
 require 'tldlib/tldPrettyPrint.php';
 
-/*******************************************************************
-*  Defaults
-********************************************************************/
-$count = 25;  //default tweet number = 25
-$exclude_replies = false;  //default to include replies
-$cache_interval = 90; // default cache interval = 90 seconds
+require 'tldlib/parametersProcessing.php';
 
-/*******************************************************************
-*   Parameters
-*    - can pass via URL to web server
-*    - or as a short or long switch at the command line
-********************************************************************/
-// Command line parameter definitions //
-if (defined('STDIN')) {
-    // check whether arguments were passed, if not there is no need to attempt to check the array
-    if (isset($argv)){
-        $shortopts = "c:";
-        $longopts = array(
-            "xrp",
-        );
-        $params = getopt($shortopts, $longopts);
-        if (isset($params['c'])){
-            if ($params['c'] > 0 && $params['c'] <= 200)
-                $count = $params['c'];  //assign to the count variable
-        }
-        if (isset($params['xrp'])){
-            $exclude_replies = true;
-        }
-        if (isset($params['xrp'])){
-            $exclude_replies = true;
-        }
-        if (isset($params['cache_interval'])){
-            $cache_interval = $params['cache_interval'];
-        }
-    }
-
-} //end if
-// Web server URL parameter definitions //
-else{
-    // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
-    if (isset($_GET["c"])){
-        $getcount = $_GET["c"];
-        if ($getcount > 0 && $getcount <= 200){
-            $count = $getcount;
-        }
-    }
-
-    // xrp = exclude replies from the timeline (possible values: 1=true, else false)
-    if (isset($_GET["xrp"])){
-        if ($_GET["xrp"] == 1){
-            $exclude_replies = true;
-        }
-    }
-
-    // cache_interval = the amount of time to keep the cached file
-    if (isset($_GET["cache_interval"])){
-        $cache_interval = $_GET["cache_interval"];
-    }
-} //end else
+$parameters = load_parameters(array("c", "exclude_replies", "cache_interval"));
+extract($parameters);
 
 /*******************************************************************
 *  OAuth

@@ -49,79 +49,11 @@ require 'tldlib/tldCache.php';
 
 require 'tldlib/renderers/rss.php';
 
-/*******************************************************************
-*  Defaults
-********************************************************************/
-$count = 25;  //default tweet number = 25
-$include_retweets = true;  //default to include retweets
-$exclude_replies = false;  //default to include replies
-$screen_name = '';
-$cache_interval = 90; // default cache interval = 90 seconds
+require 'tldlib/parametersProcessing.php';
 
-/*******************************************************************
-*   Parameters
-*    - can pass via URL to web server
-*    - or as a parameter at the command line
-********************************************************************/
-
-// Command line parameter definitions //
-if (defined('STDIN')) {
-    // check whether arguments were passed, if not there is no need to attempt to check the array
-    if (isset($argv)){
-        $shortopts = "c:";
-        $longopts = array(
-            "xrt",
-            "xrp",
-            "user:",
-        );
-        $params = getopt($shortopts, $longopts);
-        if (isset($params['c'])){
-            if ($params['c'] > 0 && $params['c'] <= 200)
-                $count = $params['c'];  //assign to the count variable
-        }
-        if (isset($params['xrt'])){
-            $include_retweets = false;
-        }
-        if (isset($params['xrp'])){
-            $exclude_replies = true;
-        }
-        if (isset($params['user'])){
-            $screen_name = $params['user'];
-        }
-        if (isset($params['cache_interval'])){
-            $cache_interval = $params['cache_interval'];
-        }
-    }
-}
-// Web server URL parameter definitions //
-else {
-    // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
-    if (isset($_GET["c"])){
-        if ($_GET["c"] > 0 && $_GET["c"] <= 200){
-            $count = $_GET["c"];
-        }
-    }
-    // xrt = exclude retweets from the timeline ( possible values: 1=true, else false)
-    if (isset($_GET["xrt"])){
-        if ($_GET["xrt"] == 1){
-            $include_retweets = false;
-        }
-    }
-    // xrp = exclude replies from the timeline (possible values: 1=true, else false)
-    if (isset($_GET["xrp"])){
-        if ($_GET["xrp"] == 1){
-            $exclude_replies = true;
-        }
-    }
-    // user = Twitter screen name for the user timeline that the user is requesting (default = their own, possible values = any other Twitter user name)
-    if (isset($_GET["user"])){
-        $screen_name = $_GET["user"];
-    }
-    // cache_interval = the amount of time to keep the cached file
-    if (isset($_GET["cache_interval"])){
-        $cache_interval = $_GET["cache_interval"];
-    }
-} // end else block
+$parameters = load_parameters(array("c", "exclude_retweets", "exclude_replies", "user", "cache_interval"));
+extract($parameters);
+$include_retweets = !$exclude_retweets;
 
 /*******************************************************************
 *  OAuth
@@ -142,8 +74,9 @@ $data = $tldCache->auth_request();
 $twitterName = $data['screen_name'];
 $fullName = $data['name'];
 $twitterAvatarUrl = $data['profile_image_url'];
-
-if ( $screen_name == '' ) $screen_name = $data['screen_name'];
+if(!isset($screen_name) || $screen_name=='') {
+    $screen_name = $data['screen_name'];
+}
 
 /*******************************************************************
 *  Request

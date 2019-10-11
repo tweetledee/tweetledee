@@ -47,33 +47,11 @@ require 'tldlib/tldUtilities.php';
 
 require 'tldlib/renderers/rss.php';
 
-/***************************************************************************************
-*  Mandatory parameter (list)
-*   - do not execute the OAuth authentication request if missing (keep before OAuth code)
-****************************************************************************************/
-// list = list name for a list owned by the specified user (or if no user specified, the user associated with the access token account)
-if (isset($_GET["list"])){
-    $list_name = $_GET["list"];
-}
-else if (defined('STDIN')) {
-    if (isset($argv)){
-        $shortopts = "";
-        $longopts = array(
-            "list:",
-        );
-    }
-    else {
-        die("Error: missing user list name in your request.  Please use the 'list' parameter in your request.");
-    }
-    $params = getopt($shortopts, $longopts);
-    if (isset($params['list'])){
-        $list_name = $params['list'];
-    }
-    else{
-        die("Error: unable to parse the user list name in your request.  Please use the 'list' parameter in your request.");
-    }
-}
-else{
+require 'tldlib/parametersProcessing.php';
+
+$parameters = load_parameters(array("c", "user", "exclude_retweets", "list"));
+extract($parameters);
+if(!isset($parameters['list'])) {
     die("Error: missing user list name in your request.  Please use the 'list' parameter in your request.");
 }
 
@@ -110,60 +88,9 @@ $data = json_decode($tmhOAuth->response['response'], true);
 $twitterName = $data['screen_name'];
 $fullName = $data['name'];
 $twitterAvatarUrl = $data['profile_image_url'];
-
-/*******************************************************************
-*  Defaults
-********************************************************************/
-$count = 25;  //default tweet number = 25
-$include_retweets = true;  //default to include retweets
-$screen_name = $data['screen_name'];
-
-/*******************************************************************
-*   Optional Parameters
-*    - can pass via URL to web server
-*    - or as a short or long switch at the command line
-********************************************************************/
-// Command line parameter definitions //
-if (defined('STDIN')) {
-    // check whether arguments were passed, if not there is no need to attempt to check the array
-    if (isset($argv)){
-        $shortopts = "c:";
-        $longopts = array(
-            "user:",
-            "xrt",
-        );
-        $params = getopt($shortopts, $longopts);
-        if (isset($params['c'])){
-            if ($params['c'] > 0 && $params['c'] <= 200)
-                $count = $params['c'];  //assign to the count variable
-        }
-        if (isset($params['user'])){
-            $screen_name = $params['user'];
-        }
-        if (isset($params['xrt'])){
-            $include_retweets = false;
-        }
-    }
-} //end if defined 'stdin'
-// Web server URL parameter definitions //
-else{
-    // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
-    if (isset($_GET["c"])){
-        if ($_GET["c"] > 0 && $_GET["c"] <= 200){
-            $count = $_GET["c"];
-        }
-    }
-
-    // user = Twitter screen name for the user favorites that the user is requesting (default = their own, possible values = any other Twitter user name)
-    if (isset($_GET["user"])){
-        $screen_name = $_GET["user"];
-    }
-
-    // xrt = exclude retweets
-    if (isset($_GET["xrt"])){
-        $include_retweets = false;
-    }
-} //end else
+if(!isset($screen_name) || $screen_name=='') {
+    $screen_name = $data['screen_name'];
+}
 
 /*******************************************************************
 *  Request

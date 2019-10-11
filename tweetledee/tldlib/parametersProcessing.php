@@ -26,6 +26,7 @@ const LONG = "long";
 const INT = "int";
 
 const BOOL = "bool";
+const DEFAULT_VALUE = "default";
 
 const PARAMETERS = array(
     "c" => array(
@@ -35,17 +36,48 @@ const PARAMETERS = array(
         VALIDATION => array(
             MIN => 0,
             MAX => 200
-        )
-    ),
-    "exclude_replies" => array(
-        NAME => "exclude_replies",
-        LONG => "xrp",
-        TYPE => BOOL
+        ),
+        DEFAULT_VALUE => 25
     ),
     "cache_interval" => array(
         NAME => "cache_interval",
         LONG => "cache_interval",
-        TYPE => INT
+        TYPE => INT,
+        VALIDATION => array(
+            MIN => 0,
+            MAX => PHP_INT_MAX 
+        ),
+        DEFAULT_VALUE => 90
+    ),
+    "exclude_replies" => array(
+        NAME => "exclude_replies",
+        LONG => "xrp",
+        TYPE => BOOL,
+        DEFAULT_VALUE => false
+    ),
+    "exclude_retweets" => array(
+        NAME => "exclude_retweets",
+        LONG => "xrt",
+        TYPE => BOOL,
+        DEFAULT_VALUE => false
+    ),
+    "list" => array(
+        NAME => "list",
+        LONG => "list"
+    ),
+    "q" => array(
+        NAME => "q",
+        SHORT => "q"
+    ),
+    "result_type" => array(
+        NAME => "result_type",
+        LONG => "rt",
+        VALIDATION => array('popular', 'recent'),
+        DEFAULT_VALUE => "mixed"
+    ),
+    "user" => array(
+        NAME => "screen_name",
+        LONG => "user"
     )
 );
 
@@ -76,7 +108,15 @@ function extract_value($type, $definition, $params)
         $value = filter_var($extracted, FILTER_VALIDATE_BOOLEAN);
         return $value;
     } else {
-        return $extracted;
+        if (array_key_exists(VALIDATION, $definition)) {
+            if (in_array($value, $definition[VALIDATION])) {
+                return $value;
+            } else {
+                return null;
+            }
+        } else {
+            return $extracted;
+        }
     }
 }
 
@@ -123,6 +163,13 @@ function load_parameters_from_http_request($parameters_definitions)
         if (array_key_exists(LONG, $definition)) {
             if (array_key_exists($definition[LONG], $_GET)) {
                 $returned[$definition[NAME]] = extract_value(LONG, $definition, $_GET);
+            }
+        }
+        // No value was found ?
+        if (!array_key_exists($definition[NAME], $returned)) {
+            // Then it's time for default !
+            if(array_key_exists(DEFAULT_VALUE, $definition)) {
+                $returned[$definition[NAME]] = $definition[DEFAULT_VALUE];
             }
         }
     }

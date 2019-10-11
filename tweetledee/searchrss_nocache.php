@@ -46,31 +46,12 @@ require 'tldlib/tldUtilities.php';
 
 require 'tldlib/renderers/rss.php';
 
-/***************************************************************************************
-*  Mandatory parameter (q)
-*   - do not execute the OAuth authentication request if missing (keep before OAuth code)
-****************************************************************************************/
-// q = search query term
-if (isset($_GET["q"])){
-    $query = $_GET["q"];
-}
-else if (defined('STDIN')) {
-    if (isset($argv)){
-        $shortopts = "q:";
-    }
-    else {
-        die("Error: missing the search query term in your request.  Please use the 'q' parameter in your request.");
-    }
-    $params = getopt($shortopts);
-    if (isset($params['q'])){
-        $query = urlencode($params['q']);
-    }
-    else{
-        die("Error: unable to parse the search query term in your request.  Please use the 'q' parameter in your request.");
-    }
-}
-else{
-    die("Error: missing search query term in your request.  Please use the 'q' parameter in your request.");
+require 'tldlib/parametersProcessing.php';
+
+$parameters = load_parameters(array("c", "q", "rt"));
+extract($parameters);
+if(!isset($parameters['q'])) {
+    die("Error: missing the search query term.  Please use the 'q' parameter.");
 }
 
 /*******************************************************************
@@ -114,44 +95,10 @@ $count = 25;  //default tweet number = 25
 $result_type = 'mixed'; //default to mixed popular and realtime results
 
 
-/*******************************************************************
-*   Optional Parameters
-*    - can pass via URL to web server
-*    - or as a short or long switch at the command line
-********************************************************************/
-
-// Command line parameter definitions //
-if (defined('STDIN')) {
-    // check whether arguments were passed, if not there is no need to attempt to check the array
-    if (isset($argv)){
-        $shortopts = "c:";
-        $longopts = array(
-            "rt",
-        );
-        $params = getopt($shortopts, $longopts);
-        if (isset($params['c'])){
-            if ($params['c'] > 0 && $params['c'] <= 200)
-                $count = $params['c'];  //assign to the count variable
-        }
-        if (isset($params['rt'])){
-            $result_type = $params['rt'];
-        }
-    }
-}
-// Web server URL parameter definitions //
-else{
-    // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
-    if (isset($_GET["c"])){
-        if ($_GET["c"] > 0 && $_GET["c"] <= 200){
-            $count = $_GET["c"];
-        }
-    }
-    // rt = response type
-    if (isset($_GET["rt"])){
-        if ($_GET["rt"] == 'popular' || $_GET["rt"] == 'recent'){
-            $result_type = $_GET["rt"];
-        }
-    }
+$parameters = load_parameters(array("c", "q", "rt"));
+extract($parameters);
+if(!isset($parameters['q'])) {
+    die("Error: missing the search query term.  Please use the 'q' parameter.");
 }
 
 //Create the feed title with the query

@@ -45,13 +45,6 @@ require 'tldlib/tldCache.php';
 
 require 'tldlib/renderers/rss.php';
 
-/*******************************************************************
-*  Defaults
-********************************************************************/
-$count = 25;  //default tweet number = 25
-$exclude_replies = false;  //default to include replies
-$cache_interval = 90; // default cache interval = 90 seconds
-
 require 'tldlib/parametersProcessing.php';
 
 $parameters = load_parameters(array("c", "exclude_replies", "cache_interval"));
@@ -76,8 +69,6 @@ $twitterName = $data['screen_name'];
 $fullName = $data['name'];
 $twitterAvatarUrl = $data['profile_image_url'];
 $feedTitle = ' Twitter home timeline for ' . $twitterName;
-$screen_name = $data['screen_name'];
-
 
 /*******************************************************************
 *  Request
