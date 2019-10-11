@@ -20,18 +20,9 @@
             e.g. http://<yourdomain>/tweetledee/favoritesjson_pp_nocache.php?c=100&user=cooluser
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
-*  Debugging Flag
-********************************************************************/
-$TLD_DEBUG = 0;
-if ($TLD_DEBUG == 1){
-    ini_set('display_errors', 'On');
-    error_reporting(E_ALL | E_STRICT);
-}
-
-
-/*******************************************************************
 *  Includes
 ********************************************************************/
+require 'tldlib/debug.php';
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
 require 'tldlib/tmhUtilities.php';
