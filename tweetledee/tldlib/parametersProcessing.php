@@ -30,7 +30,7 @@ const DEFAULT_VALUE = "default";
 
 const PARAMETERS = array(
     "c" => array(
-        NAME => "c",
+        NAME => "count",
         SHORT => "c",
         TYPE => INT,
         VALIDATION => array(
