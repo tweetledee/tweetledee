@@ -143,6 +143,7 @@ header("Content-Type: application/rss+xml");
 header("Content-type: text/xml; charset=utf-8");
 
 $renderer = new RssRenderer();
+$renderer->using_cache($tldCache);
 $config = array(
     'atom'              =>  $my_domain . $thequery,
     'link'              =>  sprintf('http://www.twitter.com/%s', $screen_name),

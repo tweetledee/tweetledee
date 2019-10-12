@@ -10,8 +10,12 @@
 <img src='<?php echo $entity['media_url_https'] ?>' border=0 />
 <?php endforeach;?>
 <?php endif; ?>
-<?php if(count($currentitem['entities']['urls'])>0): ?>
+<?php if(isset($currentitem['entities']['urls']) && count($currentitem['entities']['urls'])>0): ?>
 <?php foreach ($currentitem['entities']['urls'] as $included_tweet_url):?>
+
+<div class="quoted_url">
+<?php echo $renderer->render_quoted_content($included_tweet_url)?>
+</div>
 
 <?php endforeach;?>
 <?php endif; ?>
