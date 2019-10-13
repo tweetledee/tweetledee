@@ -21,11 +21,4 @@
  *  Enter your information below this line:
  */
 
-$my_consumer_key        = 's9nM6ELNAbxzgNboe01JPeGi2';
-$my_consumer_secret     = 'h7xHMqYk8PdR60KemI1lfYvp8nonaf5QU83RS0PLGG3CSHL20M';
-$my_access_token        = '88657970-4CmU3qa2cnDmruF41cmWudUjlehlZ1HDpS2iDuDus';
-$my_access_token_secret = 'JWt7Xtt5WyKnUiU5CNuQ26GvSPHEw4oV4JvUSYG8Ntqyg';
-$my_domain              = 'http://nicolas-delsaux.hd.free.fr';
-
-
 ?>
