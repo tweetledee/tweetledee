@@ -83,6 +83,7 @@ $twitterAvatarUrl = $data['profile_image_url'];
 ********************************************************************/
 $count = 25;  //default tweet number = 25
 $screen_name = $data['screen_name'];  //default is the requesting user
+$recursion_limit = 0; // as a default we don't quote tweets
 
 /*******************************************************************
 *   Parameters
@@ -119,6 +120,10 @@ else {
     if (isset($_GET["user"])){
         $screen_name = $_GET["user"];
     }
+    // cache_interval = the amount of time to keep the cached file
+    if (isset($_GET["recursion_limit"])){
+        $recursion_limit = intval($_GET["recursion_limit"]);
+    }
 } // end else
 
 /*******************************************************************
@@ -152,7 +157,7 @@ $userFavoritesObj = json_decode($tmhOAuth->response['response'], true);
 header("Content-Type: application/rss+xml");
 header("Content-type: text/xml; charset=utf-8");
 
-$renderer = new RssRenderer();
+$renderer = new RssRenderer($recursion_limit);
 $renderer->using_client($tmhOAuth);
 $config = array(
     'atom'              =>  $my_domain . $thequery,

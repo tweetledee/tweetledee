@@ -3,6 +3,9 @@ require 'renderer.php';
 
 class RssRenderer extends AbstractRenderer
 {
+    public function __construct($recursion_limit = 0) {
+        $this->recursion_limit = $recursion_limit;
+    }
 
     public function render_parsed_tweet($currentitem, $parsedTweet)
     {
@@ -47,24 +50,27 @@ class RssRenderer extends AbstractRenderer
         return template('tldlib/renderers/rss_item_html_enclosure.php', $args);
     }
 
-    public function render_quoted_content($url)
+    public function render_quoted_content($url, $recursion_level = 0)
     {
         if (array_key_exists('expanded_url', $url)) {
-            if (strpos($url['expanded_url'], 'twitter.com')) {
-                $content = $this->client->get_remote_content($url);
-                // If there is something in array, it must be a tweet !
-                // Else don't show anything
-                if (empty($content)) {
-                    return "";
+            if($recursion_level<$this->recursion_limit) {
+                if (strpos($url['expanded_url'], 'twitter.com')) {
+                    $content = $this->client->get_remote_content($url);
+                    // If there is something in array, it must be a tweet !
+                    // Else don't show anything
+                    if (empty($content)) {
+                        return "";
+                    } else {
+                        $args = $this->prepare_data_array($content);
+                        $args['renderer'] = $this;
+                        $args['currentitem'] = $content;
+                        $args['parsedTweet'] = $this->create_parsed_tweet($content);
+                        $args['recursion_level'] = $recursion_level;
+                        return template('tldlib/renderers/rss_item_html_enclosure.php', $args);
+                    }
                 } else {
-                    $args = $this->prepare_data_array($content);
-                    $args['renderer'] = $this;
-                    $args['currentitem'] = $content;
-                    $args['parsedTweet'] = $this->create_parsed_tweet($content);
-                    return template('tldlib/renderers/rss_item_html_enclosure.php', $args);
+                    return template('tldlib/renderers/rss_item_html_external_url.php', $url);
                 }
-            } else {
-                return template('tldlib/renderers/rss_item_html_external_url.php', $url);
             }
         } else {
             return "I don't know what to do ...";

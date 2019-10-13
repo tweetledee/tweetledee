@@ -84,6 +84,7 @@ $feedTitle = ' Twitter home timeline for ' . $twitterName;
 $count = 25;  //default tweet number = 25
 $exclude_replies = false;  //default to include replies
 $screen_name = $data['screen_name'];
+$recursion_limit = 0; // as a default we don't quote tweets
 
 /*******************************************************************
 *   Parameters
@@ -125,6 +126,10 @@ else{
             $exclude_replies = true;
         }
     }
+    // cache_interval = the amount of time to keep the cached file
+    if (isset($_GET["recursion_limit"])){
+        $recursion_limit = intval($_GET["recursion_limit"]);
+    }
 } //end else
 
 /*******************************************************************
@@ -153,7 +158,7 @@ header("Content-type: text/xml; charset=utf-8");
 
 // Start the output
 
-$renderer = new RssRenderer();
+$renderer = new RssRenderer($recursion_limit);
 $renderer->using_client($tmhOAuth);
 $config = array(
     'atom'              =>  $my_domain . $_SERVER['PHP_SELF'],

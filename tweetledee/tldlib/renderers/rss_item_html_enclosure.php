@@ -14,7 +14,7 @@
 <?php foreach ($currentitem['entities']['urls'] as $included_tweet_url):?>
 
 <div class="quoted_url">
-<?php echo $renderer->render_quoted_content($included_tweet_url)?>
+<?php echo $renderer->render_quoted_content($included_tweet_url, $recursion_level)?>
 </div>
 
 <?php endforeach;?>

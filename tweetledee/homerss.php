@@ -51,6 +51,7 @@ require 'tldlib/renderers/rss.php';
 $count = 25;  //default tweet number = 25
 $exclude_replies = false;  //default to include replies
 $cache_interval = 90; // default cache interval = 90 seconds
+$recursion_limit = 0; // as a default we don't quote tweets
 
 /*******************************************************************
 *   Parameters
@@ -103,6 +104,10 @@ else{
     if (isset($_GET["cache_interval"])){
         $cache_interval = $_GET["cache_interval"];
     }
+    // cache_interval = the amount of time to keep the cached file
+    if (isset($_GET["recursion_limit"])){
+        $recursion_limit = intval($_GET["recursion_limit"]);
+    }
 } //end else
 
 /*******************************************************************
@@ -146,7 +151,7 @@ header("Content-type: text/xml; charset=utf-8");
 
 // Start the output
 
-$renderer = new RssRenderer();
+$renderer = new RssRenderer($recursion_limit);
 $renderer->using_cache($tldCache);
 $config = array(
     'atom'              =>  $my_domain . $_SERVER['PHP_SELF'],

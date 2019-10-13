@@ -57,6 +57,7 @@ $include_retweets = true;  //default to include retweets
 $exclude_replies = false;  //default to include replies
 $screen_name = '';
 $cache_interval = 90; // default cache interval = 90 seconds
+$recursion_limit = 0; // as a default we don't quote tweets
 
 /*******************************************************************
 *   Parameters
@@ -121,6 +122,10 @@ else {
     if (isset($_GET["cache_interval"])){
         $cache_interval = $_GET["cache_interval"];
     }
+    // cache_interval = the amount of time to keep the cached file
+    if (isset($_GET["recursion_limit"])){
+        $recursion_limit = intval($_GET["recursion_limit"]);
+    }
 } // end else block
 
 /*******************************************************************
@@ -171,7 +176,7 @@ if (defined('STDIN')) {
 header("Content-Type: application/rss+xml");
 header("Content-type: text/xml; charset=utf-8");
 
-$renderer = new RssRenderer();
+$renderer = new RssRenderer($recursion_limit);
 $renderer->using_cache($tldCache);
 $config = array(
     'atom'              =>  $my_domain . $thequery,
