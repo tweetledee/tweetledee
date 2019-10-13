@@ -85,7 +85,7 @@ $twitterAvatarUrl = $data['profile_image_url'];
 ********************************************************************/
 $count = 25;  //default tweet number = 25
 $result_type = 'mixed'; //default to mixed popular and realtime results
-
+$recursion_limit = 0; // as a default we don't quote tweets
 
 $parameters = load_parameters(array("c", "q", "rt"));
 extract($parameters);
@@ -133,7 +133,7 @@ $searchResultsObj = json_decode($tmhOAuth->response['response'], true);
 header("Content-Type: application/rss+xml");
 header("Content-type: text/xml; charset=utf-8");
 
-$renderer = new RssRenderer();
+$renderer = new RssRenderer($recursion_limit);
 $renderer->using_client($tmhOAuth);
 $config = array(
     'atom'              =>  $my_domain . urlencode($thequery),

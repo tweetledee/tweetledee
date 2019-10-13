@@ -118,7 +118,7 @@ $userListObj = json_decode($tmhOAuth->response['response'], true);
 header("Content-Type: application/rss+xml");
 header("Content-type: text/xml; charset=utf-8");
 
-$renderer = new RssRenderer();
+$renderer = new RssRenderer($recursion_limit);
 $renderer->using_client($tmhOAuth);
 $config = array(
     'atom'              =>  $my_domain . urlencode($thequery),

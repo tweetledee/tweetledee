@@ -12,6 +12,7 @@
     'fullname' => $fullname,
     'tweetTitle' => $tweetTitle,
     'currentitem' => $currentitem,
+    'recursion_level' => 0,
     'parsedTweet' => $parsedTweet))?>
 <?php echo ']]'; ?>
     </description>

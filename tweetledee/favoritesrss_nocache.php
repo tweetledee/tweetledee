@@ -37,7 +37,7 @@ require 'tldlib/renderers/rss.php';
 
 require 'tldlib/parametersProcessing.php';
 
-$parameters = load_parameters(array("c", "user"));
+$parameters = load_parameters(array("c", "user", "recursion_limit"));
 extract($parameters);
 
 /*******************************************************************
@@ -73,6 +73,7 @@ $data = json_decode($tmhOAuth->response['response'], true);
 $twitterName = $data['screen_name'];
 $fullName = $data['name'];
 $twitterAvatarUrl = $data['profile_image_url'];
+
 if(!isset($screen_name) || $screen_name=='') {
     $screen_name = $data['screen_name'];
 }
@@ -108,7 +109,7 @@ $userFavoritesObj = json_decode($tmhOAuth->response['response'], true);
 header("Content-Type: application/rss+xml");
 header("Content-type: text/xml; charset=utf-8");
 
-$renderer = new RssRenderer();
+$renderer = new RssRenderer($recursion_limit);
 $renderer->using_client($tmhOAuth);
 $config = array(
     'atom'              =>  $my_domain . $thequery,
