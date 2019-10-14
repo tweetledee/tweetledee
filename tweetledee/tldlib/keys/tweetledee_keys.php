@@ -20,10 +20,11 @@
  *
  *  Enter your information below this line:
  */
-$my_consumer_key        = 'xSEjyah0DLSGPUZsbI4HrLb54';
-$my_consumer_secret     = 'T4G5BP43YFOYsviLNG7YdeVW27fGcpwZ1x0FnnyjwLJFpUcV6Y';
-$my_access_token        = '88657970-5RTPOomxXSwlGWtlOeRG9ki66yGGGO1172UjdreD9';
-$my_access_token_secret = 'k9XPjXoIxHnbhJzKph2fuWLpdUkeudpCJuIrAPbtCTR27';
+/*
+$my_consumer_key        = '';
+$my_consumer_secret     = '';
+$my_access_token        = '';
+$my_access_token_secret = '';
 $my_domain              = 'http://nicolas-delsaux.hd.free.fr';
-
+*/
 ?>
