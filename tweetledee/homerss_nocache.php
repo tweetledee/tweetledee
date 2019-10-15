@@ -45,7 +45,7 @@ require 'tldlib/renderers/rss.php';
 
 require 'tldlib/parametersProcessing.php';
 
-$parameters = load_parameters(array("c", "exclude_replies"));
+$parameters = load_parameters(array("c", "exclude_replies", "recursion_limit"));
 extract($parameters);
 
 /*******************************************************************
@@ -109,7 +109,7 @@ header("Content-type: text/xml; charset=utf-8");
 
 // Start the output
 
-$renderer = new RssRenderer();
+$renderer = new RssRenderer($recursion_limit);
 $config = array(
     'atom'              =>  $my_domain . $_SERVER['PHP_SELF'],
     'link'              =>  sprintf('http://www.twitter.com/%s', $twitterName),

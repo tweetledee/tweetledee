@@ -69,6 +69,16 @@ const PARAMETERS = array(
         NAME => "q",
         SHORT => "q"
     ),
+    "recursion_limit" => array(
+        NAME => "recursion_limit",
+        LONG => "recursion_limit",
+        TYPE => INT,
+        VALIDATION => array(
+            MIN => 0,
+            MAX => 100
+        ),
+        DEFAULT_VALUE => 0
+    ),
     "result_type" => array(
         NAME => "result_type",
         LONG => "rt",

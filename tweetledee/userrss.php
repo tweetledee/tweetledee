@@ -51,7 +51,7 @@ require 'tldlib/renderers/rss.php';
 
 require 'tldlib/parametersProcessing.php';
 
-$parameters = load_parameters(array("c", "exclude_retweets", "exclude_replies", "user", "cache_interval"));
+$parameters = load_parameters(array("c", "exclude_retweets", "exclude_replies", "user", "cache_interval", "recursion_limit"));
 extract($parameters);
 $include_retweets = !$exclude_retweets;
 
@@ -104,7 +104,7 @@ if (defined('STDIN')) {
 header("Content-Type: application/rss+xml");
 header("Content-type: text/xml; charset=utf-8");
 
-$renderer = new RssRenderer();
+$renderer = new RssRenderer($recursion_limit);
 $config = array(
     'atom'              =>  $my_domain . $thequery,
     'link'              =>  sprintf('http://www.twitter.com/%s', $screen_name),

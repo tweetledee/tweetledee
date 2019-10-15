@@ -51,7 +51,7 @@ require 'tldlib/renderers/rss.php';
 
 require 'tldlib/parametersProcessing.php';
 
-$parameters = load_parameters(array("c", "user", "exclude_retweets", "cache_interval", "list"));
+$parameters = load_parameters(array("c", "user", "exclude_retweets", "cache_interval", "list", "recursion_limit"));
 extract($parameters);
 if(!isset($parameters['list'])) {
     die("Error: missing user list name in your request.  Please use the 'list' parameter in your request.");
@@ -105,7 +105,7 @@ if (defined('STDIN')) {
 header("Content-Type: application/rss+xml");
 header("Content-type: text/xml; charset=utf-8");
 
-$renderer = new RssRenderer();
+$renderer = new RssRenderer($recursion_limit);
 $config = array(
     'atom'              =>  $my_domain . urlencode($thequery),
     'link'               =>  sprintf('http://www.twitter.com/%s/lists/%s', $screen_name, $list_name),

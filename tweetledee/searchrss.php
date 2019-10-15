@@ -50,7 +50,7 @@ require 'tldlib/renderers/rss.php';
 
 require 'tldlib/parametersProcessing.php';
 
-$parameters = load_parameters(array("c", "q", "rt", "cache_interval"));
+$parameters = load_parameters(array("c", "q", "rt", "cache_interval", "recursion_limit"));
 extract($parameters);
 if(!isset($parameters['q'])) {
     die("Error: missing the search query term.  Please use the 'q' parameter.");
@@ -105,7 +105,7 @@ if (defined('STDIN')) {
 header("Content-Type: application/rss+xml");
 header("Content-type: text/xml; charset=utf-8");
 
-$renderer = new RssRenderer();
+$renderer = new RssRenderer($recursion_limit);
 $config = array(
     'atom'              =>  $my_domain . urlencode($thequery),
     'link'               =>  sprintf('http://www.twitter.com/search/?q=%s', $query),
