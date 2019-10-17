@@ -10,8 +10,8 @@
 <img src='<?php echo $entity['media_url_https'] ?>' border=0 />
 <?php endforeach;?>
 <?php endif; ?>
-<?php if(isset($currentitem['entities']['urls']) && count($currentitem['entities']['urls'])>0): ?>
-<?php foreach ($currentitem['entities']['urls'] as $included_tweet_url):?>
+<?php if(isset($entities['urls']) && count($entities['urls'])>0): ?>
+<?php foreach ($entities['urls'] as $included_tweet_url):?>
 
 <div class="quoted_url"  style="padding: 10px; margin: 10px; border:2px solid lightgrey;-moz-border-radius: 15px; border-radius: 15px;">
 <?php echo $renderer->render_quoted_content($included_tweet_url, $recursion_level)?>
