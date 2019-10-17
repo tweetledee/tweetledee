@@ -13,7 +13,7 @@
 <?php if(isset($currentitem['entities']['urls']) && count($currentitem['entities']['urls'])>0): ?>
 <?php foreach ($currentitem['entities']['urls'] as $included_tweet_url):?>
 
-<div class="quoted_url">
+<div class="quoted_url"  style="padding: 10px; margin: 10px; border:2px solid lightgrey;-moz-border-radius: 15px; border-radius: 15px;">
 <?php echo $renderer->render_quoted_content($included_tweet_url, $recursion_level)?>
 </div>
 
