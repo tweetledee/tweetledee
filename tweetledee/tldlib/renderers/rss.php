@@ -24,7 +24,8 @@ class RssRenderer extends AbstractRenderer
                 'rt' => '&nbsp;&nbsp;&nbsp;&nbsp;[<em style="font-size:smaller;">Retweeted by ' . $currentitem['user']['name'] . ' <a href=\'http://twitter.com/' . $currentitem['user']['screen_name'] . '\'>@' . $currentitem['user']['screen_name'] . '</a></em>]',
                 'tweeter' => $currentitem['retweeted_status']['user']['screen_name'],
                 'fullname' => $currentitem['retweeted_status']['user']['name'],
-                'tweetTitle' => $currentitem['retweeted_status']['full_text']
+                'tweetTitle' => $currentitem['retweeted_status']['full_text'],
+                'entities' => $currentitem['retweeted_status']['entities']
             );
         } else {
             return array(
@@ -32,7 +33,8 @@ class RssRenderer extends AbstractRenderer
                 'rt' => '',
                 'tweeter' => $currentitem['user']['screen_name'],
                 'fullname' => $currentitem['user']['name'],
-                'tweetTitle' => $currentitem['full_text']
+                'tweetTitle' => $currentitem['full_text'],
+                'entities' => $currentitem['entities']
             );
         }
     }
@@ -67,7 +69,7 @@ class RssRenderer extends AbstractRenderer
                         $args['renderer'] = $this;
                         $args['currentitem'] = $content;
                         $args['parsedTweet'] = $this->create_parsed_tweet($content);
-                        $args['recursion_level'] = $recursion_level;
+                        $args['recursion_level'] = $recursion_level+1;
                         return template('tldlib/renderers/rss_item_html_enclosure.php', $args);
                     }
                 }
