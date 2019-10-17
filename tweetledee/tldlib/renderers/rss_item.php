@@ -14,7 +14,9 @@
     'tweetTitle' => $tweetTitle,
     'currentitem' => $currentitem,
     'recursion_level' => 0,
-    'parsedTweet' => $parsedTweet))?>
+    'parsedTweet' => $parsedTweet,
+    'entities' => $entities
+))?>
                     ]]>
 	</description>
 </item>
