@@ -3,7 +3,9 @@ require 'renderer.php';
 
 class RssRenderer extends AbstractRenderer
 {
-    public function __construct($recursion_limit = 0) {
+
+    public function __construct($recursion_limit = 0)
+    {
         $this->recursion_limit = $recursion_limit;
     }
 
@@ -23,7 +25,7 @@ class RssRenderer extends AbstractRenderer
                 'tweeter' => $currentitem['retweeted_status']['user']['screen_name'],
                 'fullname' => $currentitem['retweeted_status']['user']['name'],
                 'tweetTitle' => $currentitem['retweeted_status']['full_text']
-                );
+            );
         } else {
             return array(
                 'avatar' => $currentitem['user']['profile_image_url'],
@@ -31,7 +33,7 @@ class RssRenderer extends AbstractRenderer
                 'tweeter' => $currentitem['user']['screen_name'],
                 'fullname' => $currentitem['user']['name'],
                 'tweetTitle' => $currentitem['full_text']
-                );
+            );
         }
     }
 
@@ -53,8 +55,8 @@ class RssRenderer extends AbstractRenderer
     public function render_quoted_content($url, $recursion_level = 0)
     {
         if (array_key_exists('expanded_url', $url)) {
-            if($recursion_level<$this->recursion_limit) {
-                if (strpos($url['expanded_url'], 'twitter.com')) {
+            if (strpos($url['expanded_url'], 'twitter.com')) {
+                if ($recursion_level < $this->recursion_limit) {
                     $content = $this->client->get_remote_content($url);
                     // If there is something in array, it must be a tweet !
                     // Else don't show anything
@@ -68,9 +70,9 @@ class RssRenderer extends AbstractRenderer
                         $args['recursion_level'] = $recursion_level;
                         return template('tldlib/renderers/rss_item_html_enclosure.php', $args);
                     }
-                } else {
-                    return template('tldlib/renderers/rss_item_html_external_url.php', $url);
                 }
+            } else {
+                return template('tldlib/renderers/rss_item_html_external_url.php', $url);
             }
         } else {
             return "I don't know what to do ...";
