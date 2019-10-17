@@ -142,6 +142,7 @@ header("Content-Type: application/rss+xml");
 header("Content-type: text/xml; charset=utf-8");
 
 $renderer = new RssRenderer($recursion_limit);
+$renderer->using_client($client);
 $config = array(
     'atom'              =>  $my_domain . urlencode($thequery),
     'link'               =>  sprintf('http://www.twitter.com/search/?q=%s', $query),
