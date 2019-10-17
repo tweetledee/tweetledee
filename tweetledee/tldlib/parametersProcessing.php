@@ -71,6 +71,7 @@ const PARAMETERS = array(
     ),
     "recursion_limit" => array(
         NAME => "recursion_limit",
+        SHORT => "rl",
         LONG => "recursion_limit",
         TYPE => INT,
         VALIDATION => array(
