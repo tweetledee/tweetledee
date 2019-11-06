@@ -47,58 +47,10 @@ require 'tldlib/tldCache.php';
 // include Martín Lucas Golini's pretty print functions
 require 'tldlib/tldPrettyPrint.php';
 
-/*******************************************************************
-*  Defaults
-********************************************************************/
-$count = 25;  //default tweet number = 25
-$screen_name = '';
-$cache_interval = 90; // default cache interval = 90 seconds
+require 'tldlib/parametersProcessing.php';
 
-/*******************************************************************
-*   Parameters
-*    - can pass via URL to web server
-*    - or as a short or long switch at the command line
-********************************************************************/
-// Command line parameter definitions //
-if (defined('STDIN')) {
-    // check whether arguments were passed, if not there is no need to attempt to check the array
-    if (isset($argv)){
-        $shortopts = "c:";
-        $longopts = array(
-            "user:",
-        );
-        $params = getopt($shortopts, $longopts);
-        if (isset($params['c'])){
-            if ($params['c'] > 0 && $params['c'] <= 200)
-                $count = $params['c'];  //assign to the count variable
-        }
-        if (isset($params['user'])){
-            $screen_name = $params['user'];
-        }
-        if (isset($params['cache_interval'])){
-            $cache_interval = $params['cache_interval'];
-        }
-    }
-}
-else {
-    // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
-    if (isset($_GET["c"])){
-        if ($_GET["c"] > 0 && $_GET["c"] <= 200){
-            $count = $_GET["c"];
-        }
-    }
-
-    // user = Twitter screen name for the user favorites that the user is requesting (default = their own, possible values = any other Twitter user name)
-    if (isset($_GET["user"])){
-        $screen_name = $_GET["user"];
-    }
-
-    // cache_interval = the amount of time to keep the cached file
-    if (isset($_GET["cache_interval"])){
-        $cache_interval = $_GET["cache_interval"];
-    }
-} // end else
-
+$parameters = load_parameters(array("c", "user", "cache_interval"));
+extract($parameters);
 /*******************************************************************
 *  OAuth
 ********************************************************************/
@@ -118,7 +70,10 @@ $data = $tldCache->auth_request();
 $twitterName = $data['screen_name'];
 $fullName = $data['name'];
 $twitterAvatarUrl = $data['profile_image_url'];
-if ( $screen_name == '' ) $screen_name = $data['screen_name'];
+
+if(!isset($screen_name) || $screen_name=='') {
+    $screen_name = $data['screen_name'];
+}
 
 /*******************************************************************
 *  Request

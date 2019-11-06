@@ -45,6 +45,10 @@ require 'tldlib/tldUtilities.php';
 // include Martín Lucas Golini's pretty print functions
 require 'tldlib/tldPrettyPrint.php';
 
+require 'tldlib/parametersProcessing.php';
+
+$parameters = load_parameters(array("c", "exclude_replies"));
+extract($parameters);
 /*******************************************************************
 *  OAuth
 ********************************************************************/
@@ -74,54 +78,9 @@ if ($code <> 200) {
 // Decode JSON
 $data = json_decode($tmhOAuth->response['response'], true);
 
-/*******************************************************************
-*  Defaults
-********************************************************************/
-$count = 25;  //default tweet number = 25
-$exclude_replies = false;  //default to include replies
-$screen_name = $data['screen_name'];
-
-/*******************************************************************
-*   Parameters
-*    - can pass via URL to web server
-*    - or as a short or long switch at the command line
-********************************************************************/
-// Command line parameter definitions //
-if (defined('STDIN')) {
-    // check whether arguments were passed, if not there is no need to attempt to check the array
-    if (isset($argv)){
-        $shortopts = "c:";
-        $longopts = array(
-            "xrp",
-        );
-        $params = getopt($shortopts, $longopts);
-        if (isset($params['c'])){
-            if ($params['c'] > 0 && $params['c'] <= 200)
-                $count = $params['c'];  //assign to the count variable
-        }
-        if (isset($params['xrp'])){
-            $exclude_replies = true;
-        }
-    }
-
-} //end if
-// Web server URL parameter definitions //
-else{
-    // c = tweet count ( possible range 1 - 200 tweets, else default = 25)
-    if (isset($_GET["c"])){
-        $getcount = $_GET["c"];
-        if ($getcount > 0 && $getcount <= 200){
-            $count = $getcount;
-        }
-    }
-
-    // xrp = exclude replies from the timeline (possible values: 1=true, else false)
-    if (isset($_GET["xrp"])){
-        if ($_GET["xrp"] == 1){
-            $exclude_replies = true;
-        }
-    }
-} //end else
+if(!isset($screen_name) || $screen_name=='') {
+    $screen_name = $data['screen_name'];
+}
 
 /*******************************************************************
 *  Request
