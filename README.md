@@ -9,7 +9,7 @@ Tweetledee
 - Developer Docs: [http://tweetledee.github.io/tweetledee/developer.html](http://tweetledee.github.io/tweetledee/developer.html)
 
 ## Current Release
-- <b>0.5.2</b> : Quoted tweets can be displayed with a rl=1 query parameter in the URL. All images for the tweet are loaded now.
+- <b>0.5.2</b> : Quoted tweets can be displayed with a rl>=1 query parameter in the URL. All images for the tweet are loaded now.
 
 ## Changes
 - <b>0.5.1</b> : Improved hastag display.

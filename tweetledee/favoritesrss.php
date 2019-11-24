@@ -16,6 +16,9 @@
     - 'user' - specify the Twitter user whose favorites you would like to retrieve (default = account associated with access token)
             e.g. http://<yourdomain>/tweetledee/favoritesrss.php?user=cooluser
     - 'cache_interval' - specify the duration of the cache interval in seconds (default = 90sec)
+    - 'recursion_limit' - When a tweet is a reply, specifies the maximum number of "parents" tweets to load (default = 0).
+                        A value of 10 can be used without significative performance cost on Raspberry 3.
+                        This can be short-handed to 'rl'
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
 *  Includes

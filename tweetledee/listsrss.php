@@ -20,6 +20,9 @@
     - 'xrt' - exclude retweets in the returned data (set to 1 to exclude, default = include retweets)
             e.g. http://<yourdomain>/tweetledee/listsrss.php?list=<list-slug>&xrt=1
     - 'cache_interval' - specify the duration of the cache interval in seconds (default = 90sec)
+    - 'recursion_limit' - When a tweet is a reply, specifies the maximum number of "parents" tweets to load (default = 0).
+                        A value of 10 can be used without significative performance cost on Raspberry 3.
+                        This can be short-handed to 'rl'
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
 *  Includes

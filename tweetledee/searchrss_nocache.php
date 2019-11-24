@@ -17,8 +17,11 @@
             e.g. http://<yourdomain>/tweetledee/searchrss_nocache.php?q=<search-term>&rt=recent
     - 'q'   - query term
              e.g. http://<yourdomain>/tweetledee/searchrss_nocache.php?q=coolsearch
+    - 'recursion_limit' - When a tweet is a reply, specifies the maximum number of "parents" tweets to load (default = 0).
+                        A value of 10 can be used without significative performance cost on Raspberry 3.
+                        This can be short-handed to 'rl'
     - Example of all parameters
-            http://<yourdomain>/tweetledee/searchrss_nocache.php?q=coolsearch&c=50&rt=recent
+            http://<yourdomain>/tweetledee/searchrss_nocache.php?q=coolsearch&c=50&rt=recent&rl=10
 --------------------------------------------------------------------------------------------------*/
 
 /*******************************************************************
