@@ -9,9 +9,11 @@ Tweetledee
 - Developer Docs: [http://tweetledee.github.io/tweetledee/developer.html](http://tweetledee.github.io/tweetledee/developer.html)
 
 ## Current Release
-- <b>0.5.0</b> : First release as the tweetledee organization. Thanks to Christopher Simpkins for encouraging other people to continue with the project. Now the full tweet is displayed following the 280 characters from twitter. Media is loaded as https. Added Some reference dockerfiles.
+- <b>0.5.2</b> : Quoted tweets can be displayed with a rl=1 query parameter in the URL. All images for the tweet are loaded now.
 
 ## Changes
+- <b>0.5.1</b> : Improved hastag display.
+- <b>0.5.0</b> : First release as the tweetledee organization. Thanks to Christopher Simpkins for encouraging other people to continue with the project. Now the full tweet is displayed following the 280 characters from twitter. Media is loaded as https. Added Some reference dockerfiles.
 - <b>0.4.2</b> : added support for inline images in all RSS scripts [issue #51](https://github.com/tweetledee/tweetledee/issues/51).  A big thanks to Vinh Nguyen for his pull request to add support for this feature!
 - <b>0.4.1</b> : added support for JSON pretty printing in PHP versions 5.3+ (from 5.4+ previously) [issue #40](https://github.com/tweetledee/tweetledee/pull/40).  Thanks much to Martín Lucas Golini @SpartanJ for his new pretty printing functions.
 - <b>0.4.0</b> : added caching to all Tweetledee files with default 90 sec duration.  This default cache interval can be changed with the `cache_interval` URL parameter (with a value in seconds).  Great big thanks to Christian Varga (@levymetal) for his contributions to this update!  The non-cached versions of the files from v0.3.6 have been renamed with an appended `_nocache` (e.g. `userrss.php` > `userrss_nocache.php`) for anyone who would like to implement their own caching.
