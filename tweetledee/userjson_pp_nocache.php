@@ -2,7 +2,6 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   userjson_pp_nocache.php -- User timeline results formatted as pretty printed JSON
- *   Version: 0.5.0
  * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/

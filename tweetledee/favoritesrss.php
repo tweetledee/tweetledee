@@ -2,7 +2,6 @@
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   favoritesrss.php -- User favorites formatted as a RSS feed
- *   Version: 0.5.0
  * Copyright 2014 Christopher Simpkins & George Dorn
  * MIT License
  ************************************************************************************************/
