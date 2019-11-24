@@ -15,8 +15,11 @@
             e.g. http://<yourdomain>/tweetledee/favoritesrss_nocache.php?c=100
     - 'user' - specify the Twitter user whose favorites you would like to retrieve (default = account associated with access token)
             e.g. http://<yourdomain>/tweetledee/favoritesrss_nocache.php?user=cooluser
+    - 'recursion_limit' - When a tweet is a reply, specifies the maximum number of "parents" tweets to load (default = 0).
+                        A value of 10 can be used without significative performance cost on Raspberry 3.
+                        This can be short-handed to 'rl'
     - Example of all of the available parameters:
-            e.g. http://<yourdomain>/tweetledee/favoritesrss_nocache.php?c=100&user=cooluser
+            e.g. http://<yourdomain>/tweetledee/favoritesrss_nocache.php?c=100&user=cooluser&rl=5
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
 *  Includes

@@ -21,6 +21,9 @@
             e.g. http://<yourdomain>/tweetledee/userrss_nocache.php?xrp=1
     - Example of all of the available parameters:
             e.g. http://<yourdomain>/tweetledee/userrss_nocache.php?c=100&xrt=1&xrp=1&user=cooluser
+    - 'recursion_limit' - When a tweet is a reply, specifies the maximum number of "parents" tweets to load (default = 0).
+                        A value of 10 can be used without significative performance cost on Raspberry 3.
+                        This can be short-handed to 'rl'
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
 *  Includes
