@@ -16,6 +16,7 @@
     'parsedTweet' => $parsedTweet,
     'entities' => $entities
 ))?>
-<?php echo ']]'; ?>
+
+<?php echo ']]>'; ?>
     </description>
 </item>

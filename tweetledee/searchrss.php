@@ -42,22 +42,28 @@ require 'tldlib/renderers/rss.php';
 
 require 'tldlib/parametersProcessing.php';
 
-$parameters = load_parameters(array("c", "q", "rt", "cache_interval"));
+$parameters = load_parameters([
+    "c",
+    "q",
+    "rt",
+    "cache_interval",
+    "recursion_limit"
+]);
 extract($parameters);
-if(!isset($parameters['q'])) {
+if (!isset($parameters['q'])) {
     die("Error: missing the search query term.  Please use the 'q' parameter.");
 }
 
 /*******************************************************************
 *  OAuth
 ********************************************************************/
-$tldCache = new tldCache(array(
-            'consumer_key'        => $my_consumer_key,
-            'consumer_secret'     => $my_consumer_secret,
-            'user_token'          => $my_access_token,
-            'user_secret'         => $my_access_token_secret,
-            'curl_ssl_verifypeer' => false
-        ), $cache_interval);
+$tldCache = new tldCache([
+    'consumer_key'        => $my_consumer_key,
+    'consumer_secret'     => $my_consumer_secret,
+    'user_token'          => $my_access_token,
+    'user_secret'         => $my_access_token_secret,
+    'curl_ssl_verifypeer' => false
+], $cache_interval);
 
 // request the user information
 $data = $tldCache->auth_request();

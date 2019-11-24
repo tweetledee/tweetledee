@@ -41,24 +41,29 @@ require 'tldlib/renderers/rss.php';
 
 require 'tldlib/parametersProcessing.php';
 
-$parameters = load_parameters(array("c", "exclude_retweets", "exclude_replies", "user"));
+$parameters = load_parameters([
+    "c",
+    "exclude_retweets",
+    "exclude_replies",
+    "user",
+    "recursion_limit"
+]);
 extract($parameters);
 /*******************************************************************
 *  OAuth
 ********************************************************************/
-$tmhOAuth = new tmhOAuth(array(
-            'consumer_key'        => $my_consumer_key,
-            'consumer_secret'     => $my_consumer_secret,
-            'user_token'          => $my_access_token,
-            'user_secret'         => $my_access_token_secret,
-            'curl_ssl_verifypeer' => false
-        ));
+$tmhOAuth = new tmhOAuth([
+    'consumer_key'        => $my_consumer_key,
+    'consumer_secret'     => $my_consumer_secret,
+    'user_token'          => $my_access_token,
+    'user_secret'         => $my_access_token_secret,
+    'curl_ssl_verifypeer' => false
+]);
 
 // request the user information
-$code = $tmhOAuth->user_request(array(
-			'url' => $tmhOAuth->url('1.1/account/verify_credentials')
-          )
-        );
+$code = $tmhOAuth->user_request([
+    'url' => $tmhOAuth->url('1.1/account/verify_credentials')
+]);
 
 // Display error response if do not receive 200 response code
 if ($code <> 200) {
@@ -76,23 +81,23 @@ $data = json_decode($tmhOAuth->response['response'], true);
 $twitterName = $data['screen_name'];
 $fullName = $data['name'];
 $twitterAvatarUrl = $data['profile_image_url'];
-if(!isset($screen_name) || $screen_name=='') {
+if (!isset($screen_name) || $screen_name == '') {
     $screen_name = $data['screen_name'];
 }
 
 /*******************************************************************
 *  Request
 ********************************************************************/
-$code = $tmhOAuth->user_request(array(
-			'url' => $tmhOAuth->url('1.1/statuses/user_timeline'),
-			'params' => array(
-          		'include_entities' => true,
-    			'count' => $count,
-    			'exclude_replies' => $exclude_replies,
-    			'include_rts' => $include_retweets,
-    			'screen_name' => $screen_name,
-        	)
-        ));
+$code = $tmhOAuth->user_request([
+    'url' => $tmhOAuth->url('1.1/statuses/user_timeline'),
+    'params' => array(
+        'include_entities' => true,
+        'count' => $count,
+        'exclude_replies' => $exclude_replies,
+        'include_rts' => $include_retweets,
+        'screen_name' => $screen_name,
+    )
+]);
 
 // Anything except code 200 is a failure to get the information
 if ($code <> 200) {
@@ -101,9 +106,9 @@ if ($code <> 200) {
 }
 // concatenate the URL for the atom href link
 if (defined('STDIN')) {
-	$thequery = $_SERVER['PHP_SELF'];
+    $thequery = $_SERVER['PHP_SELF'];
 } else {
-	$thequery = $_SERVER['PHP_SELF'] .'?'. urlencode($_SERVER['QUERY_STRING']);
+    $thequery = $_SERVER['PHP_SELF'] . '?' . urlencode($_SERVER['QUERY_STRING']);
 }
 
 $userTimelineObj = json_decode($tmhOAuth->response['response'], true);
@@ -112,7 +117,7 @@ $userTimelineObj = json_decode($tmhOAuth->response['response'], true);
 header("Content-Type: application/rss+xml");
 header("Content-type: text/xml; charset=utf-8");
 
-$renderer = new RssRenderer();
+$renderer = new RssRenderer($recursion_limit);
 $renderer->using_client($client);
 
 $config = array(

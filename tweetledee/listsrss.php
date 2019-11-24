@@ -43,9 +43,16 @@ require 'tldlib/renderers/rss.php';
 
 require 'tldlib/parametersProcessing.php';
 
-$parameters = load_parameters(array("c", "user", "exclude_retweets", "cache_interval", "list"));
+$parameters = load_parameters([
+    "c",
+    "user",
+    "exclude_retweets",
+    "cache_interval",
+    "list",
+    "recursion_limit"
+]);
 extract($parameters);
-if(!isset($parameters['list'])) {
+if (!isset($parameters['list'])) {
     die("Error: missing user list name in your request.  Please use the 'list' parameter in your request.");
 }
 
@@ -53,13 +60,13 @@ if(!isset($parameters['list'])) {
 *  OAuth
 ********************************************************************/
 
-$tldCache = new tldCache(array(
-            'consumer_key'        => $my_consumer_key,
-            'consumer_secret'     => $my_consumer_secret,
-            'user_token'          => $my_access_token,
-            'user_secret'         => $my_access_token_secret,
-            'curl_ssl_verifypeer' => false
-        ), $cache_interval);
+$tldCache = new tldCache([
+    'consumer_key'        => $my_consumer_key,
+    'consumer_secret'     => $my_consumer_secret,
+    'user_token'          => $my_access_token,
+    'user_secret'         => $my_access_token_secret,
+    'curl_ssl_verifypeer' => false
+], $cache_interval);
 
 // request the user information
 $data = $tldCache->auth_request();
@@ -67,7 +74,7 @@ $data = $tldCache->auth_request();
 // Parse information from response
 $fullName = $data['name'];
 $twitterAvatarUrl = $data['profile_image_url'];
-if(!isset($screen_name) || $screen_name=='') {
+if (!isset($screen_name) || $screen_name == '') {
     $screen_name = $data['screen_name'];
 }
 
