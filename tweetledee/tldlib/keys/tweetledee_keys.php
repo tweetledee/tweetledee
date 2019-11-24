@@ -18,7 +18,7 @@ $my_domain              = getenv('TWEETLEDEE_DOMAIN');
 *	$my_consumer_secret     = 'SuPercaliFragilist1cEXPiaLidOCIous';
 *	$my_access_token        = 'AcC355MePLz';
 *	$my_access_token_secret = '5555shTh1s1iS53cr3t';
-*	$my_domain              = 'http://www.toolegittoquit.com';
+*	$my_domain              = 'https://www.rodrigoaguilera.net';
 *
 *   Please note that the number of characters in the above examples are not necessarily correct and that these are bogus tokens.
 *   Users who have attempted a 'workaround' for their API limits received tweets from Mary Poppins and MC Hammer...

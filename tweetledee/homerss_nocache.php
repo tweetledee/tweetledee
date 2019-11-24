@@ -38,24 +38,28 @@ require 'tldlib/renderers/rss.php';
 require 'tldlib/parametersProcessing.php';
 
 $parameters = load_parameters(array("c", "exclude_replies"));
+$parameters = load_parameters([
+    "c",
+    "exclude_replies",
+    "recursion_limit"
+]);
 extract($parameters);
 
 /*******************************************************************
 *  OAuth
 ********************************************************************/
-$tmhOAuth = new tmhOAuth(array(
-            'consumer_key'        => $my_consumer_key,
-            'consumer_secret'     => $my_consumer_secret,
-            'user_token'          => $my_access_token,
-            'user_secret'         => $my_access_token_secret,
-            'curl_ssl_verifypeer' => false
-        ));
+$tmhOAuth = new tmhOAuth([
+    'consumer_key'        => $my_consumer_key,
+    'consumer_secret'     => $my_consumer_secret,
+    'user_token'          => $my_access_token,
+    'user_secret'         => $my_access_token_secret,
+    'curl_ssl_verifypeer' => false
+]);
 
 // request the user information
-$code = $tmhOAuth->user_request(array(
-			'url' => $tmhOAuth->url('1.1/account/verify_credentials')
-          )
-        );
+$code = $tmhOAuth->user_request([
+    'url' => $tmhOAuth->url('1.1/account/verify_credentials')
+]);
 
 // Display error response if do not receive 200 response code
 if ($code <> 200) {
@@ -101,7 +105,8 @@ header("Content-type: text/xml; charset=utf-8");
 
 // Start the output
 
-$renderer = new RssRenderer();
+$renderer = new RssRenderer($recursion_limit);
+$renderer->using_client($client);
 $config = array(
     'atom'              =>  $my_domain . $_SERVER['PHP_SELF'],
     'link'              =>  sprintf('http://www.twitter.com/%s', $twitterName),

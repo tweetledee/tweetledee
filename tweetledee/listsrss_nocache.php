@@ -41,28 +41,33 @@ require 'tldlib/renderers/rss.php';
 
 require 'tldlib/parametersProcessing.php';
 
-$parameters = load_parameters(array("c", "user", "exclude_retweets", "list"));
+$parameters = load_parameters([
+    "c",
+    "user",
+    "exclude_retweets",
+    "list",
+    "recursion_limit"
+]);
 extract($parameters);
-if(!isset($parameters['list'])) {
+if (!isset($parameters['list'])) {
     die("Error: missing user list name in your request.  Please use the 'list' parameter in your request.");
 }
 
 /*******************************************************************
 *  OAuth
 ********************************************************************/
-$tmhOAuth = new tmhOAuth(array(
-            'consumer_key'        => $my_consumer_key,
-            'consumer_secret'     => $my_consumer_secret,
-            'user_token'          => $my_access_token,
-            'user_secret'         => $my_access_token_secret,
-            'curl_ssl_verifypeer' => false
-        ));
+$tmhOAuth = new tmhOAuth([
+    'consumer_key'        => $my_consumer_key,
+    'consumer_secret'     => $my_consumer_secret,
+    'user_token'          => $my_access_token,
+    'user_secret'         => $my_access_token_secret,
+    'curl_ssl_verifypeer' => false
+]);
 
 // request the user information
-$code = $tmhOAuth->user_request(array(
-            'url' => $tmhOAuth->url('1.1/account/verify_credentials')
-          )
-        );
+$code = $tmhOAuth->user_request([
+    'url' => $tmhOAuth->url('1.1/account/verify_credentials')
+]);
 
 // Display error response if do not receive 200 response code
 if ($code <> 200) {
@@ -118,7 +123,8 @@ $userListObj = json_decode($tmhOAuth->response['response'], true);
 header("Content-Type: application/rss+xml");
 header("Content-type: text/xml; charset=utf-8");
 
-$renderer = new RssRenderer();
+$renderer = new RssRenderer($recursion_limit);
+$renderer->using_client($client);
 $config = array(
     'atom'              =>  $my_domain . urlencode($thequery),
     'link'               =>  sprintf('http://www.twitter.com/%s/lists/%s', $screen_name, $list_name),

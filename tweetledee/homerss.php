@@ -39,19 +39,24 @@ require 'tldlib/renderers/rss.php';
 
 require 'tldlib/parametersProcessing.php';
 
-$parameters = load_parameters(array("c", "exclude_replies", "cache_interval"));
+$parameters = load_parameters([
+    "c",
+    "exclude_replies",
+    "cache_interval",
+    "recursion_limit"
+]);
 extract($parameters);
 /*******************************************************************
 *  OAuth
 ********************************************************************/
 
-$tldCache = new tldCache(array(
-            'consumer_key'        => $my_consumer_key,
-            'consumer_secret'     => $my_consumer_secret,
-            'user_token'          => $my_access_token,
-            'user_secret'         => $my_access_token_secret,
-            'curl_ssl_verifypeer' => false
-        ), $cache_interval);
+$tldCache = new tldCache([
+    'consumer_key'        => $my_consumer_key,
+    'consumer_secret'     => $my_consumer_secret,
+    'user_token'          => $my_access_token,
+    'user_secret'         => $my_access_token_secret,
+    'curl_ssl_verifypeer' => false
+], $cache_interval);
 
 // request the user information
 $data = $tldCache->auth_request();
@@ -65,14 +70,14 @@ $feedTitle = ' Twitter home timeline for ' . $twitterName;
 /*******************************************************************
 *  Request
 ********************************************************************/
-$homeTimelineObj = $tldCache->user_request(array(
-			'url' => '1.1/statuses/home_timeline',
-			'params' => array(
-          		'include_entities' => true,
-    			'count' => $count,
-    			'exclude_replies' => $exclude_replies,
-        	)
-        ));
+$homeTimelineObj = $tldCache->user_request([
+    'url' => '1.1/statuses/home_timeline',
+    'params' => array(
+        'include_entities' => true,
+        'count' => $count,
+        'exclude_replies' => $exclude_replies,
+    )
+]);
 
 //headers
 header("Content-Type: application/rss+xml");
@@ -80,7 +85,8 @@ header("Content-type: text/xml; charset=utf-8");
 
 // Start the output
 
-$renderer = new RssRenderer();
+$renderer = new RssRenderer($recursion_limit);
+$renderer->using_cache($tldCache);
 $config = array(
     'atom'              =>  $my_domain . $_SERVER['PHP_SELF'],
     'link'              =>  sprintf('http://www.twitter.com/%s', $twitterName),
