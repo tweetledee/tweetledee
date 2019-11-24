@@ -1,5 +1,6 @@
 <item>
     <title>[<?php echo $tweeter; ?>] <?php echo $tweetTitle; ?> </title>
+    <author><?php echo $currentitem['user']['screen_name']?></author>
     <pubDate><?php echo reformatDate($currentitem['created_at']); ?></pubDate>
     <link>https://twitter.com/<?php echo $tweeter ?>/statuses/<?php echo $currentitem['id_str']; ?></link>
     <guid isPermaLink='false'><?php echo $currentitem['id_str']; ?></guid>
