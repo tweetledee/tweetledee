@@ -1,10 +1,12 @@
 <?php
+
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   searchjson_pp_nocache.php -- Tweet search query results formatted as pretty printed JSON
  * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
+
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
@@ -40,10 +42,13 @@ require 'tldlib/tldPrettyPrint.php';
 
 require 'tldlib/parametersProcessing.php';
 
-
-$parameters = load_parameters(array("c", "q", "rt"));
+$parameters = load_parameters([
+    "c",
+    "query",
+    "rt"
+]);
 extract($parameters);
-if(!isset($parameters['q'])) {
+if (!isset($query)) {
     die("Error: missing the search query term.  Please use the 'q' parameter.");
 }
 
@@ -61,8 +66,7 @@ $tmhOAuth = new tmhOAuth(array(
 // request the user information
 $code = $tmhOAuth->user_request(array(
             'url' => $tmhOAuth->url('1.1/account/verify_credentials')
-          )
-        );
+          ));
 
 // Display error response if do not receive 200 response code
 if ($code <> 200) {

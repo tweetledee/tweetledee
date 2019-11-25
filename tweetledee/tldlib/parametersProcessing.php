@@ -45,7 +45,7 @@ const PARAMETERS = array(
         TYPE => INT,
         VALIDATION => array(
             MIN => 0,
-            MAX => PHP_INT_MAX 
+            MAX => PHP_INT_MAX
         ),
         DEFAULT_VALUE => 90
     ),
@@ -65,9 +65,10 @@ const PARAMETERS = array(
         NAME => "list",
         LONG => "list"
     ),
-    "q" => array(
-        NAME => "q",
-        SHORT => "q"
+    "query" => array(
+        NAME => "query",
+        SHORT => "q",
+        LONG => "query"
     ),
     "recursion_limit" => array(
         NAME => "recursion_limit",
@@ -115,7 +116,7 @@ function extract_value($type, $definition, $params)
                 return null;
             }
         }
-    } else if ($definition[TYPE] == BOOL) {
+    } elseif ($definition[TYPE] == BOOL) {
         $value = filter_var($extracted, FILTER_VALIDATE_BOOLEAN);
         return $value;
     } else {
@@ -179,7 +180,7 @@ function load_parameters_from_http_request($parameters_definitions)
         // No value was found ?
         if (!array_key_exists($definition[NAME], $returned)) {
             // Then it's time for default !
-            if(array_key_exists(DEFAULT_VALUE, $definition)) {
+            if (array_key_exists(DEFAULT_VALUE, $definition)) {
                 $returned[$definition[NAME]] = $definition[DEFAULT_VALUE];
             }
         }
@@ -206,4 +207,3 @@ function load_parameters($parameter_names)
         return load_parameters_from_http_request($parameters_definitions);
     } // end else
 }
-?>

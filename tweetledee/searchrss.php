@@ -1,10 +1,12 @@
 <?php
+
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   searchrss.php -- Tweet search query results formatted as RSS feed
  * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
+
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
@@ -46,13 +48,13 @@ require 'tldlib/parametersProcessing.php';
 
 $parameters = load_parameters([
     "c",
-    "q",
+    "query",
     "rt",
     "cache_interval",
     "recursion_limit"
 ]);
 extract($parameters);
-if (!isset($parameters['q'])) {
+if (!isset($query)) {
     die("Error: missing the search query term.  Please use the 'q' parameter.");
 }
 
@@ -84,21 +86,21 @@ $feedTitle = 'Twitter search for "' . $query . '"';
 /*******************************************************************
 *  Request
 ********************************************************************/
-$searchResultsObj = $tldCache->user_request(array(
-			'url' => '1.1/search/tweets',
-			'params' => array(
-          		'include_entities' => true,
-    			'count' => $count,
-                'result_type' => $result_type,
-                'q' => $query,
-        	)
-        ));
+$searchResultsObj = $tldCache->user_request([
+    'url' => '1.1/search/tweets',
+    'params' => array(
+        'include_entities' => true,
+        'count' => $count,
+        'result_type' => $result_type,
+        'q' => $query,
+    )
+]);
 
 //concatenate the URL for the atom href link
 if (defined('STDIN')) {
     $thequery = $_SERVER['PHP_SELF'];
 } else {
-    $thequery = $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'];
+    $thequery = $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
 }
 
 // Start the output
@@ -112,8 +114,11 @@ $config = array(
     'link'               =>  sprintf('http://www.twitter.com/search/?q=%s', $query),
     'lastBuildDate'     =>  date(DATE_RSS),
     'title'             =>  $feedTitle,
-    'description'       =>  sprintf('A Twitter search for the query "%s" with the %s search result type', $query, $result_type),
+    'description'       =>  sprintf(
+        'A Twitter search for the query "%s" with the %s search result type',
+        $query,
+        $result_type
+    ),
     'twitterAvatarUrl'  =>  $twitterAvatarUrl,
 );
-?>
-<?php echo $renderer->render_feed($config, $searchResultsObj['statuses'])?>
+echo $renderer->render_feed($config, $searchResultsObj['statuses']);

@@ -1,10 +1,12 @@
 <?php
+
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   searchjson.php -- Tweet search query results formatted as JSON
  * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
+
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
@@ -38,9 +40,14 @@ require 'tldlib/tldCache.php';
 
 require 'tldlib/parametersProcessing.php';
 
-$parameters = load_parameters(array("c", "q", "rt", "cache_interval"));
+$parameters = load_parameters([
+    "c",
+    "query",
+    "rt",
+    "cache_interval"
+]);
 extract($parameters);
-if(!isset($parameters['q'])) {
+if (!isset($query)) {
     die("Error: missing the search query term.  Please use the 'q' parameter.");
 }
 
@@ -72,15 +79,15 @@ $feedTitle = 'Twitter search for "' . $query . '"';
 /*******************************************************************
 *  Request
 ********************************************************************/
-$searchResultsObj = $tldCache->user_request(array(
-            'url' => '1.1/search/tweets',
-            'params' => array(
-                'include_entities' => true,
-                'count' => $count,
-                'result_type' => $result_type,
-                'q' => $query,
-            )
-        ));
+$searchResultsObj = $tldCache->user_request([
+    'url' => '1.1/search/tweets',
+    'params' => array(
+        'include_entities' => true,
+        'count' => $count,
+        'result_type' => $result_type,
+        'q' => $query,
+    )
+]);
 
 header('Content-Type: application/json');
 echo json_encode($searchResultsObj);
