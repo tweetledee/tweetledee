@@ -9,7 +9,7 @@ Tweetledee
 - Developer Docs: [http://tweetledee.github.io/tweetledee/developer.html](http://tweetledee.github.io/tweetledee/developer.html)
 
 ## Current Release
-- <b>0.5.3</b> : Fixed "user_timeline connection failure".
+- <b>0.5.3</b> : Fixed "user_timeline connection failure". Set Twitter username as author of a rss item.
 
 ## Changes
 - <b>0.5.2</b> : Quoted tweets can be displayed with a rl>=1 query parameter in the URL. All images for the tweet are loaded now.
