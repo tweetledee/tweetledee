@@ -19,5 +19,5 @@
 ])?>
 
 <?php echo ']]>'; ?>
-    </description>
-</item>
+</description>
+    </item>

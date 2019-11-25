@@ -37,8 +37,8 @@ class tmhUtilities
     public static function entify_with_options($tweet, $options = [], &$replacements = [])
     {
         $default_opts = [
-        'encoding' => 'UTF-8',
-        'target'   => '',
+            'encoding' => 'UTF-8',
+            'target'   => '',
         ];
 
         $opts = array_merge($default_opts, $options);
@@ -60,7 +60,7 @@ class tmhUtilities
 
         $target = (!empty($opts['target'])) ? ' target="' . $opts['target'] . '"' : '';
 
-      // prepare the entities
+        // prepare the entities
         foreach ($tweet['entities'] as $type => $things) {
             foreach ($things as $entity => $value) {
                 $tweet_link = "<a href=\"https://twitter.com/{$tweet['user']['screen_name']}/statuses/{$tweet['id']}\"{$target}>{$tweet['created_at']}</a>";
@@ -97,8 +97,8 @@ class tmhUtilities
             $entified_tweet = mb_substr($entified_tweet, 0, $k) . $v . mb_substr($entified_tweet, $k + mb_strlen($keys[$k]));
         }
         $replacements = [
-        'replacements' => $replacements,
-        'keys' => $keys
+            'replacements' => $replacements,
+            'keys' => $keys
         ];
 
         mb_internal_encoding($encoding);
@@ -137,8 +137,10 @@ class tmhUtilities
 
         $port or $port = ($scheme == 'https') ? '443' : '80';
 
-        if (($scheme == 'https' && $port != '443')
-        || ($scheme == 'http' && $port != '80')) {
+        if (
+            ($scheme == 'https' && $port != '443')
+            || ($scheme == 'http' && $port != '80')
+        ) {
             $host = "$host:$port";
         }
         $url = "$scheme://$host$path";

@@ -27,8 +27,8 @@
 --------------------------------------------------------------------------------------------------*/
 
 /*******************************************************************
-*  Includes
-********************************************************************/
+ *  Includes
+ ********************************************************************/
 require 'tldlib/debug.php';
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
@@ -56,8 +56,8 @@ if (!isset($query)) {
 }
 
 /*******************************************************************
-*  OAuth
-********************************************************************/
+ *  OAuth
+ ********************************************************************/
 $tmhOAuth = new tmhOAuth([
     'consumer_key'        => $my_consumer_key,
     'consumer_secret'     => $my_consumer_secret,
@@ -89,8 +89,8 @@ $fullName = $data['name'];
 $twitterAvatarUrl = $data['profile_image_url'];
 
 /*******************************************************************
-*  Defaults
-********************************************************************/
+ *  Defaults
+ ********************************************************************/
 $count = 25;  //default tweet number = 25
 $result_type = 'mixed'; //default to mixed popular and realtime results
 $recursion_limit = 0; // as a default we don't quote tweets
@@ -112,8 +112,8 @@ $feedTitle = 'Twitter search for "' . $query . '"';
 //$urlquery = urlencode($query);
 
 /*******************************************************************
-*  Request
-********************************************************************/
+ *  Request
+ ********************************************************************/
 $code = $tmhOAuth->user_request([
     'url' => $tmhOAuth->url('1.1/search/tweets'),
     'params' => [

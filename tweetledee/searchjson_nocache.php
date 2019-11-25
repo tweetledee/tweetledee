@@ -23,8 +23,8 @@
             http://<yourdomain>/tweetledee/searchjson_nocache.php?q=coolsearch&c=50&rt=recent
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
-*  Includes
-********************************************************************/
+ *  Includes
+ ********************************************************************/
 require 'tldlib/debug.php';
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
@@ -49,8 +49,8 @@ if (!isset($query)) {
 }
 
 /*******************************************************************
-*  OAuth
-********************************************************************/
+ *  OAuth
+ ********************************************************************/
 $tmhOAuth = new tmhOAuth([
     'consumer_key'        => $my_consumer_key,
     'consumer_secret'     => $my_consumer_secret,
@@ -61,8 +61,8 @@ $tmhOAuth = new tmhOAuth([
 
 // request the user information
 $code = $tmhOAuth->user_request([
-            'url' => $tmhOAuth->url('1.1/account/verify_credentials')
-          ]);
+    'url' => $tmhOAuth->url('1.1/account/verify_credentials')
+]);
 
 // Display error response if do not receive 200 response code
 if ($code <> 200) {
@@ -80,8 +80,8 @@ $data = json_decode($tmhOAuth->response['response'], true);
 //$urlquery = urlencode($query);
 
 /*******************************************************************
-*  Request
-********************************************************************/
+ *  Request
+ ********************************************************************/
 $code = $tmhOAuth->user_request([
     'url' => $tmhOAuth->url('1.1/search/tweets'),
     'params' => [

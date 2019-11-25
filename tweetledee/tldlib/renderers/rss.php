@@ -69,7 +69,7 @@ class RssRenderer extends AbstractRenderer
                         $args['renderer'] = $this;
                         $args['currentitem'] = $content;
                         $args['parsedTweet'] = $this->create_parsed_tweet($content);
-                        $args['recursion_level'] = $recursion_level+1;
+                        $args['recursion_level'] = $recursion_level + 1;
                         return template('tldlib/renderers/rss_item_html_enclosure.php', $args);
                     }
                 }
@@ -81,4 +81,3 @@ class RssRenderer extends AbstractRenderer
         }
     }
 }
-?>

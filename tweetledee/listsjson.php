@@ -1,10 +1,12 @@
 <?php
+
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   listsjson.php -- User list tweets formatted as JSON
  * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
+
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
@@ -21,8 +23,8 @@
     - 'cache_interval' - specify the duration of the cache interval in seconds (default = 90sec)
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
-*  Includes
-********************************************************************/
+ *  Includes
+ ********************************************************************/
 require 'tldlib/debug.php';
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
@@ -40,52 +42,51 @@ require 'tldlib/tldCache.php';
 require 'tldlib/parametersProcessing.php';
 
 /*******************************************************************
-*  Defaults
-********************************************************************/
+ *  Defaults
+ ********************************************************************/
 
 $parameters = load_parameters(["c", "user", "exclude_retweets", "list", "cache_interval"]);
 extract($parameters);
-if(!isset($parameters['list'])) {
+if (!isset($parameters['list'])) {
     die("Error: missing user list name in your request.  Please use the 'list' parameter in your request.");
 }
 $include_retweets = !$exclude_retweets;
 /*******************************************************************
-*  OAuth
-********************************************************************/
+ *  OAuth
+ ********************************************************************/
 
 $tldCache = new tldCache([
-            'consumer_key'        => $my_consumer_key,
-            'consumer_secret'     => $my_consumer_secret,
-            'user_token'          => $my_access_token,
-            'user_secret'         => $my_access_token_secret,
-            'curl_ssl_verifypeer' => false
-        ], $cache_interval);
+    'consumer_key'        => $my_consumer_key,
+    'consumer_secret'     => $my_consumer_secret,
+    'user_token'          => $my_access_token,
+    'user_secret'         => $my_access_token_secret,
+    'curl_ssl_verifypeer' => false
+], $cache_interval);
 
 // request the user information
 $data = $tldCache->auth_request();
 
 // Parse information from response
-if(!isset($parameters['screen_name'])) {
+if (!isset($parameters['screen_name'])) {
     $screen_name = $data['screen_name'];
 }
 $fullName = $data['name'];
 $twitterAvatarUrl = $data['profile_image_url'];
 
 /*******************************************************************
-*  Request
-********************************************************************/
+ *  Request
+ ********************************************************************/
 
 $userListObj = $tldCache->user_request([
-            'url' => '1.1/lists/statuses',
-            'params' => [
-                'include_entities' => true,
-                'count' => $count,
-                'owner_screen_name' => $screen_name,
-                'slug' => $list_name,
-                'include_rts' => $include_retweets,
-            ]
-        ]);
+    'url' => '1.1/lists/statuses',
+    'params' => [
+        'include_entities' => true,
+        'count' => $count,
+        'owner_screen_name' => $screen_name,
+        'slug' => $list_name,
+        'include_rts' => $include_retweets,
+    ]
+]);
 
 header('Content-Type: application/json');
 echo json_encode($userListObj);
-

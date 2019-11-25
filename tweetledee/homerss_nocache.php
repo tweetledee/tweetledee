@@ -119,5 +119,5 @@ $config = [
     'title'             =>  $feedTitle,
     'description'       =>  sprintf('Twitter home timeline updates for %s/%s', $fullName, $twitterName),
     'twitterAvatarUrl'  =>  $twitterAvatarUrl
-);
+];
 echo $renderer->render_feed($config, $homeTimelineObj);

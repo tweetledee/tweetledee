@@ -1,10 +1,12 @@
 <?php
+
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   homejson_pp.php -- Home timeline results formatted as pretty printed JSON
  * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
+
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
@@ -19,8 +21,8 @@
 --------------------------------------------------------------------------------------------------*/
 
 /*******************************************************************
-*  Includes
-********************************************************************/
+ *  Includes
+ ********************************************************************/
 require 'tldlib/debug.php';
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
@@ -44,16 +46,16 @@ $parameters = load_parameters(["c", "exclude_replies", "cache_interval"]);
 extract($parameters);
 
 /*******************************************************************
-*  OAuth
-********************************************************************/
+ *  OAuth
+ ********************************************************************/
 
 $tldCache = new tldCache([
-            'consumer_key'        => $my_consumer_key,
-            'consumer_secret'     => $my_consumer_secret,
-            'user_token'          => $my_access_token,
-            'user_secret'         => $my_access_token_secret,
-            'curl_ssl_verifypeer' => false
-        ], $cache_interval);
+        'consumer_key'        => $my_consumer_key,
+        'consumer_secret'     => $my_consumer_secret,
+        'user_token'          => $my_access_token,
+        'user_secret'         => $my_access_token_secret,
+        'curl_ssl_verifypeer' => false
+], $cache_interval);
 
 // request the user information
 $data = $tldCache->auth_request();
@@ -67,16 +69,16 @@ $screen_name = $data['screen_name'];
 
 
 /*******************************************************************
-*  Request
-********************************************************************/
+ *  Request
+ ********************************************************************/
 $homeTimelineObj = $tldCache->user_request([
-            'url' => '1.1/statuses/home_timeline',
-            'params' => [
+        'url' => '1.1/statuses/home_timeline',
+        'params' => [
                 'include_entities' => true,
                 'count' => $count,
                 'exclude_replies' => $exclude_replies,
-            ]
-        ]);
+        ]
+]);
 
 header('Content-Type: application/json');
 echo json_encode_pretty_print($homeTimelineObj);

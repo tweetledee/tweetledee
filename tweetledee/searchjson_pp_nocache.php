@@ -24,8 +24,8 @@
 --------------------------------------------------------------------------------------------------*/
 
 /*******************************************************************
-*  Includes
-********************************************************************/
+ *  Includes
+ ********************************************************************/
 require 'tldlib/debug.php';
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
@@ -53,20 +53,20 @@ if (!isset($query)) {
 }
 
 /*******************************************************************
-*  OAuth
-********************************************************************/
+ *  OAuth
+ ********************************************************************/
 $tmhOAuth = new tmhOAuth([
-            'consumer_key'        => $my_consumer_key,
-            'consumer_secret'     => $my_consumer_secret,
-            'user_token'          => $my_access_token,
-            'user_secret'         => $my_access_token_secret,
-            'curl_ssl_verifypeer' => false
-        ]);
+    'consumer_key'        => $my_consumer_key,
+    'consumer_secret'     => $my_consumer_secret,
+    'user_token'          => $my_access_token,
+    'user_secret'         => $my_access_token_secret,
+    'curl_ssl_verifypeer' => false
+]);
 
 // request the user information
 $code = $tmhOAuth->user_request([
-            'url' => $tmhOAuth->url('1.1/account/verify_credentials')
-          ]);
+    'url' => $tmhOAuth->url('1.1/account/verify_credentials')
+]);
 
 // Display error response if do not receive 200 response code
 if ($code <> 200) {
@@ -84,17 +84,17 @@ $data = json_decode($tmhOAuth->response['response'], true);
 //$urlquery = urlencode($query);
 
 /*******************************************************************
-*  Request
-********************************************************************/
+ *  Request
+ ********************************************************************/
 $code = $tmhOAuth->user_request([
-            'url' => $tmhOAuth->url('1.1/search/tweets'),
-            'params' => [
-                'include_entities' => true,
-                'count' => $count,
-                'result_type' => $result_type,
-                'q' => $query,
-            ]
-        ]);
+    'url' => $tmhOAuth->url('1.1/search/tweets'),
+    'params' => [
+        'include_entities' => true,
+        'count' => $count,
+        'result_type' => $result_type,
+        'q' => $query,
+    ]
+]);
 
 // Anything except code 200 is a failure to get the information
 if ($code <> 200) {

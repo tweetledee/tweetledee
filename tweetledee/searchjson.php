@@ -22,8 +22,8 @@
     - 'cache_interval' - specify the duration of the cache interval in seconds (default = 90sec)
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
-*  Includes
-********************************************************************/
+ *  Includes
+ ********************************************************************/
 require 'tldlib/debug.php';
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
@@ -52,15 +52,15 @@ if (!isset($query)) {
 }
 
 /*******************************************************************
-*  OAuth
-********************************************************************/
+ *  OAuth
+ ********************************************************************/
 $tldCache = new tldCache([
-            'consumer_key'        => $my_consumer_key,
-            'consumer_secret'     => $my_consumer_secret,
-            'user_token'          => $my_access_token,
-            'user_secret'         => $my_access_token_secret,
-            'curl_ssl_verifypeer' => false
-        ], $cache_interval);
+    'consumer_key'        => $my_consumer_key,
+    'consumer_secret'     => $my_consumer_secret,
+    'user_token'          => $my_access_token,
+    'user_secret'         => $my_access_token_secret,
+    'curl_ssl_verifypeer' => false
+], $cache_interval);
 
 // request the user information
 $data = $tldCache->auth_request();
@@ -77,8 +77,8 @@ $feedTitle = 'Twitter search for "' . $query . '"';
 //$urlquery = urlencode($query);
 
 /*******************************************************************
-*  Request
-********************************************************************/
+ *  Request
+ ********************************************************************/
 $searchResultsObj = $tldCache->user_request([
     'url' => '1.1/search/tweets',
     'params' => [

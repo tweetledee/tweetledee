@@ -43,7 +43,7 @@ class tldCache
         } else {
             $code = $this->tmhOAuth->user_request([
                 'url' => $url
-              ]);
+            ]);
 
             // If the request fails, check to see if there's an older cached file we can use
             if ($code <> 200) {
@@ -135,16 +135,16 @@ class tldCache
     private function sanitize($string, $force_lowercase = true, $anal = false)
     {
         $strip = ["~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
-                     "}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;",
-                     "â€”", "â€“", ",", "<", ".", ">", "/", "?"];
+            "}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;",
+            "â€”", "â€“", ",", "<", ".", ">", "/", "?"];
         $clean = trim(str_replace($strip, "", strip_tags($string)));
         $clean = preg_replace('/\s+/', "-", $clean);
         $clean = ($anal) ? preg_replace("/[^a-zA-Z0-9]/", "", $clean) : $clean ;
         return ($force_lowercase) ?
-          (function_exists('mb_strtolower')) ?
-              mb_strtolower($clean, 'UTF-8') :
-              strtolower($clean) :
-          $clean;
+            (function_exists('mb_strtolower')) ?
+            mb_strtolower($clean, 'UTF-8') :
+            strtolower($clean) :
+            $clean;
     }
 
     /**
