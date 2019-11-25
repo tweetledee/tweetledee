@@ -19,29 +19,29 @@ class RssRenderer extends AbstractRenderer
     public function prepare_data_array($currentitem)
     {
         if (isset($currentitem['retweeted_status'])) {
-            return array(
+            return [
                 'avatar' => $currentitem['retweeted_status']['user']['profile_image_url'],
                 'rt' => '&nbsp;&nbsp;&nbsp;&nbsp;[<em style="font-size:smaller;">Retweeted by ' . $currentitem['user']['name'] . ' <a href=\'http://twitter.com/' . $currentitem['user']['screen_name'] . '\'>@' . $currentitem['user']['screen_name'] . '</a></em>]',
                 'tweeter' => $currentitem['retweeted_status']['user']['screen_name'],
                 'fullname' => $currentitem['retweeted_status']['user']['name'],
                 'tweetTitle' => $currentitem['retweeted_status']['full_text'],
                 'entities' => $currentitem['retweeted_status']['entities']
-            );
+            ];
         } else {
-            return array(
+            return [
                 'avatar' => $currentitem['user']['profile_image_url'],
                 'rt' => '',
                 'tweeter' => $currentitem['user']['screen_name'],
                 'fullname' => $currentitem['user']['name'],
                 'tweetTitle' => $currentitem['full_text'],
                 'entities' => $currentitem['entities']
-            );
+            ];
         }
     }
 
     public function render_feed($config, $tweets)
     {
-        $args = array();
+        $args = [];
         $args['renderer'] = $this;
         $args['tweets'] = $tweets;
         $args = array_merge($args, $config, $tweets);

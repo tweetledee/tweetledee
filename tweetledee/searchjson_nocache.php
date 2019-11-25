@@ -60,9 +60,9 @@ $tmhOAuth = new tmhOAuth([
 ]);
 
 // request the user information
-$code = $tmhOAuth->user_request(array(
+$code = $tmhOAuth->user_request([
             'url' => $tmhOAuth->url('1.1/account/verify_credentials')
-          ));
+          ]);
 
 // Display error response if do not receive 200 response code
 if ($code <> 200) {
@@ -84,12 +84,12 @@ $data = json_decode($tmhOAuth->response['response'], true);
 ********************************************************************/
 $code = $tmhOAuth->user_request([
     'url' => $tmhOAuth->url('1.1/search/tweets'),
-    'params' => array(
+    'params' => [
         'include_entities' => true,
         'count' => $count,
         'result_type' => $result_type,
         'q' => $query,
-    )
+    ]
 ]);
 
 // Anything except code 200 is a failure to get the information

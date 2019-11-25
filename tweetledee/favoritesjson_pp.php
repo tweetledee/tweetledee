@@ -39,19 +39,19 @@ require 'tldlib/tldPrettyPrint.php';
 
 require 'tldlib/parametersProcessing.php';
 
-$parameters = load_parameters(array("c", "user", "cache_interval"));
+$parameters = load_parameters(["c", "user", "cache_interval"]);
 extract($parameters);
 /*******************************************************************
 *  OAuth
 ********************************************************************/
 
-$tldCache = new tldCache(array(
+$tldCache = new tldCache([
             'consumer_key'        => $my_consumer_key,
             'consumer_secret'     => $my_consumer_secret,
             'user_token'          => $my_access_token,
             'user_secret'         => $my_access_token_secret,
             'curl_ssl_verifypeer' => false
-        ), $cache_interval);
+        ], $cache_interval);
 
 // request the user information
 $data = $tldCache->auth_request();
@@ -68,14 +68,14 @@ if(!isset($screen_name) || $screen_name=='') {
 /*******************************************************************
 *  Request
 ********************************************************************/
-$userFavoritesObj = $tldCache->user_request(array(
+$userFavoritesObj = $tldCache->user_request([
             'url' => '1.1/favorites/list',
-            'params' => array(
+            'params' => [
                 'include_entities' => true,
                 'count' => $count,
                 'screen_name' => $screen_name,
-            )
-        ));
+            ]
+        ]);
 
 header('Content-Type: application/json');
 echo json_encode_pretty_print($userFavoritesObj);

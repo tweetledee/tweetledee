@@ -92,13 +92,13 @@ if (!isset($screen_name) || $screen_name == '') {
 ********************************************************************/
 $code = $tmhOAuth->user_request([
     'url' => $tmhOAuth->url('1.1/statuses/user_timeline'),
-    'params' => array(
+    'params' => [
         'include_entities' => true,
         'count' => $count,
         'exclude_replies' => $exclude_replies,
         'include_rts' => $include_retweets,
         'screen_name' => $screen_name,
-    )
+    ]
 ]);
 
 // Anything except code 200 is a failure to get the information
@@ -122,13 +122,13 @@ header("Content-type: text/xml; charset=utf-8");
 $renderer = new RssRenderer($recursion_limit);
 $renderer->using_client($client);
 
-$config = array(
+$config = [
     'atom'              =>  $my_domain . $thequery,
     'link'              =>  sprintf('http://www.twitter.com/%s', $screen_name),
     'lastBuildDate'     =>  date(DATE_RSS),
     'title'             =>  sprintf('Twitter user timeline feed for %s', $screen_name),
     'description'       =>  sprintf('Twitter user timeline updates for %s', $screen_name),
     'twitterAvatarUrl'  =>  $twitterAvatarUrl
-);
+];
 ?>
 <?php echo $renderer->render_feed($config, $userTimelineObj)?>

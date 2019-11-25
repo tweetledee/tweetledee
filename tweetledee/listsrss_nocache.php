@@ -94,16 +94,16 @@ if(!isset($screen_name) || $screen_name=='') {
 /*******************************************************************
 *  Request
 ********************************************************************/
-$code = $tmhOAuth->user_request(array(
+$code = $tmhOAuth->user_request([
             'url' => $tmhOAuth->url('1.1/lists/statuses'),
-            'params' => array(
+            'params' => [
                 'include_entities' => true,
                 'count' => $count,
                 'owner_screen_name' => $screen_name,
                 'slug' => $list_name,
                 'include_rts' => $include_retweets,
-            )
-        ));
+            ]
+        ]);
 
 // Anything except code 200 is a failure to get the information
 if ($code <> 200) {
@@ -127,13 +127,13 @@ header("Content-type: text/xml; charset=utf-8");
 
 $renderer = new RssRenderer($recursion_limit);
 $renderer->using_client($client);
-$config = array(
+$config = [
     'atom'              =>  $my_domain . urlencode($thequery),
     'link'               =>  sprintf('http://www.twitter.com/%s/lists/%s', $screen_name, $list_name),
     'lastBuildDate'     =>  date(DATE_RSS),
     'title'             =>  sprintf('Twitter list feed for the %s list %s', $screen_name, $list_name),
     'description'       =>  sprintf('Twitter list feed for the %s list %s', $screen_name, $list_name),
     'twitterAvatarUrl'  =>  $twitterAvatarUrl,
-);
+];
 ?>
 <?php echo $renderer->render_feed($config, $userListObj)?>

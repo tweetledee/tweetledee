@@ -43,20 +43,20 @@ require 'tldlib/tldPrettyPrint.php';
 
 require 'tldlib/parametersProcessing.php';
 
-$parameters = load_parameters(array("c", "exclude_retweets", "exclude_replies", "user"));
+$parameters = load_parameters(["c", "exclude_retweets", "exclude_replies", "user"]);
 extract($parameters);
 $include_retweets = !$exclude_retweets;
 /*******************************************************************
 *  OAuth
 ********************************************************************/
 
-$tldCache = new tldCache(array(
+$tldCache = new tldCache([
             'consumer_key'        => $my_consumer_key,
             'consumer_secret'     => $my_consumer_secret,
             'user_token'          => $my_access_token,
             'user_secret'         => $my_access_token_secret,
             'curl_ssl_verifypeer' => false
-        ), $cache_interval);
+        ], $cache_interval);
 
 // request the user information
 $data = $tldCache->auth_request();
@@ -73,16 +73,16 @@ if(!isset($screen_name) || $screen_name=='') {
 *  Request
 ********************************************************************/
 
-$userTimelineObj = $tldCache->user_request(array(
+$userTimelineObj = $tldCache->user_request([
             'url' => '1.1/statuses/user_timeline',
-            'params' => array(
+            'params' => [
                 'include_entities' => true,
                 'count' => $count,
                 'exclude_replies' => $exclude_replies,
                 'include_rts' => $include_retweets,
                 'screen_name' => $screen_name,
-            )
-        ));
+            ]
+        ]);
 
 header('Content-Type: application/json');
 echo json_encode_pretty_print($userTimelineObj);

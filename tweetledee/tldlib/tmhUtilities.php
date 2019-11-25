@@ -20,9 +20,9 @@ class tmhUtilities
      * @param array $replacements if specified, the entities and their replacements will be stored to this variable
      * @return the tweet text with entities replaced with hyperlinks
      */
-    public static function entify($tweet, &$replacements = array())
+    public static function entify($tweet, &$replacements = [])
     {
-        return tmhUtilities::entify_with_options($tweet, array(), $replacements);
+        return tmhUtilities::entify_with_options($tweet, [], $replacements);
     }
 
   /**
@@ -34,19 +34,19 @@ class tmhUtilities
    * @param array $replacements if specified, the entities and their replacements will be stored to this variable
    * @return the tweet text with entities replaced with hyperlinks
    */
-    public static function entify_with_options($tweet, $options = array(), &$replacements = array())
+    public static function entify_with_options($tweet, $options = [], &$replacements = [])
     {
-        $default_opts = array(
+        $default_opts = [
         'encoding' => 'UTF-8',
         'target'   => '',
-        );
+        ];
 
         $opts = array_merge($default_opts, $options);
 
         $encoding = mb_internal_encoding();
         mb_internal_encoding($opts['encoding']);
 
-        $keys = array();
+        $keys = [];
         $is_retweet = false;
 
         if (isset($tweet['retweeted_status'])) {
@@ -96,10 +96,10 @@ class tmhUtilities
         foreach ($replacements as $k => $v) {
             $entified_tweet = mb_substr($entified_tweet, 0, $k) . $v . mb_substr($entified_tweet, $k + mb_strlen($keys[$k]));
         }
-        $replacements = array(
+        $replacements = [
         'replacements' => $replacements,
         'keys' => $keys
-        );
+        ];
 
         mb_internal_encoding($encoding);
         return $entified_tweet;
@@ -195,7 +195,7 @@ class tmhUtilities
      * @param string $useauth whether to use authentication when making the request. Default true.
      * @param string $multipart whether this request contains multipart data. Default false
      */
-    public static function auto_fix_time_request($tmhOAuth, $method, $url, $params = array(), $useauth = true, $multipart = false)
+    public static function auto_fix_time_request($tmhOAuth, $method, $url, $params = [], $useauth = true, $multipart = false)
     {
         $tmhOAuth->request($method, $url, $params, $useauth, $multipart);
 

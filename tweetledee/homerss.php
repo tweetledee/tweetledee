@@ -74,11 +74,11 @@ $feedTitle = ' Twitter home timeline for ' . $twitterName;
 ********************************************************************/
 $homeTimelineObj = $tldCache->user_request([
     'url' => '1.1/statuses/home_timeline',
-    'params' => array(
+    'params' => [
         'include_entities' => true,
         'count' => $count,
         'exclude_replies' => $exclude_replies,
-    )
+    ]
 ]);
 
 //headers
@@ -89,7 +89,7 @@ header("Content-type: text/xml; charset=utf-8");
 
 $renderer = new RssRenderer($recursion_limit);
 $renderer->using_cache($tldCache);
-$config = array(
+$config = [
     'atom'              =>  $my_domain . $_SERVER['PHP_SELF'],
     'link'              =>  sprintf('http://www.twitter.com/%s', $twitterName),
     'twitterName'       => $twitterName,
@@ -97,6 +97,6 @@ $config = array(
     'title'             =>  $feedTitle,
     'description'       =>  sprintf('Twitter home timeline updates for %s/%s', $fullName, $twitterName),
     'twitterAvatarUrl'  =>  $twitterAvatarUrl
-);
+];
 ?>
 <?php echo $renderer->render_feed($config, $homeTimelineObj)?>

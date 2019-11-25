@@ -39,24 +39,24 @@ require 'tldlib/renderers/rss.php';
 
 require 'tldlib/parametersProcessing.php';
 
-$parameters = load_parameters(array("c", "user", "recursion_limit"));
+$parameters = load_parameters(["c", "user", "recursion_limit"]);
 extract($parameters);
 
 /*******************************************************************
 *  OAuth
 ********************************************************************/
-$tmhOAuth = new tmhOAuth(array(
+$tmhOAuth = new tmhOAuth([
             'consumer_key'        => $my_consumer_key,
             'consumer_secret'     => $my_consumer_secret,
             'user_token'          => $my_access_token,
             'user_secret'         => $my_access_token_secret,
             'curl_ssl_verifypeer' => false
-        ));
+        ]);
 
 // request the user information
-$code = $tmhOAuth->user_request(array(
+$code = $tmhOAuth->user_request([
 			'url' => $tmhOAuth->url('1.1/account/verify_credentials')
-          )
+          ]
         );
 
 // Display error response if do not receive 200 response code
@@ -83,14 +83,14 @@ if(!isset($screen_name) || $screen_name=='') {
 /*******************************************************************
 *  Request
 ********************************************************************/
-$code = $tmhOAuth->user_request(array(
+$code = $tmhOAuth->user_request([
 			'url' => $tmhOAuth->url('1.1/favorites/list'),
-			'params' => array(
+			'params' => [
           		'include_entities' => true,
     			'count' => $count,
     			'screen_name' => $screen_name,
-        	)
-        ));
+        	]
+        ]);
 
 // Anything except code 200 is a failure to get the information
 if ($code <> 200) {
@@ -113,13 +113,13 @@ header("Content-type: text/xml; charset=utf-8");
 
 $renderer = new RssRenderer($recursion_limit);
 $renderer->using_client($client);
-$config = array(
+$config = [
     'atom'              =>  $my_domain . $thequery,
     'link'              =>  sprintf('http://www.twitter.com/%s', $screen_name),
     'lastBuildDate'     =>  date(DATE_RSS),
     'title'             =>  sprintf('Twitter favorites feed for %s', $screen_name),
     'description'       =>  sprintf('Twitter favorites feed for %s', $screen_name),
     'twitterAvatarUrl'  =>  $twitterAvatarUrl
-);
+];
 ?>
 <?php echo $renderer->render_feed($config, $userFavoritesObj)?>

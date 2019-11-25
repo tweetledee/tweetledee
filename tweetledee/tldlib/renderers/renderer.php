@@ -28,16 +28,16 @@ class Cache implements Twitter
     {
         if (preg_match("/.*twitter.com\/([^\/]+)\/status\/(.*)/", $tweet_url['expanded_url'], $out)) {
             // It is a tweet ! So download it now !
-            $tweet = $this->cache->user_request(array(
+            $tweet = $this->cache->user_request([
                 'url' => '1.1/statuses/show',
-                'params' => array(
+                'params' => [
                     'id' => $out['2'],
                     'include_entities' => true
-                )
-            ));
+                ]
+            ]);
             return $tweet;
         }
-        return array();
+        return [];
     }
 }
 
@@ -53,33 +53,34 @@ class Client implements Twitter
     {
         if (preg_match("/.*twitter.com\/([^\/]+)\/status\/(.*)/", $tweet_url['expanded_url'], $out)) {
             // It is a tweet ! So download it now !
-            $code = $this->client->user_request(array(
+            $code = $this->client->user_request([
                 'url' => $this->client->url('1.1/statuses/show'),
-                'params' => array(
+                'params' => [
                     'id' => $out['2'],
                     'include_entities' => true
-                )
-            ));
-            if ($code==200) {
+                ]
+            ]);
+            if ($code == 200) {
                 return json_decode($this->client->response['response'], true);
             } else {
                 echo $this->client->response['error'];
                 die("get status connection failure");
             }
         }
-        return array();
+        return [];
     }
 }
 
 abstract class AbstractRenderer implements Renderer
 {
 
-    public abstract function render_feed($config, $tweets);
-    
-    protected function create_parsed_tweet($tweet) {
-        return tmhUtilities::entify_with_options(objectToArray($tweet), array(
+    abstract public function render_feed($config, $tweets);
+
+    protected function create_parsed_tweet($tweet)
+    {
+        return tmhUtilities::entify_with_options(objectToArray($tweet), [
             'target' => 'blank'
-        ));
+        ]);
     }
 
     public function render_tweet($tweet)
@@ -101,5 +102,3 @@ abstract class AbstractRenderer implements Renderer
         return $this;
     }
 }
-
-?>

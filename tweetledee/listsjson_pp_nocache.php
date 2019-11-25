@@ -41,7 +41,7 @@ require 'tldlib/tldPrettyPrint.php';
 
 require 'tldlib/parametersProcessing.php';
 
-$parameters = load_parameters(array("c", "user", "exclude_retweets", "list"));
+$parameters = load_parameters(["c", "user", "exclude_retweets", "list"]);
 extract($parameters);
 if(!isset($parameters['list'])) {
     die("Error: missing user list name in your request.  Please use the 'list' parameter in your request.");
@@ -49,18 +49,18 @@ if(!isset($parameters['list'])) {
 /*******************************************************************
 *  OAuth
 ********************************************************************/
-$tmhOAuth = new tmhOAuth(array(
+$tmhOAuth = new tmhOAuth([
             'consumer_key'        => $my_consumer_key,
             'consumer_secret'     => $my_consumer_secret,
             'user_token'          => $my_access_token,
             'user_secret'         => $my_access_token_secret,
             'curl_ssl_verifypeer' => false
-        ));
+        ]);
 
 // request the user information
-$code = $tmhOAuth->user_request(array(
+$code = $tmhOAuth->user_request([
 			'url' => $tmhOAuth->url('1.1/account/verify_credentials')
-          )
+          ]
         );
 
 // Display error response if do not receive 200 response code
@@ -90,16 +90,16 @@ if(!isset($screen_name) || $screen_name=='') {
 /*******************************************************************
 *  Request
 ********************************************************************/
-$code = $tmhOAuth->user_request(array(
+$code = $tmhOAuth->user_request([
 			'url' => $tmhOAuth->url('1.1/lists/statuses'),
-			'params' => array(
+			'params' => [
           		'include_entities' => true,
     			'count' => $count,
     			'owner_screen_name' => $screen_name,
                 'slug' => $list_name,
                 'include_rts' => $include_retweets,
-        	)
-        ));
+        	]
+        ]);
 
 // Anything except code 200 is a failure to get the information
 if ($code <> 200) {

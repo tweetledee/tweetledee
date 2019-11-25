@@ -84,16 +84,16 @@ if (!isset($screen_name) || $screen_name == '') {
 *  Request
 ********************************************************************/
 
-$userListObj = $tldCache->user_request(array(
+$userListObj = $tldCache->user_request([
             'url' => '1.1/lists/statuses',
-            'params' => array(
+            'params' => [
                 'include_entities' => true,
                 'count' => $count,
                 'owner_screen_name' => $screen_name,
                 'slug' => $list_name,
                 'include_rts' => $include_retweets,
-            )
-        ));
+            ]
+        ]);
 
 //concatenate the URL for the atom href link
 if (defined('STDIN')) {
@@ -108,13 +108,13 @@ header("Content-type: text/xml; charset=utf-8");
 
 $renderer = new RssRenderer($recursion_limit);
 $renderer->using_cache($tldCache);
-$config = array(
+$config = [
     'atom'              =>  $my_domain . urlencode($thequery),
     'link'               =>  sprintf('http://www.twitter.com/%s/lists/%s', $screen_name, $list_name),
     'lastBuildDate'     =>  date(DATE_RSS),
     'title'             =>  sprintf('Twitter list feed for the %s list %s', $screen_name, $list_name),
     'description'       =>  sprintf('Twitter list feed for the %s list %s', $screen_name, $list_name),
     'twitterAvatarUrl'  =>  $twitterAvatarUrl,
-);
+];
 ?>
 <?php echo $renderer->render_feed($config, $userListObj)?>

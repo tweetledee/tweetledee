@@ -43,7 +43,7 @@ require 'tldlib/parametersProcessing.php';
 *  Defaults
 ********************************************************************/
 
-$parameters = load_parameters(array("c", "user", "exclude_retweets", "list", "cache_interval"));
+$parameters = load_parameters(["c", "user", "exclude_retweets", "list", "cache_interval"]);
 extract($parameters);
 if(!isset($parameters['list'])) {
     die("Error: missing user list name in your request.  Please use the 'list' parameter in your request.");
@@ -53,13 +53,13 @@ $include_retweets = !$exclude_retweets;
 *  OAuth
 ********************************************************************/
 
-$tldCache = new tldCache(array(
+$tldCache = new tldCache([
             'consumer_key'        => $my_consumer_key,
             'consumer_secret'     => $my_consumer_secret,
             'user_token'          => $my_access_token,
             'user_secret'         => $my_access_token_secret,
             'curl_ssl_verifypeer' => false
-        ), $cache_interval);
+        ], $cache_interval);
 
 // request the user information
 $data = $tldCache->auth_request();
@@ -75,16 +75,16 @@ $twitterAvatarUrl = $data['profile_image_url'];
 *  Request
 ********************************************************************/
 
-$userListObj = $tldCache->user_request(array(
+$userListObj = $tldCache->user_request([
             'url' => '1.1/lists/statuses',
-            'params' => array(
+            'params' => [
                 'include_entities' => true,
                 'count' => $count,
                 'owner_screen_name' => $screen_name,
                 'slug' => $list_name,
                 'include_rts' => $include_retweets,
-            )
-        ));
+            ]
+        ]);
 
 header('Content-Type: application/json');
 echo json_encode($userListObj);

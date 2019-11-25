@@ -85,12 +85,12 @@ $feedTitle = 'Twitter search for "' . $query . '"';
 ********************************************************************/
 $searchResultsObj = $tldCache->user_request([
     'url' => '1.1/search/tweets',
-    'params' => array(
+    'params' => [
         'include_entities' => true,
         'count' => $count,
         'result_type' => $result_type,
         'q' => $query,
-    )
+    ]
 ]);
 
 header('Content-Type: application/json');

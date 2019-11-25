@@ -54,13 +54,13 @@ if (!isset($query)) {
 /*******************************************************************
 *  OAuth
 ********************************************************************/
-$tldCache = new tldCache(array(
+$tldCache = new tldCache([
             'consumer_key'        => $my_consumer_key,
             'consumer_secret'     => $my_consumer_secret,
             'user_token'          => $my_access_token,
             'user_secret'         => $my_access_token_secret,
             'curl_ssl_verifypeer' => false
-        ), $cache_interval);
+        ], $cache_interval);
 
 // request the user information
 $data = $tldCache->auth_request();
@@ -81,12 +81,12 @@ $feedTitle = 'Twitter search for "' . $query . '"';
 ********************************************************************/
 $searchResultsObj = $tldCache->user_request([
     'url' => '1.1/search/tweets',
-    'params' => array(
+    'params' => [
         'include_entities' => true,
         'count' => $count,
         'result_type' => $result_type,
         'q' => $query,
-    )
+    ]
 ]);
 
 header('Content-Type: application/json');

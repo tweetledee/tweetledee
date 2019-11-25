@@ -21,7 +21,7 @@ class tldCache
      * @param array $keys, the auth keys used to create a new tmhOAuth object
      * @return void
      */
-    public function __construct($keys = array(), $cache_interval = 90)
+    public function __construct($keys = [], $cache_interval = 90)
     {
         $this->tmhOAuth = new tmhOAuth($keys);
         $this->interval = $cache_interval;
@@ -41,9 +41,9 @@ class tldCache
         if ($cached_file = $this->get_cached_file($file)) {
             return json_decode($cached_file, true);
         } else {
-            $code = $this->tmhOAuth->user_request(array(
+            $code = $this->tmhOAuth->user_request([
                 'url' => $url
-              ));
+              ]);
 
             // If the request fails, check to see if there's an older cached file we can use
             if ($code <> 200) {
@@ -115,7 +115,7 @@ class tldCache
      */
     private function array_to_string($arr)
     {
-        $line = array();
+        $line = [];
         foreach ($arr as $v) {
             $line[] = is_array($v) ? self::array_to_string($v) : $this->sanitize($v);
         }
@@ -134,9 +134,9 @@ class tldCache
      */
     private function sanitize($string, $force_lowercase = true, $anal = false)
     {
-        $strip = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
+        $strip = ["~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
                      "}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;",
-                     "â€”", "â€“", ",", "<", ".", ">", "/", "?");
+                     "â€”", "â€“", ",", "<", ".", ">", "/", "?"];
         $clean = trim(str_replace($strip, "", strip_tags($string)));
         $clean = preg_replace('/\s+/', "-", $clean);
         $clean = ($anal) ? preg_replace("/[^a-zA-Z0-9]/", "", $clean) : $clean ;

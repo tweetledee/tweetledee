@@ -28,74 +28,74 @@ const INT = "int";
 const BOOL = "bool";
 const DEFAULT_VALUE = "default";
 
-const PARAMETERS = array(
-    "c" => array(
+const PARAMETERS = [
+    "c" => [
         NAME => "count",
         SHORT => "c",
         TYPE => INT,
-        VALIDATION => array(
+        VALIDATION => [
             MIN => 0,
             MAX => 200
-        ),
+        ],
         DEFAULT_VALUE => 25
-    ),
-    "cache_interval" => array(
+    ],
+    "cache_interval" => [
         NAME => "cache_interval",
         LONG => "cache_interval",
         TYPE => INT,
-        VALIDATION => array(
+        VALIDATION => [
             MIN => 0,
             MAX => PHP_INT_MAX
-        ),
+        ],
         DEFAULT_VALUE => 90
-    ),
-    "exclude_replies" => array(
+    ],
+    "exclude_replies" => [
         NAME => "exclude_replies",
         LONG => "xrp",
         TYPE => BOOL,
         DEFAULT_VALUE => false
-    ),
-    "exclude_retweets" => array(
+    ],
+    "exclude_retweets" => [
         NAME => "exclude_retweets",
         LONG => "xrt",
         TYPE => BOOL,
         DEFAULT_VALUE => false
-    ),
-    "list" => array(
+    ],
+    "list" => [
         NAME => "list",
         LONG => "list"
-    ),
-    "query" => array(
+    ],
+    "query" => [
         NAME => "query",
         SHORT => "q",
         LONG => "query"
-    ),
-    "recursion_limit" => array(
+    ],
+    "recursion_limit" => [
         NAME => "recursion_limit",
         SHORT => "rl",
         LONG => "recursion_limit",
         TYPE => INT,
-        VALIDATION => array(
+        VALIDATION => [
             MIN => 0,
             MAX => 100
-        ),
+        ],
         DEFAULT_VALUE => 0
-    ),
-    "result_type" => array(
+    ],
+    "result_type" => [
         NAME => "result_type",
         LONG => "rt",
-        VALIDATION => array('popular', 'recent'),
+        VALIDATION => ['popular', 'recent'],
         DEFAULT_VALUE => "mixed"
-    ),
-    "user" => array(
+    ],
+    "user" => [
         NAME => "screen_name",
         LONG => "user"
-    )
-);
+    ]
+];
 
 function parameters_from($parameter_names)
 {
-    $parameters_objects = array();
+    $parameters_objects = [];
     foreach ($parameter_names as $name) {
         if (array_key_exists($name, PARAMETERS)) {
             array_push($parameters_objects, PARAMETERS[$name]);
@@ -134,10 +134,10 @@ function extract_value($type, $definition, $params)
 
 function load_parameters_from_command_line($parameters_definitions)
 {
-    $returned = array();
+    $returned = [];
     if (isset($argv)) {
         $shortopts = "";
-        $longopts = array();
+        $longopts = [];
         foreach ($parameters_definitions as $definition) {
             if (array_key_exists(SHORT, $definition)) {
                 $shortopts = $shortopts . $definition[SHORT];
@@ -165,7 +165,7 @@ function load_parameters_from_command_line($parameters_definitions)
 
 function load_parameters_from_http_request($parameters_definitions)
 {
-    $returned = array();
+    $returned = [];
     foreach ($parameters_definitions as $definition) {
         if (array_key_exists(SHORT, $definition)) {
             if (array_key_exists($definition[SHORT], $_GET)) {

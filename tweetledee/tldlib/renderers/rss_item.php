@@ -6,7 +6,7 @@
     <guid isPermaLink='false'><?php echo $currentitem['id_str']; ?></guid>
     <description>
 <?php echo '<![CDATA['; ?>
-<?php echo $renderer->render_tweet_html(array(
+<?php echo $renderer->render_tweet_html([
     'avatar' => $avatar,
     'rt' => $rt,
     'tweeter' => $tweeter,
@@ -16,7 +16,7 @@
     'recursion_level' => 0,
     'parsedTweet' => $parsedTweet,
     'entities' => $entities
-))?>
+])?>
 
 <?php echo ']]>'; ?>
     </description>
