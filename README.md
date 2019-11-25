@@ -9,9 +9,10 @@ Tweetledee
 - Developer Docs: [http://tweetledee.github.io/tweetledee/developer.html](http://tweetledee.github.io/tweetledee/developer.html)
 
 ## Current Release
-- <b>0.5.2</b> : Quoted tweets can be displayed with a rl>=1 query parameter in the URL. All images for the tweet are loaded now.
+- <b>0.5.3</b> : Fixed "user_timeline connection failure".
 
 ## Changes
+- <b>0.5.2</b> : Quoted tweets can be displayed with a rl>=1 query parameter in the URL. All images for the tweet are loaded now.
 - <b>0.5.1</b> : Improved hastag display.
 - <b>0.5.0</b> : First release as the tweetledee organization. Thanks to Christopher Simpkins for encouraging other people to continue with the project. Now the full tweet is displayed following the 280 characters from twitter. Media is loaded as https. Added Some reference dockerfiles.
 - <b>0.4.2</b> : added support for inline images in all RSS scripts [issue #51](https://github.com/tweetledee/tweetledee/issues/51).  A big thanks to Vinh Nguyen for his pull request to add support for this feature!
