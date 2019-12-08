@@ -59,19 +59,25 @@ class RssRenderer extends AbstractRenderer
         if (array_key_exists('expanded_url', $url)) {
             if (strpos($url['expanded_url'], 'twitter.com')) {
                 if ($recursion_level < $this->recursion_limit) {
-                    $content = $this->client->get_remote_content($url);
-                    // If there is something in array, it must be a tweet !
-                    // Else don't show anything
-                    if (empty($content)) {
-                        return "";
-                    } else {
-                        $args = $this->prepare_data_array($content);
-                        $args['renderer'] = $this;
-                        $args['currentitem'] = $content;
-                        $args['parsedTweet'] = $this->create_parsed_tweet($content);
-                        $args['recursion_level'] = $recursion_level+1;
-                        return template('tldlib/renderers/rss_item_html_enclosure.php', $args);
+                    try {
+                        $content = $this->client->get_remote_content($url);
+                        // If there is something in array, it must be a tweet !
+                        // Else don't show anything
+                        if (empty($content)) {
+                            return "";
+                        } else {
+                            $args = $this->prepare_data_array($content);
+                            $args['renderer'] = $this;
+                            $args['currentitem'] = $content;
+                            $args['parsedTweet'] = $this->create_parsed_tweet($content);
+                            $args['recursion_level'] = $recursion_level+1;
+                            return template('tldlib/renderers/rss_item_html_enclosure.php', $args);
+                        }
+                    } catch(Exception $e) {
+                        return $e->getMessage();
                     }
+                } else {
+                    return "";
                 }
             } else {
                 return template('tldlib/renderers/rss_item_html_external_url.php', $url);

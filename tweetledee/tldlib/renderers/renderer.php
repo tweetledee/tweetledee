@@ -64,7 +64,7 @@ class Client implements Twitter
                 return json_decode($this->client->response['response'], true);
             } else {
                 echo $this->client->response['error'];
-                die("get status connection failure");
+                throw new Exception("unable to get content at ".$tweet_url);
             }
         }
         return array();
