@@ -1,10 +1,12 @@
 <?php
+
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   userrss_nocache.php -- User timeline results formatted as a RSS feed
  * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
+
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
@@ -26,8 +28,8 @@
                         This can be short-handed to 'rl'
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
-*  Includes
-********************************************************************/
+ *  Includes
+ ********************************************************************/
 require 'tldlib/debug.php';
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
@@ -52,8 +54,8 @@ $parameters = load_parameters([
 ]);
 extract($parameters);
 /*******************************************************************
-*  OAuth
-********************************************************************/
+ *  OAuth
+ ********************************************************************/
 $tmhOAuth = new tmhOAuth([
     'consumer_key'        => $my_consumer_key,
     'consumer_secret'     => $my_consumer_secret,
@@ -88,17 +90,17 @@ if (!isset($screen_name) || $screen_name == '') {
 }
 
 /*******************************************************************
-*  Request
-********************************************************************/
+ *  Request
+ ********************************************************************/
 $code = $tmhOAuth->user_request([
     'url' => $tmhOAuth->url('1.1/statuses/user_timeline'),
-    'params' => array(
+    'params' => [
         'include_entities' => true,
         'count' => $count,
         'exclude_replies' => $exclude_replies,
         'include_rts' => $include_retweets,
         'screen_name' => $screen_name,
-    )
+    ]
 ]);
 
 // Anything except code 200 is a failure to get the information
@@ -122,13 +124,12 @@ header("Content-type: text/xml; charset=utf-8");
 $renderer = new RssRenderer($recursion_limit);
 $renderer->using_client($tmhOAuth);
 
-$config = array(
+$config = [
     'atom'              =>  $my_domain . $thequery,
     'link'              =>  sprintf('http://www.twitter.com/%s', $screen_name),
     'lastBuildDate'     =>  date(DATE_RSS),
     'title'             =>  sprintf('Twitter user timeline feed for %s', $screen_name),
     'description'       =>  sprintf('Twitter user timeline updates for %s', $screen_name),
     'twitterAvatarUrl'  =>  $twitterAvatarUrl
-);
-?>
-<?php echo $renderer->render_feed($config, $userTimelineObj)?>
+];
+echo $renderer->render_feed($config, $userTimelineObj);

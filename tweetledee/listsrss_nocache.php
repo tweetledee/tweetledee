@@ -1,10 +1,12 @@
 <?php
+
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   listsrss_nocache.php -- User list tweets formatted as a RSS feed
  * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
+
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
@@ -26,8 +28,8 @@
             e.g. http://<yourdomain>/tweetledee/listsrss_nocache.php?c=100&user=santaclaus&list=nicelist&xrt=1&rl=10
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
-*  Includes
-********************************************************************/
+ *  Includes
+ ********************************************************************/
 require 'tldlib/debug.php';
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
@@ -56,8 +58,8 @@ if (!isset($parameters['list'])) {
 }
 
 /*******************************************************************
-*  OAuth
-********************************************************************/
+ *  OAuth
+ ********************************************************************/
 $tmhOAuth = new tmhOAuth([
     'consumer_key'        => $my_consumer_key,
     'consumer_secret'     => $my_consumer_secret,
@@ -87,23 +89,23 @@ $data = json_decode($tmhOAuth->response['response'], true);
 $twitterName = $data['screen_name'];
 $fullName = $data['name'];
 $twitterAvatarUrl = $data['profile_image_url'];
-if(!isset($screen_name) || $screen_name=='') {
+if (!isset($screen_name) || $screen_name == '') {
     $screen_name = $data['screen_name'];
 }
 
 /*******************************************************************
-*  Request
-********************************************************************/
-$code = $tmhOAuth->user_request(array(
-            'url' => $tmhOAuth->url('1.1/lists/statuses'),
-            'params' => array(
-                'include_entities' => true,
-                'count' => $count,
-                'owner_screen_name' => $screen_name,
-                'slug' => $list_name,
-                'include_rts' => $include_retweets,
-            )
-        ));
+ *  Request
+ ********************************************************************/
+$code = $tmhOAuth->user_request([
+    'url' => $tmhOAuth->url('1.1/lists/statuses'),
+    'params' => [
+        'include_entities' => true,
+        'count' => $count,
+        'owner_screen_name' => $screen_name,
+        'slug' => $list_name,
+        'include_rts' => $include_retweets,
+    ]
+]);
 
 // Anything except code 200 is a failure to get the information
 if ($code <> 200) {
@@ -116,7 +118,7 @@ if ($code <> 200) {
 if (defined('STDIN')) {
     $thequery = $_SERVER['PHP_SELF'];
 } else {
-    $thequery = $_SERVER['PHP_SELF'] .'?'. urlencode($_SERVER['QUERY_STRING']);
+    $thequery = $_SERVER['PHP_SELF'] . '?' . urlencode($_SERVER['QUERY_STRING']);
 }
 
 $userListObj = json_decode($tmhOAuth->response['response'], true);
@@ -134,6 +136,5 @@ $config = array(
     'title'             =>  sprintf('Twitter list feed for the %s list %s', $screen_name, $list_name),
     'description'       =>  sprintf('Twitter list feed for the %s list %s', $screen_name, $list_name),
     'twitterAvatarUrl'  =>  $twitterAvatarUrl,
-);
-?>
-<?php echo $renderer->render_feed($config, $userListObj)?>
+];
+echo $renderer->render_feed($config, $userListObj);

@@ -1,10 +1,12 @@
 <?php
+
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   homerss.php -- Home timeline results formatted as RSS feed
  * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
+
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
@@ -21,8 +23,8 @@
                         This can be short-handed to 'rl'
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
-*  Includes
-********************************************************************/
+ *  Includes
+ ********************************************************************/
 require 'tldlib/debug.php';
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
@@ -49,8 +51,8 @@ $parameters = load_parameters([
 ]);
 extract($parameters);
 /*******************************************************************
-*  OAuth
-********************************************************************/
+ *  OAuth
+ ********************************************************************/
 
 $tldCache = new tldCache([
     'consumer_key'        => $my_consumer_key,
@@ -70,15 +72,15 @@ $twitterAvatarUrl = $data['profile_image_url'];
 $feedTitle = ' Twitter home timeline for ' . $twitterName;
 
 /*******************************************************************
-*  Request
-********************************************************************/
+ *  Request
+ ********************************************************************/
 $homeTimelineObj = $tldCache->user_request([
     'url' => '1.1/statuses/home_timeline',
-    'params' => array(
+    'params' => [
         'include_entities' => true,
         'count' => $count,
         'exclude_replies' => $exclude_replies,
-    )
+    ]
 ]);
 
 //headers
@@ -89,7 +91,7 @@ header("Content-type: text/xml; charset=utf-8");
 
 $renderer = new RssRenderer($recursion_limit);
 $renderer->using_cache($tldCache);
-$config = array(
+$config = [
     'atom'              =>  $my_domain . $_SERVER['PHP_SELF'],
     'link'              =>  sprintf('http://www.twitter.com/%s', $twitterName),
     'twitterName'       => $twitterName,
@@ -97,6 +99,5 @@ $config = array(
     'title'             =>  $feedTitle,
     'description'       =>  sprintf('Twitter home timeline updates for %s/%s', $fullName, $twitterName),
     'twitterAvatarUrl'  =>  $twitterAvatarUrl
-);
-?>
-<?php echo $renderer->render_feed($config, $homeTimelineObj)?>
+];
+echo $renderer->render_feed($config, $homeTimelineObj);
