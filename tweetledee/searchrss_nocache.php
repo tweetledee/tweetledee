@@ -1,10 +1,12 @@
 <?php
+
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   searchrss_nocache.php -- Tweet search query results formatted as RSS feed
  * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
+
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
@@ -25,8 +27,8 @@
 --------------------------------------------------------------------------------------------------*/
 
 /*******************************************************************
-*  Includes
-********************************************************************/
+ *  Includes
+ ********************************************************************/
 require 'tldlib/debug.php';
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
@@ -44,18 +46,18 @@ require 'tldlib/parametersProcessing.php';
 
 $parameters = load_parameters([
     "c",
-    "q",
+    "query",
     "rt",
     "recursion_limit"
 ]);
 extract($parameters);
-if (!isset($parameters['q'])) {
+if (!isset($query)) {
     die("Error: missing the search query term.  Please use the 'q' parameter.");
 }
 
 /*******************************************************************
-*  OAuth
-********************************************************************/
+ *  OAuth
+ ********************************************************************/
 $tmhOAuth = new tmhOAuth([
     'consumer_key'        => $my_consumer_key,
     'consumer_secret'     => $my_consumer_secret,
@@ -87,15 +89,19 @@ $fullName = $data['name'];
 $twitterAvatarUrl = $data['profile_image_url'];
 
 /*******************************************************************
-*  Defaults
-********************************************************************/
+ *  Defaults
+ ********************************************************************/
 $count = 25;  //default tweet number = 25
 $result_type = 'mixed'; //default to mixed popular and realtime results
 $recursion_limit = 0; // as a default we don't quote tweets
 
-$parameters = load_parameters(array("c", "q", "rt"));
+$parameters = load_parameters([
+    "c",
+    "query",
+    "rt"
+]);
 extract($parameters);
-if(!isset($parameters['q'])) {
+if (!isset($query)) {
     die("Error: missing the search query term.  Please use the 'q' parameter.");
 }
 
@@ -106,17 +112,17 @@ $feedTitle = 'Twitter search for "' . $query . '"';
 //$urlquery = urlencode($query);
 
 /*******************************************************************
-*  Request
-********************************************************************/
-$code = $tmhOAuth->user_request(array(
-			'url' => $tmhOAuth->url('1.1/search/tweets'),
-			'params' => array(
-          		'include_entities' => true,
-    			'count' => $count,
-                'result_type' => $result_type,
-                'q' => $query,
-        	)
-        ));
+ *  Request
+ ********************************************************************/
+$code = $tmhOAuth->user_request([
+    'url' => $tmhOAuth->url('1.1/search/tweets'),
+    'params' => [
+        'include_entities' => true,
+        'count' => $count,
+        'result_type' => $result_type,
+        'q' => $query,
+    ]
+]);
 
 // Anything except code 200 is a failure to get the information
 if ($code <> 200) {
@@ -130,7 +136,7 @@ if ($code <> 200) {
 if (defined('STDIN')) {
     $thequery = $_SERVER['PHP_SELF'];
 } else {
-    $thequery = $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'];
+    $thequery = $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
 }
 
 $searchResultsObj = json_decode($tmhOAuth->response['response'], true);
@@ -141,13 +147,16 @@ header("Content-type: text/xml; charset=utf-8");
 
 $renderer = new RssRenderer($recursion_limit);
 $renderer->using_client($client);
-$config = array(
+$config = [
     'atom'              =>  $my_domain . urlencode($thequery),
     'link'               =>  sprintf('http://www.twitter.com/search/?q=%s', $query),
     'lastBuildDate'     =>  date(DATE_RSS),
     'title'             =>  $feedTitle,
-    'description'       =>  sprintf('A Twitter search for the query "%s" with the %s search result type', $query, $result_type),
+    'description'       =>  sprintf(
+        'A Twitter search for the query "%s" with the %s search result type',
+        $query,
+        $result_type
+    ),
     'twitterAvatarUrl'  =>  $twitterAvatarUrl,
-);
-?>
-<?php echo $renderer->render_feed($config, $searchResultsObj['statuses'])?>
+];
+echo $renderer->render_feed($config, $searchResultsObj['statuses']);

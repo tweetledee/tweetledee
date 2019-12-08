@@ -1,10 +1,12 @@
 <?php
+
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   listsrss.php -- User list tweets formatted as a RSS feed
  * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
+
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
@@ -25,8 +27,8 @@
                         This can be short-handed to 'rl'
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
-*  Includes
-********************************************************************/
+ *  Includes
+ ********************************************************************/
 require 'tldlib/debug.php';
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
@@ -59,8 +61,8 @@ if (!isset($parameters['list'])) {
 }
 
 /*******************************************************************
-*  OAuth
-********************************************************************/
+ *  OAuth
+ ********************************************************************/
 
 $tldCache = new tldCache([
     'consumer_key'        => $my_consumer_key,
@@ -81,25 +83,25 @@ if (!isset($screen_name) || $screen_name == '') {
 }
 
 /*******************************************************************
-*  Request
-********************************************************************/
+ *  Request
+ ********************************************************************/
 
-$userListObj = $tldCache->user_request(array(
-            'url' => '1.1/lists/statuses',
-            'params' => array(
-                'include_entities' => true,
-                'count' => $count,
-                'owner_screen_name' => $screen_name,
-                'slug' => $list_name,
-                'include_rts' => $include_retweets,
-            )
-        ));
+$userListObj = $tldCache->user_request([
+    'url' => '1.1/lists/statuses',
+    'params' => [
+        'include_entities' => true,
+        'count' => $count,
+        'owner_screen_name' => $screen_name,
+        'slug' => $list_name,
+        'include_rts' => $include_retweets,
+    ]
+]);
 
 //concatenate the URL for the atom href link
 if (defined('STDIN')) {
     $thequery = $_SERVER['PHP_SELF'];
 } else {
-    $thequery = $_SERVER['PHP_SELF'] .'?'. urlencode($_SERVER['QUERY_STRING']);
+    $thequery = $_SERVER['PHP_SELF'] . '?' . urlencode($_SERVER['QUERY_STRING']);
 }
 
 // Start the output
@@ -108,13 +110,12 @@ header("Content-type: text/xml; charset=utf-8");
 
 $renderer = new RssRenderer($recursion_limit);
 $renderer->using_cache($tldCache);
-$config = array(
+$config = [
     'atom'              =>  $my_domain . urlencode($thequery),
     'link'               =>  sprintf('http://www.twitter.com/%s/lists/%s', $screen_name, $list_name),
     'lastBuildDate'     =>  date(DATE_RSS),
     'title'             =>  sprintf('Twitter list feed for the %s list %s', $screen_name, $list_name),
     'description'       =>  sprintf('Twitter list feed for the %s list %s', $screen_name, $list_name),
     'twitterAvatarUrl'  =>  $twitterAvatarUrl,
-);
-?>
-<?php echo $renderer->render_feed($config, $userListObj)?>
+];
+echo $renderer->render_feed($config, $userListObj);

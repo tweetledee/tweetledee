@@ -1,10 +1,12 @@
 <?php
+
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   favoritesrss.php -- User favorites formatted as a RSS feed
  * Copyright 2014 Christopher Simpkins & George Dorn
  * MIT License
  ************************************************************************************************/
+
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
@@ -21,8 +23,8 @@
                         This can be short-handed to 'rl'
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
-*  Includes
-********************************************************************/
+ *  Includes
+ ********************************************************************/
 require 'tldlib/debug.php';
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
@@ -49,8 +51,8 @@ $parameters = load_parameters([
 ]);
 extract($parameters);
 /*******************************************************************
-*  OAuth
-********************************************************************/
+ *  OAuth
+ ********************************************************************/
 
 $tldCache = new tldCache([
     'consumer_key'        => $my_consumer_key,
@@ -72,16 +74,16 @@ if (!isset($screen_name) || $screen_name == '') {
 }
 
 /*******************************************************************
-*  Request
-********************************************************************/
-$userFavoritesObj = $tldCache->user_request(array(
+ *  Request
+ ********************************************************************/
+$userFavoritesObj = $tldCache->user_request([
     'url' => '1.1/favorites/list',
-    'params' => array(
+    'params' => [
         'include_entities' => true,
         'count' => $count,
         'screen_name' => $screen_name,
-    )
-));
+    ]
+]);
 
 //concatenate the URL for the atom href link
 if (defined('STDIN')) {
@@ -96,13 +98,12 @@ header("Content-type: text/xml; charset=utf-8");
 
 $renderer = new RssRenderer($recursion_limit);
 $renderer->using_cache($tldCache);
-$config = array(
+$config = [
     'atom'              =>  $my_domain . $thequery,
     'link'              =>  sprintf('http://www.twitter.com/%s', $screen_name),
     'lastBuildDate'     =>  date(DATE_RSS),
     'title'             =>  sprintf('Twitter favorites feed for %s', $screen_name),
     'description'       =>  sprintf('Twitter favorites feed for %s', $screen_name),
     'twitterAvatarUrl'  =>  $twitterAvatarUrl
-);
-?>
-<?php echo $renderer->render_feed($config, $userFavoritesObj)?>
+];
+echo $renderer->render_feed($config, $userFavoritesObj);

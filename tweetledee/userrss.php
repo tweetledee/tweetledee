@@ -1,10 +1,12 @@
 <?php
+
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   userrss.php -- User timeline results formatted as a RSS feed
  * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
+
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
@@ -25,8 +27,8 @@
                         This can be short-handed to 'rl'
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
-*  Includes
-********************************************************************/
+ *  Includes
+ ********************************************************************/
 require 'tldlib/debug.php';
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
@@ -57,8 +59,8 @@ extract($parameters);
 $include_retweets = !$exclude_retweets;
 
 /*******************************************************************
-*  OAuth
-********************************************************************/
+ *  OAuth
+ ********************************************************************/
 
 $tldCache = new tldCache([
     'consumer_key'        => $my_consumer_key,
@@ -80,18 +82,18 @@ if (!isset($screen_name) || $screen_name == '') {
 }
 
 /*******************************************************************
-*  Request
-********************************************************************/
+ *  Request
+ ********************************************************************/
 
 $userTimelineObj = $tldCache->user_request([
     'url' => '1.1/statuses/user_timeline',
-    'params' => array(
+    'params' => [
         'include_entities' => true,
         'count' => $count,
         'exclude_replies' => $exclude_replies,
         'include_rts' => $include_retweets,
         'screen_name' => $screen_name,
-    )
+    ]
 ]);
 
 // concatenate the URL for the atom href link
@@ -107,13 +109,12 @@ header("Content-type: text/xml; charset=utf-8");
 
 $renderer = new RssRenderer($recursion_limit);
 $renderer->using_cache($tldCache);
-$config = array(
+$config = [
     'atom'              =>  $my_domain . $thequery,
     'link'              =>  sprintf('http://www.twitter.com/%s', $screen_name),
     'lastBuildDate'     =>  date(DATE_RSS),
     'title'             =>  sprintf('Twitter user timeline feed for %s', $screen_name),
     'description'       =>  sprintf('Twitter user timeline updates for %s', $screen_name),
     'twitterAvatarUrl'  =>  $twitterAvatarUrl
-);
-?>
-<?php echo $renderer->render_feed($config, $userTimelineObj)?>
+];
+echo $renderer->render_feed($config, $userTimelineObj);

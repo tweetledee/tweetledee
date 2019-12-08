@@ -1,10 +1,12 @@
 <?php
+
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   searchjson.php -- Tweet search query results formatted as JSON
  * Copyright 2014 Christopher Simpkins
  * MIT License
  ************************************************************************************************/
+
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
@@ -20,8 +22,8 @@
     - 'cache_interval' - specify the duration of the cache interval in seconds (default = 90sec)
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
-*  Includes
-********************************************************************/
+ *  Includes
+ ********************************************************************/
 require 'tldlib/debug.php';
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
@@ -38,22 +40,27 @@ require 'tldlib/tldCache.php';
 
 require 'tldlib/parametersProcessing.php';
 
-$parameters = load_parameters(array("c", "q", "rt", "cache_interval"));
+$parameters = load_parameters([
+    "c",
+    "query",
+    "rt",
+    "cache_interval"
+]);
 extract($parameters);
-if(!isset($parameters['q'])) {
+if (!isset($query)) {
     die("Error: missing the search query term.  Please use the 'q' parameter.");
 }
 
 /*******************************************************************
-*  OAuth
-********************************************************************/
-$tldCache = new tldCache(array(
-            'consumer_key'        => $my_consumer_key,
-            'consumer_secret'     => $my_consumer_secret,
-            'user_token'          => $my_access_token,
-            'user_secret'         => $my_access_token_secret,
-            'curl_ssl_verifypeer' => false
-        ), $cache_interval);
+ *  OAuth
+ ********************************************************************/
+$tldCache = new tldCache([
+    'consumer_key'        => $my_consumer_key,
+    'consumer_secret'     => $my_consumer_secret,
+    'user_token'          => $my_access_token,
+    'user_secret'         => $my_access_token_secret,
+    'curl_ssl_verifypeer' => false
+], $cache_interval);
 
 // request the user information
 $data = $tldCache->auth_request();
@@ -70,17 +77,17 @@ $feedTitle = 'Twitter search for "' . $query . '"';
 //$urlquery = urlencode($query);
 
 /*******************************************************************
-*  Request
-********************************************************************/
-$searchResultsObj = $tldCache->user_request(array(
-            'url' => '1.1/search/tweets',
-            'params' => array(
-                'include_entities' => true,
-                'count' => $count,
-                'result_type' => $result_type,
-                'q' => $query,
-            )
-        ));
+ *  Request
+ ********************************************************************/
+$searchResultsObj = $tldCache->user_request([
+    'url' => '1.1/search/tweets',
+    'params' => [
+        'include_entities' => true,
+        'count' => $count,
+        'result_type' => $result_type,
+        'q' => $query,
+    ]
+]);
 
 header('Content-Type: application/json');
 echo json_encode($searchResultsObj);

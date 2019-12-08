@@ -1,10 +1,12 @@
 <?php
+
 /***********************************************************************************************
  * Tweetledee  - Incredibly easy access to Twitter data
  *   favoritesrss_nocache.php -- User favorites formatted as a RSS feed
  * Copyright 2014 Christopher Simpkins & George Dorn
  * MIT License
  ************************************************************************************************/
+
 /*-----------------------------------------------------------------------------------------------
 ==> Instructions:
     - place the tweetledee directory in the public facing directory on your web server (frequently public_html)
@@ -22,8 +24,8 @@
             e.g. http://<yourdomain>/tweetledee/favoritesrss_nocache.php?c=100&user=cooluser&rl=5
 --------------------------------------------------------------------------------------------------*/
 /*******************************************************************
-*  Includes
-********************************************************************/
+ *  Includes
+ ********************************************************************/
 require 'tldlib/debug.php';
 // Matt Harris' Twitter OAuth library
 require 'tldlib/tmhOAuth.php';
@@ -39,25 +41,24 @@ require 'tldlib/renderers/rss.php';
 
 require 'tldlib/parametersProcessing.php';
 
-$parameters = load_parameters(array("c", "user", "recursion_limit"));
+$parameters = load_parameters(["c", "user", "recursion_limit"]);
 extract($parameters);
 
 /*******************************************************************
-*  OAuth
-********************************************************************/
-$tmhOAuth = new tmhOAuth(array(
-            'consumer_key'        => $my_consumer_key,
-            'consumer_secret'     => $my_consumer_secret,
-            'user_token'          => $my_access_token,
-            'user_secret'         => $my_access_token_secret,
-            'curl_ssl_verifypeer' => false
-        ));
+ *  OAuth
+ ********************************************************************/
+$tmhOAuth = new tmhOAuth([
+    'consumer_key'        => $my_consumer_key,
+    'consumer_secret'     => $my_consumer_secret,
+    'user_token'          => $my_access_token,
+    'user_secret'         => $my_access_token_secret,
+    'curl_ssl_verifypeer' => false
+]);
 
 // request the user information
-$code = $tmhOAuth->user_request(array(
-			'url' => $tmhOAuth->url('1.1/account/verify_credentials')
-          )
-        );
+$code = $tmhOAuth->user_request([
+    'url' => $tmhOAuth->url('1.1/account/verify_credentials')
+]);
 
 // Display error response if do not receive 200 response code
 if ($code <> 200) {
@@ -76,21 +77,21 @@ $twitterName = $data['screen_name'];
 $fullName = $data['name'];
 $twitterAvatarUrl = $data['profile_image_url'];
 
-if(!isset($screen_name) || $screen_name=='') {
+if (!isset($screen_name) || $screen_name == '') {
     $screen_name = $data['screen_name'];
 }
 
 /*******************************************************************
-*  Request
-********************************************************************/
-$code = $tmhOAuth->user_request(array(
-			'url' => $tmhOAuth->url('1.1/favorites/list'),
-			'params' => array(
-          		'include_entities' => true,
-    			'count' => $count,
-    			'screen_name' => $screen_name,
-        	)
-        ));
+ *  Request
+ ********************************************************************/
+$code = $tmhOAuth->user_request([
+    'url' => $tmhOAuth->url('1.1/favorites/list'),
+    'params' => [
+        'include_entities' => true,
+        'count' => $count,
+        'screen_name' => $screen_name,
+    ]
+]);
 
 // Anything except code 200 is a failure to get the information
 if ($code <> 200) {
@@ -100,9 +101,9 @@ if ($code <> 200) {
 
 //concatenate the URL for the atom href link
 if (defined('STDIN')) {
-	$thequery = $_SERVER['PHP_SELF'];
+    $thequery = $_SERVER['PHP_SELF'];
 } else {
-	$thequery = $_SERVER['PHP_SELF'] .'?'. urlencode($_SERVER['QUERY_STRING']);
+    $thequery = $_SERVER['PHP_SELF'] . '?' . urlencode($_SERVER['QUERY_STRING']);
 }
 
 $userFavoritesObj = json_decode($tmhOAuth->response['response'], true);
@@ -113,13 +114,12 @@ header("Content-type: text/xml; charset=utf-8");
 
 $renderer = new RssRenderer($recursion_limit);
 $renderer->using_client($client);
-$config = array(
+$config = [
     'atom'              =>  $my_domain . $thequery,
     'link'              =>  sprintf('http://www.twitter.com/%s', $screen_name),
     'lastBuildDate'     =>  date(DATE_RSS),
     'title'             =>  sprintf('Twitter favorites feed for %s', $screen_name),
     'description'       =>  sprintf('Twitter favorites feed for %s', $screen_name),
     'twitterAvatarUrl'  =>  $twitterAvatarUrl
-);
-?>
-<?php echo $renderer->render_feed($config, $userFavoritesObj)?>
+];
+echo $renderer->render_feed($config, $userFavoritesObj);

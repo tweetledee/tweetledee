@@ -1,11 +1,12 @@
 <item>
     <title>[<?php echo $tweeter; ?>] <?php echo $tweetTitle; ?> </title>
+    <author><?php echo $currentitem['user']['screen_name']?></author>
     <pubDate><?php echo reformatDate($currentitem['created_at']); ?></pubDate>
     <link>https://twitter.com/<?php echo $tweeter ?>/statuses/<?php echo $currentitem['id_str']; ?></link>
     <guid isPermaLink='false'><?php echo $currentitem['id_str']; ?></guid>
     <description>
 <?php echo '<![CDATA['; ?>
-<?php echo $renderer->render_tweet_html(array(
+<?php echo $renderer->render_tweet_html([
     'avatar' => $avatar,
     'rt' => $rt,
     'tweeter' => $tweeter,
@@ -15,8 +16,8 @@
     'recursion_level' => 0,
     'parsedTweet' => $parsedTweet,
     'entities' => $entities
-))?>
+])?>
 
 <?php echo ']]>'; ?>
-    </description>
-</item>
+</description>
+    </item>
