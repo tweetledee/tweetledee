@@ -122,7 +122,7 @@ header("Content-Type: application/rss+xml");
 header("Content-type: text/xml; charset=utf-8");
 
 $renderer = new RssRenderer($recursion_limit);
-$renderer->using_client($client);
+$renderer->using_client($tmhOAuth);
 
 $config = [
     'atom'              =>  $my_domain . $thequery,
