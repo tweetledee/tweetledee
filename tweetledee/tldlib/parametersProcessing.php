@@ -107,7 +107,7 @@ function parameters_from($parameter_names)
 function extract_value($type, $definition, $params)
 {
     $extracted = $params[$definition[$type]];
-    if ($definition[TYPE] == INT) {
+    if (isset($definition[TYPE]) && $definition[TYPE] == INT) {
         $value = intval($extracted);
         if (array_key_exists(VALIDATION, $definition)) {
             if ($value >= $definition[VALIDATION][MIN] && $value <= $definition[VALIDATION][MAX]) {
@@ -116,7 +116,7 @@ function extract_value($type, $definition, $params)
                 return null;
             }
         }
-    } elseif ($definition[TYPE] == BOOL) {
+    } elseif (isset($definition[TYPE]) && $definition[TYPE] == BOOL) {
         $value = filter_var($extracted, FILTER_VALIDATE_BOOLEAN);
         return $value;
     } else {
