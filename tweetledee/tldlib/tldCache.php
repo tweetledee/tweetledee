@@ -88,7 +88,9 @@ class tldCache
                 if ($cached_file = $this->get_cached_file($file, true)) {
                     return json_decode($cached_file, true);
                 } else {
-                    die("user_timeline connection failure");
+                    throw new Exception(
+                        'tweet ' . $params['url'] . 'can\'t be found in cache. Maybe it is unavailable.'
+                    );
                 }
             }
             // concatenate the URL for the atom href link
