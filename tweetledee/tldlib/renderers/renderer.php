@@ -64,7 +64,12 @@ class Client implements Twitter
                 return json_decode($this->client->response['response'], true);
             } else {
                 echo $this->client->response['error'];
-                throw new Exception('unable to get content at ' . $tweet_url);
+                throw new Exception(
+                    'The tweet ' .
+                    $tweet_url .
+                    ' can\'t be retrieved. Check that the tweet hasn\'t been deleted, ' .
+                    'your connection and your API rate limits'
+                );
             }
         }
         return [];
