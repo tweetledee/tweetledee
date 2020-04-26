@@ -72,7 +72,7 @@ $data = $tldCache->auth_request();
 // Parse information from response
 $twitterName = $data['screen_name'];
 $fullName = $data['name'];
-$twitterAvatarUrl = $data['profile_image_url'];
+$twitterAvatarUrl = $data['profile_image_url_https'];
 
 //Create the feed title with the query
 $feedTitle = 'Twitter search for "' . $query . '"';

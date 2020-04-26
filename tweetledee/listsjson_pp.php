@@ -75,7 +75,7 @@ if (!isset($screen_name) || $screen_name == '') {
     $screen_name = $data['screen_name'];
 }
 $fullName = $data['name'];
-$twitterAvatarUrl = $data['profile_image_url'];
+$twitterAvatarUrl = $data['profile_image_url_https'];
 
 /*******************************************************************
  *  Request

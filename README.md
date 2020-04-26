@@ -11,6 +11,9 @@ Tweetledee
 ## Current Release
 - <b>0.5.3</b> : Fixed "user_timeline connection failure". Set Twitter username as author of a rss item.
 
+## Next Release
+- Use https for avatar img src.
+
 ## Changes
 - <b>0.5.2</b> : Quoted tweets can be displayed with a rl>=1 query parameter in the URL. All images for the tweet are loaded now.
 - <b>0.5.1</b> : Improved hastag display.
