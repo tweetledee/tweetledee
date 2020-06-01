@@ -20,7 +20,7 @@ class RssRenderer extends AbstractRenderer
     {
         if (isset($currentitem['retweeted_status'])) {
             return [
-                'avatar' => $currentitem['retweeted_status']['user']['profile_image_url'],
+                'avatar' => $currentitem['retweeted_status']['user']['profile_image_url_https'],
                 'rt' => '&nbsp;&nbsp;&nbsp;&nbsp;[<em style="font-size:smaller;">Retweeted by '
                     . $currentitem['user']['name'] . ' - '
                     . ' <a href=\'http://twitter.com/' . $currentitem['user']['screen_name'] . '\'>@' . $currentitem['user']['screen_name'] . '</a>'
@@ -35,7 +35,7 @@ class RssRenderer extends AbstractRenderer
             ];
         } else {
             return [
-                'avatar' => $currentitem['user']['profile_image_url'],
+                'avatar' => $currentitem['user']['profile_image_url_https'],
                 'rt' => '',
                 'tweeter' => $currentitem['user']['screen_name'],
                 'fullname' => $currentitem['user']['name'],
