@@ -19,7 +19,7 @@ class RssRenderer extends AbstractRenderer
     public function prepare_data_array($currentitem)
     {
         if (isset($currentitem['retweeted_status'])) {
-            return array(
+            return [
                 'avatar' => $currentitem['retweeted_status']['user']['profile_image_url'],
                 'rt' => '&nbsp;&nbsp;&nbsp;&nbsp;[<em style="font-size:smaller;">Retweeted by '
                     . $currentitem['user']['name'] . ' - '
@@ -32,9 +32,9 @@ class RssRenderer extends AbstractRenderer
                 'tweetTitle' => $currentitem['retweeted_status']['full_text'],
                 'entities' => $currentitem['retweeted_status']['entities'],
                 'id_str' => $currentitem['retweeted_status']['id_str']
-            );
+            ];
         } else {
-            return array(
+            return [
                 'avatar' => $currentitem['user']['profile_image_url'],
                 'rt' => '',
                 'tweeter' => $currentitem['user']['screen_name'],
@@ -42,13 +42,13 @@ class RssRenderer extends AbstractRenderer
                 'tweetTitle' => $currentitem['full_text'],
                 'entities' => $currentitem['entities'],
                 'id_str' => $currentitem['id_str']
-            );
+            ];
         }
     }
 
     public function render_feed($config, $tweets)
     {
-        $args = array();
+        $args = [];
         $args['renderer'] = $this;
         $args['tweets'] = $tweets;
         $args = array_merge($args, $config, $tweets);
