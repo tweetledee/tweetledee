@@ -21,11 +21,17 @@ class RssRenderer extends AbstractRenderer
         if (isset($currentitem['retweeted_status'])) {
             return [
                 'avatar' => $currentitem['retweeted_status']['user']['profile_image_url_https'],
-                'rt' => '&nbsp;&nbsp;&nbsp;&nbsp;[<em style="font-size:smaller;">Retweeted by ' . $currentitem['user']['name'] . ' <a href=\'http://twitter.com/' . $currentitem['user']['screen_name'] . '\'>@' . $currentitem['user']['screen_name'] . '</a></em>]',
+                'rt' => '&nbsp;&nbsp;&nbsp;&nbsp;[<em style="font-size:smaller;">Retweeted by '
+                    . $currentitem['user']['name'] . ' - '
+                    . ' <a href=\'http://twitter.com/' . $currentitem['user']['screen_name'] . '\'>@' . $currentitem['user']['screen_name'] . '</a>'
+                    . ' - '
+                    . ' <a href=\'http://twitter.com/' . $currentitem['user']['screen_name'] . '/' . $currentitem['id_str'] . '\'>See RT</a>'
+                    . '</em>]',
                 'tweeter' => $currentitem['retweeted_status']['user']['screen_name'],
                 'fullname' => $currentitem['retweeted_status']['user']['name'],
                 'tweetTitle' => $currentitem['retweeted_status']['full_text'],
-                'entities' => $currentitem['retweeted_status']['entities']
+                'entities' => $currentitem['retweeted_status']['entities'],
+                'id_str' => $currentitem['retweeted_status']['id_str']
             ];
         } else {
             return [
@@ -34,7 +40,8 @@ class RssRenderer extends AbstractRenderer
                 'tweeter' => $currentitem['user']['screen_name'],
                 'fullname' => $currentitem['user']['name'],
                 'tweetTitle' => $currentitem['full_text'],
-                'entities' => $currentitem['entities']
+                'entities' => $currentitem['entities'],
+                'id_str' => $currentitem['id_str']
             ];
         }
     }
@@ -59,19 +66,25 @@ class RssRenderer extends AbstractRenderer
         if (array_key_exists('expanded_url', $url)) {
             if (strpos($url['expanded_url'], 'twitter.com')) {
                 if ($recursion_level < $this->recursion_limit) {
-                    $content = $this->client->get_remote_content($url);
-                    // If there is something in array, it must be a tweet !
-                    // Else don't show anything
-                    if (empty($content)) {
-                        return "";
-                    } else {
-                        $args = $this->prepare_data_array($content);
-                        $args['renderer'] = $this;
-                        $args['currentitem'] = $content;
-                        $args['parsedTweet'] = $this->create_parsed_tweet($content);
-                        $args['recursion_level'] = $recursion_level + 1;
-                        return template('tldlib/renderers/rss_item_html_enclosure.php', $args);
+                    try {
+                        $content = $this->client->get_remote_content($url);
+                        // If there is something in array, it must be a tweet !
+                        // Else don't show anything
+                        if (empty($content)) {
+                            return "";
+                        } else {
+                            $args = $this->prepare_data_array($content);
+                            $args['renderer'] = $this;
+                            $args['currentitem'] = $content;
+                            $args['parsedTweet'] = $this->create_parsed_tweet($content);
+                            $args['recursion_level'] = $recursion_level+1;
+                            return template('tldlib/renderers/rss_item_html_enclosure.php', $args);
+                        }
+                    } catch(Exception $e) {
+                        return $e->getMessage();
                     }
+                } else {
+                    return "";
                 }
             } else {
                 return template('tldlib/renderers/rss_item_html_external_url.php', $url);
@@ -81,3 +94,4 @@ class RssRenderer extends AbstractRenderer
         }
     }
 }
+?>
